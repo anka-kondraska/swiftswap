@@ -1,0 +1,21 @@
+anka|biking|gardening
+jane|cooking|painting
+joe|gardening|dog walking
+michael|nails|dog walking
+jason|painting|plumbing
+bob|programming|nails
+robert|gardening|biking
+damian|cleaning|cooking
+daniel|baking|knitting
+becky|dog walking|biking
+leslie|plumbing|baking
+bonnie|programming|gardening
+alice|cooking|painting
+agnes|cleaning|programming
+natalia|nails|haircut
+george|haircut|painting
+tom|laundry|programming
+adam|cleaning|baking
+wiktoria|plumbing|painting
+alysse|programming|painting
+boy g|singing|programming
