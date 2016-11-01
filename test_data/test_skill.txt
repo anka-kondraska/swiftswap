@@ -1,0 +1,5 @@
+1|gardening|6
+2|programming|8
+3|painting|6
+4|dog walking|3
+5|cooking|5

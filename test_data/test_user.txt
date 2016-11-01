@@ -1,0 +1,5 @@
+1|john|duckworth|18 pain street|San Francisco|CA|94109|35|programmer|john@duckworth.com|abc123
+2|ben|quackworth|19 pain street|San Francisco|CA|94109|36|gardener|ben@quackworth.com|aaa123
+3|anka|legworth|23 pain street|San Francisco|CA|94109|37|programmer|anka@legworth.com|bbb123
+4|stephanie|noseworth|45 pain street|San Francisco|CA|94109|38|civil engineer|stephanie@noseworth.com|ccc123
+5|rachel|earworth|56 pain street|San Francisco|CA|94109|25|astronaut|rachel@earworth.com|ddd123
