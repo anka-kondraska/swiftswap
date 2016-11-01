@@ -5,8 +5,8 @@
 from sqlalchemy import func
 from model import User, Userskill, Skill
 
-from model import connect_to_db, db, app
-# from server import app
+from model import connect_to_db, db
+from server import app
 
 
 
@@ -40,7 +40,7 @@ def load_userskills():
         us_id, u_id, s_id, direction = row.split("|")
                     
 
-        userskill = Userskill(userskill_id=us_id,user_id=u_id,skill_id=s_id,
+        userskill = UserSkill(userskill_id=us_id,user_id=u_id,skill_id=s_id,
                     skill_direction=direction)
                     
 

@@ -1,0 +1,15 @@
+    <hr>
+    <ul>
+        {% for message in get_flashed_messages() %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+
+
+
+     {% if "user" in session %}
+    <a href="/logout">Barter Out!</a>
+    {% else %}
+    <a href="/register">Barter Up!</a>
+    <a href="/login">Barter In!</a>
+    {% endif %}

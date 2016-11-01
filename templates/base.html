@@ -1,4 +1,4 @@
-<<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,7 +6,7 @@
 </head>
 <body>
 
-    <hr>
+   <hr>
     <ul>
         {% for message in get_flashed_messages() %}
         <li>{{ message }}</li>
@@ -14,7 +14,9 @@
     </ul>
 
 
-{% block content %}YOUR CONTENT HERE{% endblock %}
+{% block content %}
+YOUR CONTENT HERE
+{% endblock %}
 
     
 </body>

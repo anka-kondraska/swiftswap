@@ -1,6 +1,7 @@
 """Models and database functions for Barter Network."""
 
 from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import generate_password_has, check_password_hash
 import datetime
 
 db = SQLAlchemy()
@@ -29,23 +30,40 @@ class User(db.Model):
     user_city = db.Column(db.String(64), nullable=True)
     user_state = db.Column(db.String(2), nullable=True)
     user_zipcode = db.Column(db.String(15), nullable=True)
-    user_age = db.Column(db.Integer, nullable=True)
+    user_dob = db.Column(db.DateTime, nullable=True) # TODO date of birth
     user_occupation = db.Column(db.String(62), nullable=True)
 
 
     # for site log in
     user_email = db.Column(db.String(64), unique=True, nullable=True)
-    user_password = db.Column(db.String(64), unique=True, nullable=True)
+    passhash = db.Column(db.String(64), unique=True, nullable=True)
     # login_timestamp = db.Column(db.DateTime)
+
+    def __init__(self, fname, lname, email, password):
+        self.fname = fname
+        self.lname = lname
+        self.email = email
+        self.set_password(password)
+
+    def set_password(self, password):
+        self.passhash = generate_password_has(password)
+
+    def check_password(self. password):
+        retrun check_password_hash(self.passhash, password)
 
 
 
     def __repr__(self):
         """User repr when printed"""
 
-        return "<User user_id=%s user_fname=%s user_lname=%s created_timestamp=%s user_street_address=%s user_city=%s user_state=%s user_zipcode=%s user_age=%s user_occupation=%s user_email=%s user_password=%s>" %(self.user_id, self.user_fname, self.user_lname, self.created_timestamp, self.user_street_address, self.user_city, self.user_state, self.user_zipcode, self.user_age, self.user_occupation, self.user_email, self.user_password)
+        return "<User user_id=%s user_fname=%s \
+              user_email=%s passhash=%s>" % \
+                (self.user_id, 
+                    self.user_fname, 
+                    self.user_email, 
+                    self.passhash)
 
-class Userskill(db.Model):
+class UserSkill(db.Model): # TODO UserSkill
     """Users and skills direction of Barter Network"""
 
     __tablename__ = "userskills"
@@ -65,7 +83,8 @@ class Userskill(db.Model):
 
     def __repr__(self):
         """Userskill repr when printed"""
-        return "<Userskill userskill_id=%s user_id=%s skill_id=%s skill_direction=%s>" %(self.userskill_id, self.user_id, self.skill_id, self.skill_direction)
+        return "<Userskill userskill_id=%s user_id=%s skill_id=%s skill_direction=%s>" % \
+        (self.userskill_id, self.user_id, self.skill_id, self.skill_direction)
 
 
 class Skill(db.Model):
@@ -75,7 +94,8 @@ class Skill(db.Model):
 
     skill_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     skill_name = db.Column(db.String(64), nullable=False)
-    skill_value = db.Column(db.Integer, nullable=True)
+    skill_value = db.Column(db.Integer, nullable=True) #  for future feature, to use weight attribute for edge
+                                                       # quantify need for the skill
 
     def __repr__(self):
         """Skill repr when printed"""
