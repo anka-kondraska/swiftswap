@@ -5,7 +5,7 @@ from jinja2 import StrictUndefined
 from flask import Flask, render_template, request, flash, redirect, session
 from flask_debugtoolbar import DebugToolbarExtension
 
-from model import connect_to_db, db, User, Skill, UserSkill
+from model import connect_to_db, db, User, SkillDirection, UserSkill
 
 
 app = Flask(__name__)
@@ -38,13 +38,25 @@ def barter_up_process():
     dob = request.form.get('dob')
     occupation = request.form.get('occupation')
     zipcode = request.form.get('zipcode')
-    skill_to = request.form.get('skill-name-to')
-    skill_from = request.form.get('skill-name-from')
+    # skill_to = request.form.get('skill-name-to')
+    # skill_from = request.form.get('skill-name-from')
 
-    new_user = User(user_fname=fname,user_lname=lname,
-                   user_zipcode=zipcode, user_dob=dob, user_occupation=occupation, user_email=email, user_password=password)
-    new_to_skill = Skill(skill_name=skill_to, skill_direction='to')
-    new_from_skill = Skill(skill_name=skill_from, skill_direction='from')
+    # to_skills = Skill.query.filter_by(skill_direction='to').all()
+    # from_skills = Skill.query.filter_by(skill_direction='from').all()
+
+    # if Skill.query.filter_by(skill_name=to_skills, skill_direction='to').one():
+    #     User()
+    #     U
+
+    
+    # if Skill.query.filter_by(skill_name=from_skills, skill_direction='from').one()
+
+    # new_user = User(user_fname=fname,user_lname=lname,
+    #                user_zipcode=zipcode, user_dob=dob, user_occupation=occupation, user_email=email, user_password=password)
+    # new_to_skill = Skill(skill_name=skill_to, skill_direction='to')
+    # new_from_skill = Skill(skill_name=skill_from, skill_direction='from')
+
+    
 
     db.session.add(new_user)
     db.session.add(new_to_skill)
