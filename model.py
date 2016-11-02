@@ -1,8 +1,8 @@
 """Models and database functions for Barter Network."""
 
 from flask_sqlalchemy import SQLAlchemy
-from werkzeug.security import generate_password_has, check_password_hash
 import datetime
+import bcrypt
 
 db = SQLAlchemy()
 
@@ -36,32 +36,21 @@ class User(db.Model):
 
     # for site log in
     user_email = db.Column(db.String(64), unique=True, nullable=True)
-    passhash = db.Column(db.String(64), unique=True, nullable=True)
-    # login_timestamp = db.Column(db.DateTime)
+    user_password = db.Column(db.String(64), unique=True, nullable=True)
+ 
 
-    def __init__(self, fname, lname, email, password):
-        self.fname = fname
-        self.lname = lname
-        self.email = email
-        self.set_password(password)
 
-    def set_password(self, password):
-        self.passhash = generate_password_has(password)
-
-    def check_password(self. password):
-        retrun check_password_hash(self.passhash, password)
 
 
 
     def __repr__(self):
         """User repr when printed"""
 
-        return "<User user_id=%s user_fname=%s \
-              user_email=%s passhash=%s>" % \
+        return "<User user_id=%s user_fname=%s user_email=%s user_password=%s>" % \
                 (self.user_id, 
                     self.user_fname, 
                     self.user_email, 
-                    self.passhash)
+                    self.user_password)
 
 class UserSkill(db.Model): # TODO UserSkill
     """Users and skills direction of Barter Network"""
@@ -71,7 +60,7 @@ class UserSkill(db.Model): # TODO UserSkill
     userskill_id = db.Column(db.String, autoincrement=True, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
     skill_id = db.Column(db.Integer, db.ForeignKey('skills.skill_id'), nullable=False)
-    skill_direction = db.Column(db.String(4), nullable=False)
+    # skill_direction = db.Column(db.String(4), nullable=False)
 
     # define relationship to user
     user = db.relationship('User', backref=db.backref('userskills'))
@@ -87,15 +76,15 @@ class UserSkill(db.Model): # TODO UserSkill
         (self.userskill_id, self.user_id, self.skill_id, self.skill_direction)
 
 
-class Skill(db.Model):
+class SkillDirection(db.Model):
     """Skill of Barter Network"""
 
     __tablename__ = "skills"
 
     skill_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     skill_name = db.Column(db.String(64), nullable=False)
-    skill_value = db.Column(db.Integer, nullable=True) #  for future feature, to use weight attribute for edge
-                                                       # quantify need for the skill
+    skill_value = db.Column(db.Integer, nullable=True) #  for future feature, to use weight attribute for edge, quantify the need for a skill
+    skill_direction = db.Column(db.String(4), nullable=False)
 
     def __repr__(self):
         """Skill repr when printed"""

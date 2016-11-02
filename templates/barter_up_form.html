@@ -1,0 +1,26 @@
+{% extends 'base.html'%}
+{% block content %}
+
+    <form action="/register" method="POST">
+
+        <h3>Sign Up Section</h3>
+
+        <p><label>Username/Email </label><input type="email" name="email"></p>
+        <p><label>Password </label><input type="password" name="password"></p>
+        <p><label>First Name </label><input type="text" name="fname"></p>
+        <p><label>Last Name </label><input type="text" name="lname"></p>        
+        
+        <p><label>DOB </label><input type="text" name="dob"></p>
+        <p><label>Occupation </label><input type="text" name="occupation"></p>
+        <p><label>Zipcode </label><input type="text" name="zipcode"></p>
+        
+        <h4>Skills Section</h4>
+
+        <p><label>Skill You Want </label><input type="text" name="skill-name-to"></p>
+        <p><label>Skill You Provide </label><input type="text" name="skill-name-from"></p>
+       
+        <p><input type="submit" value="Submit"></p>
+    </form>
+
+
+{% endblock %}

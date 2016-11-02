@@ -5,13 +5,16 @@
 
     <p>Welcome to Barter Network</p>
     <p>We are here to provide alternatives to the current economical model</p>
-
-         {% if "user" in session %}
+    {% if "user" in session %}
     <a href="/logout">Barter Out!</a>
     {% else %}
     <a href="/register">Barter Up!</a>
     <a href="/login">Barter In!</a>
     {% endif %}
+
+
+
+
 
 
 
