@@ -36,7 +36,7 @@ class User(db.Model):
 
     # for site log in
     user_email = db.Column(db.String(64), unique=True, nullable=True)
-    user_password = db.Column(db.String(64), unique=True, nullable=True)
+    user_password = db.Column(db.String(64), nullable=True)
  
 
 
@@ -66,7 +66,7 @@ class UserSkill(db.Model): # TODO UserSkill
     user = db.relationship('User', backref=db.backref('userskills'))
 
     # define relationship to skill
-    skill = db.relationship('Skill', backref=db.backref('userskills'))
+    skill = db.relationship('SkillDirection', backref=db.backref('userskills'))
 
 
 

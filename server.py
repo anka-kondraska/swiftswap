@@ -38,33 +38,29 @@ def barter_up_process():
     dob = request.form.get('dob')
     occupation = request.form.get('occupation')
     zipcode = request.form.get('zipcode')
-    # skill_to = request.form.get('skill-name-to')
-    # skill_from = request.form.get('skill-name-from')
 
-    # to_skills = Skill.query.filter_by(skill_direction='to').all()
-    # from_skills = Skill.query.filter_by(skill_direction='from').all()
+    if User.query.filter_by(user_email=email).first():
+        flash('Please log in, you are alreday registered')
 
-    # if Skill.query.filter_by(skill_name=to_skills, skill_direction='to').one():
-    #     User()
-    #     U
+        redirect('/')
+    else:
+        new_user = User(user_fname=fname,user_lname=lname,
+            user_zipcode=zipcode, user_dob=dob, user_occupation=occupation, 
+            user_email=email, user_password=password)
+        session['username'] = email
 
-    
-    # if Skill.query.filter_by(skill_name=from_skills, skill_direction='from').one()
+        db.session.add(new_user)
 
-    # new_user = User(user_fname=fname,user_lname=lname,
-    #                user_zipcode=zipcode, user_dob=dob, user_occupation=occupation, user_email=email, user_password=password)
-    # new_to_skill = Skill(skill_name=skill_to, skill_direction='to')
-    # new_from_skill = Skill(skill_name=skill_from, skill_direction='from')
+        db.session.commit()
 
-    
+    return render_template("user_profile.html")
 
-    db.session.add(new_user)
-    db.session.add(new_to_skill)
-    db.session.add(new_from_skill)
+@app.route('/logout')
+def log_out():
 
-    db.session.commit()
-
-    return redirect("/")
+    del session['username']
+    flash("logged out!")
+    return redirect('/')
 
 
 
@@ -74,10 +70,10 @@ def barter_up_process():
 
 if __name__ == "__main__":
 
-    # app.debug=True
+    app.debug=True
 
     connect_to_db(app)
 
     DebugToolbarExtension(app)
 
-    app.run(debug=True, host='0.0.0.0')
+    app.run(host='0.0.0.0')
