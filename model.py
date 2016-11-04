@@ -36,7 +36,8 @@ class User(db.Model):
 
     # for site log in
     user_email = db.Column(db.String(64), unique=True, nullable=True)
-    user_password = db.Column(db.String(64), nullable=True)
+    user_password = db.Column(db.String(500))
+    # hashed_pswd = bcrypt.hashpw(password, bcrypt.gensalt())
  
 
 
@@ -52,21 +53,21 @@ class User(db.Model):
                     self.user_email, 
                     self.user_password)
 
-class UserSkill(db.Model): # TODO UserSkill
+class UserSkill(db.Model): 
     """Users and skills direction of Barter Network"""
 
     __tablename__ = "userskills"
 
-    userskill_id = db.Column(db.String, autoincrement=True, primary_key=True)
+    userskill_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
     skill_id = db.Column(db.Integer, db.ForeignKey('skills.skill_id'), nullable=False)
-    # skill_direction = db.Column(db.String(4), nullable=False)
+    skill_direction = db.Column(db.String(4), nullable=False)
 
     # define relationship to user
     user = db.relationship('User', backref=db.backref('userskills'))
 
     # define relationship to skill
-    skill = db.relationship('SkillDirection', backref=db.backref('userskills'))
+    # skill = db.relationship('Skill', backref=db.backref('userskills'))
 
 
 
@@ -76,7 +77,7 @@ class UserSkill(db.Model): # TODO UserSkill
         (self.userskill_id, self.user_id, self.skill_id, self.skill_direction)
 
 
-class SkillDirection(db.Model):
+class Skill(db.Model):
     """Skill of Barter Network"""
 
     __tablename__ = "skills"
@@ -84,7 +85,6 @@ class SkillDirection(db.Model):
     skill_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     skill_name = db.Column(db.String(64), nullable=False)
     skill_value = db.Column(db.Integer, nullable=True) #  for future feature, to use weight attribute for edge, quantify the need for a skill
-    skill_direction = db.Column(db.String(4), nullable=False)
 
     def __repr__(self):
         """Skill repr when printed"""
@@ -104,7 +104,9 @@ def connect_to_db(app):
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///barternet'
     app.config['SQLALCHEMY_ECHO'] = True
     db.app = app
-    db.init_app(app)
+    db.init_app(app) 
+   
+
 
 
 if __name__ == "__main__":

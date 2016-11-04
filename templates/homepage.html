@@ -28,8 +28,23 @@
 
 
 
-    <p>Welcome to Barter Network</p>
+    <p><h1>Welcome to Barter Network</h1></p>
     <p>We are here to provide alternatives to the current economical model</p>
+
+
+<script>var jsnx = require('jsnetworkx');
+
+// This creates a new empty, undirected graph
+var G = new jsnx.Graph();
+ 
+// Generates a complete graph with six nodes
+var G = jsnx.completeGraph(6);
+ 
+// Generates a random graph with six nodes and
+// an edge between each node is created with a probability of 0.3
+var G = jsnx.binomialGraph(6, 0.3);
+
+</script>
 
 
 {% endblock %}

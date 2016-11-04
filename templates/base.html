@@ -8,6 +8,8 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <script src="jsnetworkx.js"></script>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
 
   <nav class="navbar navbar-inverse">
   <div class="container-fluid">
@@ -20,8 +22,8 @@
       <li><a href="#">Page 2</a></li> 
     </ul>
     <ul class="nav navbar-nav navbar-right">
-    {% if "username" in session %}
-    <li><a href="/logout">Barter Out!</a></li>
+    {% if 'user_id' in session %}
+    <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Barter Out!</a></li>
     {% else %}
 
       <li><a href="/register" data-toggle="modal" data-target=="#basicModal"><span class="glyphicon glyphicon-user" ></span> Sign Up</a></li>
@@ -32,15 +34,17 @@
   </div>
 </nav>
 
-</head>
-<body>
-
    <hr>
     <ul>
         {% for message in get_flashed_messages() %}
         <li>{{ message }}</li>
         {% endfor %}
     </ul>
+
+</head>
+<body>
+
+
 
 {% block content %}
 YOUR CONTENT HERE
