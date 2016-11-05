@@ -5,9 +5,9 @@ from jinja2 import StrictUndefined
 from flask import Flask, render_template, request, flash, redirect, session
 from flask_debugtoolbar import DebugToolbarExtension
 
+
 from model import connect_to_db, db, User, Skill, UserSkill
 import bcrypt
-
 
 
 
@@ -31,6 +31,15 @@ def barter_up_form():
 
     return render_template("barter_up_form.html")
 
+@app.route("/users/<int:user_id>")
+def user_detail(user_id):
+    """Show info about user."""
+
+    user = User.query.get(user_id)
+    return render_template("user_profile.html", user=user)
+
+
+
 @app.route('/register', methods=['POST'])
 def barter_up_process():
     """Sign Up process"""
@@ -46,18 +55,22 @@ def barter_up_process():
     if User.query.filter_by(user_email=email).first():
         flash('Please log in, you are alreday registered')
 
-        redirect('/login')
+        return redirect('/login')
     else:
         new_user = User(user_fname=fname,user_lname=lname,
             user_zipcode=zipcode, user_dob=dob, user_occupation=occupation, 
-            user_email=email, user_password=bcrypt.hashpw(password, bcrypt.gensalt()))
+            user_email=email, user_password=bcrypt.hashpw(password.encode('UTF_8'), bcrypt.gensalt()))
+        print '>>>>>>',new_user
+
         db.session.add(new_user)
         db.session.commit()
 
         session['user_id'] = new_user.user_id
         flash('You are now logged in!')
-
-    return render_template("user_profile.html")
+        # network.add_node(new_user.user_id)
+        # network.create_graph()
+    # return redirect("/users/%s" % new_user.user_id)
+    return redirect('/')
 
 @app.route('/logout')
 def log_out():
@@ -134,12 +147,7 @@ def login_process():
     flash("Logged in")
     return redirect("/users/%s" % user.user_id)
 
-@app.route("/users/<int:user_id>")
-def user_detail(user_id):
-    """Show info about user."""
 
-    user = User.query.get(user_id)
-    return render_template("user_profile.html", user=user)
 
 
 

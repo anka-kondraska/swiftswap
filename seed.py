@@ -1,13 +1,15 @@
 """Seed the test database with test data"""
 
-
-
 from sqlalchemy import func
-from model import User, UserSkill, Skill
+from model import User, UserSkill, Skill, connect_to_db, db
 
-from model import connect_to_db, db
 from server import app
+connect_to_db(app)
+
 import bcrypt
+
+
+
 
 
 
@@ -18,8 +20,6 @@ def load_users():
 
     for row in open("test_data/test_user.txt"):
         row = row.rstrip()
-        # row=row.split("|")
-        # print row
         fname, lname, street_address, city, state, zipcode, date, occupation, email, password = row.split("|")
                     
 
@@ -28,10 +28,13 @@ def load_users():
                     user_state=state,user_zipcode=zipcode, user_dob=date, 
                     user_occupation=occupation, user_email=email, 
                     user_password=bcrypt.hashpw(password, bcrypt.gensalt()))
+        
 
 
         db.session.add(user)
+
     db.session.commit()
+   
 
 def load_userskills():
     """"""
@@ -97,7 +100,7 @@ def load_skills():
 if __name__ == "__main__":
 
     
-    connect_to_db(app)
+    
     db.drop_all()
     db.create_all()
 
