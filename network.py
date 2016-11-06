@@ -13,25 +13,30 @@ from server import app
 connect_to_db(app)
 
 
-nodes = db.session.query(UserSkill.user_id).all()
-# nodes_edges = db.session.query(UserSkill.user_id,UserSkill.skill_id,UserSkill.skill_direction).all()
+nodes = db.session.query(UserSkill.user_id,User.user_fname).join(User).all() # nodes_edges = db.session.query(UserSkill.user_id,UserSkill.skill_id,UserSkill.skill_direction).all()
 skill_to = UserSkill.query.filter(UserSkill.skill_direction =='to').all()
-skill_from = UserSkill.query.filter(UserSkill.skill_direction =='from').all()
+# skill_from = UserSkill.query.filter(UserSkill.skill_direction =='from').all()
+skill_from = db.session.query(UserSkill,Skill.skill_name).join(Skill).filter(UserSkill.skill_direction=='from').all()
+
 
 Z = nx.DiGraph()
 Z.clear
 
-def add_nodes(data):
+# 
 
-    Z.add_nodes_from(data)
+def add_nodes(data):
+    for a in data:
+        Z.add_node(a[0],name=a[1])
+
+    # Z.add_nodes_from(data)
     print Z.nodes(data=True)
     # return Z
 
 add_nodes(nodes)
 
 def add_edges(skill_to, skill_from):
-    for x in skill_from:
-        Z.add_edges_from([(x.user_id, y.user_id)for y in skill_to if x.skill_id == y.skill_id])
+    for x, name_s in skill_from:
+        Z.add_edges_from([(x.user_id, y.user_id, {'name': name_s})for y in skill_to if x.skill_id == y.skill_id])
     print Z.edges(data=True)
     # return Z
 
@@ -39,8 +44,13 @@ add_edges(skill_to, skill_from)
 
 
 def create_graph(graph=Z):
-    nx.draw(Z, node_color="r",edge_color='blue', with_labels=True,alpha=0.5, 
-        node_size=700, width=1, font_size=15, scale=30)
+    pos = nx.spring_layout(Z)
+    nx.draw(Z, pos, node_color="r",edge_color='blue', #with_labels=True,
+        alpha=0.5, node_size=700, width=1, font_size=15, scale=30)
+    node_labels = nx.get_node_attributes(Z, 'name')
+    nx.draw_networkx_labels(Z, pos, labels=node_labels)
+    edge_labels = nx.get_edge_attributes(Z, 'name')
+    nx.draw_networkx_edge_labels(Z, pos, labels=edge_labels)
     plt.savefig('graph.png')
 
 create_graph()
