@@ -1,18 +1,65 @@
-gardening|5
-programming|5
-painting|5
-dog walking|5
-brick laying|5
-cooking|5
-cleaning|5
-drawing|5
-carpentry|5
-singing|5
-playing guitar|5
-speak English|5
-speak Spanish|5
-yoga instructor|5
-meditation instructor|5
-play tuba|5
-
-
+composing music|0
+haircut for straight|0
+drawing|0
+tennis instructor|0
+landscaping|0
+reiki|0
+cleaning|0
+beer making|0
+interior decoration|0
+bread making|0
+reiki|0
+weaving|0
+cleaning rugs|0
+gardening|0
+playing piano|0
+carpentry|0
+singing|0
+tailoring|0
+haircut for curly|0
+cooking|0
+animal grooming|0
+playing piano|0
+dog walking|0
+beer making|0
+meditation instructor|0
+meditation instructor|0
+pizza making|0
+party organizing|0
+dog training|0
+interior decoration|0
+soccer instructor|0
+cleaning|0
+ironing|0
+playing guitar|0
+composing music|0
+bookkeeping|0
+herbalism|0
+electronics fixed|0
+soccer instructor|0
+shopping|0
+party organizing|0
+dog training|0
+sewing|0
+composing music|0
+play tuba|0
+shopping|0
+painting|0
+dog training|0
+home organizing|0
+cooking|0
+play tuba|0
+cartooning|0
+brick laying|0
+massage|0
+leather work|0
+bookkeeping|0
+weaving|0
+dog training|0
+graphic design|0
+haircut for curly|0
+meditation instructor|0
+haircut for curly|0
+graphic design|0
+dog/cat sitting|0
+beer making|0
