@@ -1,65 +1,65 @@
-composing music|0
-haircut for straight|0
-drawing|0
-tennis instructor|0
-landscaping|0
-reiki|0
-cleaning|0
-beer making|0
-interior decoration|0
-bread making|0
-reiki|0
-weaving|0
-cleaning rugs|0
-gardening|0
-playing piano|0
-carpentry|0
-singing|0
-tailoring|0
-haircut for curly|0
-cooking|0
-animal grooming|0
-playing piano|0
-dog walking|0
-beer making|0
-meditation instructor|0
-meditation instructor|0
-pizza making|0
-party organizing|0
-dog training|0
-interior decoration|0
-soccer instructor|0
-cleaning|0
-ironing|0
-playing guitar|0
-composing music|0
-bookkeeping|0
-herbalism|0
-electronics fixed|0
-soccer instructor|0
 shopping|0
-party organizing|0
 dog training|0
-sewing|0
-composing music|0
-play tuba|0
-shopping|0
 painting|0
-dog training|0
-home organizing|0
+tutoring in sciences|0
 cooking|0
-play tuba|0
-cartooning|0
-brick laying|0
-massage|0
-leather work|0
-bookkeeping|0
-weaving|0
+speak English|0
+nails|0
+sewing|0
+herbalism|0
 dog training|0
-graphic design|0
-haircut for curly|0
+carpentry|0
+interior decoration|0
+animal grooming|0
+legal form help|0
+lawn mowing|0
+acupuncture|0
+composing music|0
+soccer instructor|0
+hairstyling|0
+brick laying|0
+drawing|0
+programming|0
+play tuba|0
+sewing|0
+driving a car|0
+hairstyling|0
+programming|0
+electronics fixed|0
 meditation instructor|0
-haircut for curly|0
+soccer instructor|0
+painting|0
+electronics fixed|0
+reiki|0
+weaving|0
+cartooning|0
+yoga instructor|0
 graphic design|0
-dog/cat sitting|0
 beer making|0
+dog training|0
+moving|0
+painting|0
+cleaning rugs|0
+herbalism|0
+herbalism|0
+yoga instructor|0
+putting up shelves|0
+graphic design|0
+party organizing|0
+driving a car|0
+tutoring in sciences|0
+cooking|0
+tailoring|0
+programming|0
+hairstyling|0
+party organizing|0
+editing|0
+meditation instructor|0
+graphic design|0
+pizza making|0
+speak English|0
+hairstyling|0
+herbalism|0
+tutoring in sciences|0
+attorney|0
+shopping|0

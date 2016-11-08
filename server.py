@@ -8,6 +8,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 from model import connect_to_db, db, User, Skill, UserSkill
 import bcrypt
+import os
 
 
 
@@ -16,6 +17,8 @@ app = Flask(__name__)
 app.secret_key = "ABC"
 
 app.jinja_env.undefined = StrictUndefined
+
+map_key = os.environ["GOOGLE_API_KEY"]
 
 
 @app.route('/')
@@ -29,7 +32,7 @@ def index():
 def barter_up_form():
     """Sign Up form"""
 
-    return render_template("barter_up_form.html")
+    return render_template("barter_up_form.html",map_key_api = map_key)
 
 @app.route("/users/<int:user_id>")
 def user_detail(user_id):
@@ -51,6 +54,10 @@ def barter_up_process():
     dob = request.form.get('dob')
     occupation = request.form.get('occupation')
     zipcode = request.form.get('zipcode')
+    street_address = request.form.get('street-address')
+    city = request.form.get('city')
+    state = request.form.get('state')
+
 
     if User.query.filter_by(user_email=email).first():
         flash('Please log in, you are alreday registered')
@@ -58,9 +65,8 @@ def barter_up_process():
         return redirect('/login')
     else:
         new_user = User(user_fname=fname,user_lname=lname,
-            user_zipcode=zipcode, user_dob=dob, user_occupation=occupation, 
+            user_zipcode=zipcode,user_street_address=street_address, user_city=city, user_state=state,user_dob=dob, user_occupation=occupation, 
             user_email=email, user_password=bcrypt.hashpw(password.encode('UTF_8'), bcrypt.gensalt()))
-        print '>>>>>>',new_user
 
         db.session.add(new_user)
         db.session.commit()

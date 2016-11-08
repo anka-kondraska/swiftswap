@@ -1,4 +1,5 @@
 import networkx as nx
+from networkx.readwrite import json_graph
 import matplotlib
 # Force matplotlib to not use any Xwindows backend.
 matplotlib.use('Agg')
@@ -29,7 +30,7 @@ def add_nodes(data):
         Z.add_node(a[0],name=a[1])
 
     # Z.add_nodes_from(data)
-    print Z.nodes(data=True)
+    # print Z.nodes(data=True)
     # return Z
 
 add_nodes(nodes)
@@ -37,7 +38,7 @@ add_nodes(nodes)
 def add_edges(skill_to, skill_from):
     for x, name_s in skill_from:
         Z.add_edges_from([(x.user_id, y.user_id, {'name': name_s})for y in skill_to if x.skill_id == y.skill_id])
-    print Z.edges(data=True)
+    # print Z.edges(data=True)
     # return Z
 
 add_edges(skill_to, skill_from)
@@ -54,6 +55,36 @@ def create_graph(graph=Z):
     plt.savefig('graph.png')
 
 create_graph()
+
+import json
+
+# data = json_graph.node_link_data(Z)
+# with open('graph.json', 'w') as f:
+#     json.dump(data,f,indent=4)
+
+# import sonnet as sn
+# s = sn.Sonnet(Z)
+# print s.nodes()
+# print '>>>>>>>>>>>'
+# json_graph = s.jsonify()
+
+
+def save(G, fname):
+    json.dump(dict(nodes=[['id': n, G.node[n]] for n in G.nodes()],
+                   edges=[[u, v, G.edge[u][v]] for u,v in G.edges()]),
+              open(fname, 'w'), indent=2)
+save(Z, 'static/graph1.json')
+
+
+# with open('static/graph1.json', 'w') as f:
+#     json.dump(dict(nodes=Z.nodes(), edges=Z.edges()),f,indent=4)
+     # json.dump(json_graph,f,indent=4)
+
+
+# nx.write_gpickle(Z, "test.gpickle")
+
+# json.dumps(dict(nodes=graph.nodes(), edges=graph.edges()))
+
 
 
 
