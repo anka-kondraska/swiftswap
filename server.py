@@ -80,10 +80,7 @@ def user_detail(user_id):
     """Show info about user."""
 
     user = User.query.get(user_id)
-    return render_template("user_profile.html", user=user,
-        street_address=user.user_street_address,
-        state=user.user_state, city=user.user_city, 
-        zipcode=user.user_zipcode, map_key_api = map_key)
+    return render_template("user_profile.html", user=user,map_key_api = map_key)
 
 @app.route('/simple_cycle.json')
 def cycle_data():
@@ -91,17 +88,17 @@ def cycle_data():
 
 
 
-    cycles = {
-        bear.marker_id: {
-            "bearId": bear.bear_id,
-            "gender": bear.gender,
-            "birthYear": bear.birth_year,
-            "capYear": bear.cap_year,
-            "capLat": bear.cap_lat,
-            "capLong": bear.cap_long,
-            "collared": bear.collared.lower()
-        }
-        for cycle in Bear.query.limit(50)}
+    # cycles = {
+    #     bear.marker_id: {
+    #         "bearId": bear.bear_id,
+    #         "gender": bear.gender,
+    #         "birthYear": bear.birth_year,
+    #         "capYear": bear.cap_year,
+    #         "capLat": bear.cap_lat,
+    #         "capLong": bear.cap_long,
+    #         "collared": bear.collared.lower()
+    #     }
+    #     for cycle in Bear.query.limit(50)}
 
     return jsonify(cycles)
 
