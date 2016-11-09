@@ -1,13 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
+<style type="text/css">#user-map { height: 400px; }</style>
 
 <p>Hello {{user.user_fname}}</p>
 
-<h4>Skills Section</h4> 
+<p>Update Your Skills</p>
 
-
-
-<form action="/user_skill" method="POST">
+<form action="/update_skill" method="POST">
 
         <p><label>Skill You Want </label><input type="text" name="skill-name-to"></p>
         <p><label>Skill You Provide </label><input type="text" name="skill-name-from"></p>
@@ -17,4 +16,80 @@
 
 </form>
 
-{% endblock %}
+<!-- USER DATA -->
+<input type='hidden' id='street-address' value='{{user.user_street_address}}'>
+<input type='hidden' id='city' value='{{user.user_city}}'>
+<input type='hidden' id='state' value='{{user.user_state}}'>
+<input type='hidden' id='zipcode' value='{{user.user_zipcode}}'>
+
+<!-- MAP -->
+<div id="user-map"></div>
+
+
+    <script type="text/javascript">
+    var map;
+    var geocoder;
+
+    function initMap() {
+        console.log("inside initmap");
+      var myLatLng = {lat: 0, lng: 0};
+      var mapOptions = { 
+        center: myLatLng,
+        scrollwheel: false,
+        zoom: 15,
+        zoomControl: true,
+        panControl: false,
+        streetViewControl: false,
+        // styles: MAPSTYLES,
+        mapTypeId: google.maps.MapTypeId.TERRAIN
+    };
+    var infoWindow = new google.maps.InfoWindow({
+          width: 150
+      });
+    
+
+      map = new google.maps.Map(document.getElementById('user-map'), mapOptions);
+
+      geocoder = new google.maps.Geocoder();
+      // var streetAddress = document.getElementById('street-address').value;
+      // var city = document.getElementById('city').value;
+      // var state = document.getElementById('state').value;
+      // var zipcode = document.getElementById('zipcode').value;
+
+
+      debugger;
+      var street_address = $('#street-address').val();
+      var city = $('#city').val();
+      var state = $('#state').val();
+      var zipcode = $('#zipcode').val();
+
+      var address = street_address+''+city+','+state+''+zipcode
+      geocoder.geocode({'address': address}, function(results, status){
+        if (status=='OK'){
+            map.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+                map: map,
+                position: results[0].geometry.location
+            });
+        } else {
+            alert('Geocode was not successful for the following reason'+ status);
+        }
+      });
+  }
+
+  // $('#register-form').on('submit',function(evt){
+  //   evt.preventDefault();
+  //   console.log('we are here');
+  //   initMap();
+  //  })
+
+  
+
+    
+
+    google.maps.event.addDomListener(window, 'load');
+
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key={{map_key_api}}&callback=initMap"></script>
+
+    {% endblock %}

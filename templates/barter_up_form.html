@@ -21,68 +21,6 @@
         <p><input type="submit" value="Submit"></p>
     </form>
 
-    <div id="register-map"></div>
-
-
-    <script type="text/javascript">
-    var map;
-    var geocoder;
-
-    function initMap() {
-        console.log("inside initmap");
-      var myLatLng = {lat: 0, lng: 0};
-      var mapOptions = { 
-        center: myLatLng,
-        scrollwheel: false,
-        zoom: 5,
-        zoomControl: true,
-        panControl: false,
-        streetViewControl: false,
-        // styles: MAPSTYLES,
-        mapTypeId: google.maps.MapTypeId.TERRAIN
-    };
-    var infoWindow = new google.maps.InfoWindow({
-          width: 150
-      });
-    debugger;
-
-      map = new google.maps.Map(document.getElementById('register-map'), mapOptions);
-
-      geocoder = new google.maps.Geocoder();
-      var streetAddress = document.getElementById('street-address').value;
-      var city = document.getElementById('city').value;
-      var state = document.getElementById('state').value;
-      var zipcode = document.getElementById('zipcode').value;
-      debugger;
-
-      var address = streetAddress+','+city+','+state
-      geocoder.geocode({'address': address}, function(results, status){
-        if (status=='OK'){
-            map.setCenter(results[0].geometry.location);
-            var marker = new google.maps.Marker({
-                map: map,
-                position: results[0].geometry.location
-            });
-        } else {
-            alert('Geocode was not successful for the following reason'+ status);
-        }
-      });
-  }
-
-  $('#register-form').on('submit',function(evt){
-    evt.preventDefault();
-    console.log('we are here');
-    initMap();
-   })
-
-  
-
     
-
-    // google.maps.event.addDomListener(window, 'load', initMap);
-
-    </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key={{map_key_api}}&callback=initMap"></script>
-
 
 {% endblock %}

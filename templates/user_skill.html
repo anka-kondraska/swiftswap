@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<p>Hello {{user.user_fname}}</p>
+
+<h4>Skills Section</h4> 
+
+
+
+<form action="/user_skill" method="POST">
+
+        <p><label>Skill You Want </label><input type="text" name="skill-name-to"></p>
+        <p><label>Skill You Provide </label><input type="text" name="skill-name-from"></p>
+
+        <p><input type="submit" value="Submit"></p>
+
+
+</form>
+
+
+
+
+
+
+{% endblock %}

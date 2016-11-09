@@ -10,6 +10,8 @@ from model import connect_to_db, db, User, Skill, UserSkill
 import bcrypt
 import os
 
+import helper_fun
+
 
 
 app = Flask(__name__)
@@ -17,6 +19,7 @@ app = Flask(__name__)
 app.secret_key = "ABC"
 
 app.jinja_env.undefined = StrictUndefined
+app.jinja_env.auto_reload = True
 
 map_key = os.environ["GOOGLE_API_KEY"]
 
@@ -32,14 +35,9 @@ def index():
 def barter_up_form():
     """Sign Up form"""
 
-    return render_template("barter_up_form.html",map_key_api = map_key)
+    return render_template("barter_up_form.html")
 
-@app.route("/users/<int:user_id>")
-def user_detail(user_id):
-    """Show info about user."""
 
-    user = User.query.get(user_id)
-    return render_template("user_profile.html", user=user)
 
 
 
@@ -73,10 +71,39 @@ def barter_up_process():
 
         session['user_id'] = new_user.user_id
         flash('You are now logged in!')
-        # network.add_node(new_user.user_id)
-        # network.create_graph()
-    # return redirect("/users/%s" % new_user.user_id)
-    return redirect('/')
+        helper_fun.add_node(new_user.user_id,new_user.user_fname)
+    return render_template("user_skill.html", user=new_user)
+
+
+@app.route("/users/<int:user_id>")
+def user_detail(user_id):
+    """Show info about user."""
+
+    user = User.query.get(user_id)
+    return render_template("user_profile.html", user=user,
+        street_address=user.user_street_address,
+        state=user.user_state, city=user.user_city, 
+        zipcode=user.user_zipcode, map_key_api = map_key)
+
+@app.route('/simple_cycle.json')
+def cycle_data():
+    """JSON information about ."""
+
+
+
+    cycles = {
+        bear.marker_id: {
+            "bearId": bear.bear_id,
+            "gender": bear.gender,
+            "birthYear": bear.birth_year,
+            "capYear": bear.cap_year,
+            "capLat": bear.cap_lat,
+            "capLong": bear.cap_long,
+            "collared": bear.collared.lower()
+        }
+        for cycle in Bear.query.limit(50)}
+
+    return jsonify(cycles)
 
 @app.route('/logout')
 def log_out():
@@ -137,10 +164,6 @@ def login_process():
     if not user:
         flash("No such user")
         return redirect("/register")
-
-    # if user.user_password != password:
-    #     flash("Incorrect password")
-    #     return redirect("/login")
 
     if bcrypt.hashpw(password.encode('UTF_8'), user.user_password.encode('UTF_8')).decode() == user.user_password:
         flash("it Matches")
