@@ -37,9 +37,6 @@ def barter_up_form():
     return render_template("barter_up_form.html")
 
 
-
-
-
 @app.route('/register', methods=['POST'])
 def barter_up_process():
     """Sign Up process"""
@@ -80,6 +77,9 @@ def user_detail(user_id):
 
     user = User.query.get(user_id)
     return render_template("user_profile.html", user=user,map_key_api = map_key)
+
+
+
 
 @app.route('/simple_cycle.json')
 def cycle_data():
@@ -139,6 +139,8 @@ def user_skill():
         db.session.commit()
         flash("your skills have been added to our network")
     return redirect("/users/%s" % user.user_id)
+
+@app.route('/update_skill')
 
 @app.route('/login', methods=['GET'])
 def login_form():

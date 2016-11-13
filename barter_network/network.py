@@ -40,6 +40,7 @@ def add_edges(skill_to, skill_from):
 add_edges(skill_to, skill_from)
 
 def create_graph(graph=Z):
+    plt.figure(1)
     pos = nx.spring_layout(Z)
     nx.draw(Z, pos, node_color="r",edge_color='blue', #with_labels=True,
         alpha=0.5, node_size=700, width=1, font_size=15, scale=30)
@@ -62,21 +63,29 @@ create_graph(Z)
 # def find_closed_loop(Z):
 #     print [loop for loop in nx.simple_cycles(Z)]
         
-# find_closed_loop(Z)
-# def find_c(Z):
-#     try:
-#         nx.find_cycle(Z, source=2, orientation='original')
-#     except:
-#         pass
-#     print list(nx.find_cycle(Z, source=2, orientation='original'))
-# print Z.edges(data=True)
-cy = list(nx.find_cycle(Z, source=1, orientation='original'))
-print cy
+# print list(nx.simple_cycles(Z))
+one = [line for line in list(nx.simple_cycles(Z)) if line[0]==5]
 B = nx.DiGraph()
 B.clear
-B.add_edges_from(cy)
-nx.draw(B, with_labels=True)
-plt.savefig('barter_network/static/loop.png')
+
+# print len(one[0])
+ls=[]
+for i in range(len(one[0])-1):
+    ls.append((one[0][i:i+2]))
+ls.append((one[0][-1],one[0][0]))
+
+# ls=[(one[0][0:2]),(one[0][1:3]),(one[0][2:4]),(one[0][3:5]),(one[0][-1],one[0][0])]
+
+
+# for i in one[0]:
+#     print nx.edges(Z,[i])
+#     print Z.out_edges(i)
+
+plt.figure(2)
+B.add_nodes_from(one[0])
+B.add_edges_from(ls)
+nx.draw_networkx(B, with_labels=True)
+plt.savefig('barter_network/static/loop1.png')
 
 
 
@@ -177,6 +186,16 @@ def json_my_net_data(Z):
         json.dump(data,f,indent=4)
 
 json_my_net_data(Z)
+
+def json_my_smallnet_data(B):
+    data = node_link_data(B)
+    with open('barter_network/static/smallgraph.json', 'w') as f:
+        json.dump(data,f,indent=4)
+        
+json_my_smallnet_data(B)
+
+
+
 
 
 if __name__ == '__main__':

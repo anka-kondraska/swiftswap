@@ -1,0 +1,93 @@
+{
+    "directed": true, 
+    "graph": {}, 
+    "nodes": [
+        {
+            "id": 96
+        }, 
+        {
+            "id": 68
+        }, 
+        {
+            "id": 5
+        }, 
+        {
+            "id": 13
+        }, 
+        {
+            "id": 16
+        }, 
+        {
+            "id": 50
+        }, 
+        {
+            "id": 51
+        }, 
+        {
+            "id": 85
+        }, 
+        {
+            "id": 22
+        }, 
+        {
+            "id": 87
+        }, 
+        {
+            "id": 27
+        }, 
+        {
+            "id": 93
+        }
+    ], 
+    "links": [
+        {
+            "source": 96, 
+            "target": 27
+        }, 
+        {
+            "source": 68, 
+            "target": 22
+        }, 
+        {
+            "source": 5, 
+            "target": 93
+        }, 
+        {
+            "source": 13, 
+            "target": 50
+        }, 
+        {
+            "source": 16, 
+            "target": 85
+        }, 
+        {
+            "source": 50, 
+            "target": 87
+        }, 
+        {
+            "source": 51, 
+            "target": 96
+        }, 
+        {
+            "source": 85, 
+            "target": 51
+        }, 
+        {
+            "source": 22, 
+            "target": 13
+        }, 
+        {
+            "source": 87, 
+            "target": 16
+        }, 
+        {
+            "source": 27, 
+            "target": 5
+        }, 
+        {
+            "source": 93, 
+            "target": 68
+        }
+    ], 
+    "multigraph": false
+}

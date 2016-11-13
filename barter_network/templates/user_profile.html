@@ -1,20 +1,239 @@
 {% extends 'base.html' %}
 {% block content %}
 <style type="text/css">#user-map { height: 400px; }</style>
+<style>
 
+/*.links line {
+  stroke: #999;
+  stroke-opacity: 0.6;
+}
+
+.nodes circle {
+  stroke: #fff;
+  stroke-width: 1.5px;
+}*/
+
+</style>
+<style>
+
+.link {
+  fill: none;
+  stroke: #666;
+  stroke-width: 1.5px;
+}
+
+.node circle {
+  fill: #ccc;
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+text {
+  font: 10px sans-serif;
+  pointer-events: none;
+}
+
+</style>
 <p>Hello {{user.user_fname}}</p>
 
 <p>Update Your Skills</p>
 
 <form action="/update_skill" method="POST">
 
-        <p><label>Skill You Want </label><input type="text" name="skill-name-to"></p>
-        <p><label>Skill You Provide </label><input type="text" name="skill-name-from"></p>
+        <p><label>Update Skill You Want </label><input type="text" name="skill-name-to"></p>
+        <p><label>Update Skill You Provide </label><input type="text" name="skill-name-from"></p>
 
         <p><input type="submit" value="Submit"></p>
 
 
 </form>
+<!-- <div id="d3-container"></div>  -->
+<script src="https://d3js.org/d3.v3.min.js"></script>
+
+<svg width="500" height="500"></svg>
+
+<!-- SMALLER D3 GRAPH -->
+
+
+<script>
+
+// get the data
+d3.json("/static/smallgraph.json", function(error, graph) {
+
+var nodes = {};
+console.log(graph.links);
+
+// Compute the distinct nodes from the links.
+graph.links.forEach(function(link) {
+  link.source = nodes[link.source] || (nodes[link.source] = {name: link.source});
+  link.target = nodes[link.target] || (nodes[link.target] = {name: link.target});
+});
+debugger;
+
+var width = 960,
+    height = 500;
+debugger;
+var force = d3.layout.force()
+    .nodes(d3.values(nodes))
+    .links(graph.links)
+    .size([width, height])
+    .linkDistance(60)
+    .charge(-300)
+    .on("tick", tick)
+    .start();
+debugger;
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+var link = svg.selectAll(".link")
+    .data(force.links())
+  .enter().append("line")
+    .attr("class", "link");
+
+var node = svg.selectAll(".node")
+    .data(force.nodes())
+  .enter().append("g")
+    .attr("class", "node")
+    .on("mouseover", mouseover)
+    .on("mouseout", mouseout)
+    .call(force.drag);
+
+node.append("circle")
+    .attr("r", 8);
+
+node.append("text")
+    .attr("x", 12)
+    .attr("dy", ".35em")
+    .text(function(d) { return d.name; });
+
+// build the arrow.
+svg.append("svg:defs").selectAll("marker")
+    .data(["end"])      // Different link/path types can be defined here
+  .enter().append("svg:marker")    // This section adds in the arrows
+    .attr("id", String)
+    .attr("viewBox", "0 -5 10 10")
+    .attr("refX", 15)
+    .attr("refY", -1.5)
+    .attr("markerWidth", 6)
+    .attr("markerHeight", 6)
+    .attr("orient", "auto")
+  .append("svg:path")
+    .attr("d", "M0,-5L10,0L0,5");
+
+function tick() {
+  link
+      .attr("x1", function(d) { return d.source.x; })
+      .attr("y1", function(d) { return d.source.y; })
+      .attr("x2", function(d) { return d.target.x; })
+      .attr("y2", function(d) { return d.target.y; });
+
+  node
+      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+}
+
+function mouseover() {
+  d3.select(this).select("circle").transition()
+      .duration(750)
+      .attr("r", 16);
+}
+
+function mouseout() {
+  d3.select(this).select("circle").transition()
+      .duration(750)
+      .attr("r", 8);
+}
+});
+</script>
+
+
+
+
+
+
+
+
+<!-- D3 GRAPH -->
+<!-- Graph by Mike Bostock 
+http://bl.ocks.org/mbostock/4062045 -->
+<!-- <script src="https://d3js.org/d3.v4.min.js"></script> -->
+<!-- <script src="{{ url_for('static', filename='smallgraph.json') }}"></script> -->
+
+
+    <!-- <div id="d3-container">< /div> -->
+
+<!-- <svg width="500" height="500"></svg> -->
+
+
+<script>
+
+// var svg = d3.select("svg"),
+//     width = +svg.attr("width"),
+//     height = +svg.attr("height");
+
+// var color = d3.scaleOrdinal(d3.schemeCategory20);
+
+// var simulation = d3.forceSimulation()
+//     .force("link", d3.forceLink().id(function(d) { return d.id; }))
+//     .force("charge", d3.forceManyBody())
+//     .force("center", d3.forceCenter(width / 2, height / 2));
+
+// d3.json("{{ url_for('static', filename='smallgraph.json') }}", function(error, graph) {
+//   if (error) throw error;
+
+//   var link = svg.append("g")
+//       .attr("class", "links")
+//     .selectAll("line")
+//     .data(graph.links)
+//     .enter().append("line")
+      // .attr("stroke-width", function(d) { return Math.sqrt(d.value); });
+
+  // node.append("title")
+  //     .text(function(d) { return d.name; });
+
+  // link.append("title")
+  //     .text(function(d) { return d.name; });
+
+//   simulation
+//       .nodes(graph.nodes)
+//       .on("tick", ticked);
+
+//   simulation.force("link")
+//       .links(graph.links);
+
+//   function ticked() {
+//     link
+//         .attr("x1", function(d) { return d.source.x; })
+//         .attr("y1", function(d) { return d.source.y; })
+//         .attr("x2", function(d) { return d.target.x; })
+//         .attr("y2", function(d) { return d.target.y; });
+
+//     node
+//         .attr("cx", function(d) { return d.x; })
+//         .attr("cy", function(d) { return d.y; });
+//   }
+// });
+
+// function dragstarted(d) {
+//   if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+//   d.fx = d.x;
+//   d.fy = d.y;
+// }
+
+// function dragged(d) {
+//   d.fx = d3.event.x;
+//   d.fy = d3.event.y;
+// }
+
+// function dragended(d) {
+//   if (!d3.event.active) simulation.alphaTarget(0);
+//   d.fx = null;
+//   d.fy = null;
+// }
+
+</script>
+
+
 
 <!-- USER DATA -->
 <input type='hidden' id='street-address' value='{{user.user_street_address}}'>
@@ -24,6 +243,7 @@
 
 <!-- MAP -->
 <div id="user-map"></div>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key={{map_key_api}}&callback=initMap"></script>
 
 
     <script type="text/javascript">
@@ -57,7 +277,7 @@
       // var zipcode = document.getElementById('zipcode').value;
 
 
-      debugger;
+     
       var street_address = $('#street-address').val();
       var city = $('#city').val();
       var state = $('#state').val();
@@ -83,13 +303,9 @@
   //   initMap();
   //  })
 
-  
-
-    
-
     google.maps.event.addDomListener(window, 'load');
 
     </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key={{map_key_api}}&callback=initMap"></script>
+    
 
     {% endblock %}
