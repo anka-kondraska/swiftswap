@@ -401,836 +401,783 @@
         {
             "name": "Zachary", 
             "id": 100
-        }, 
-        {
-            "name": "john", 
-            "id": 102
-        }, 
-        {
-            "name": "Boy", 
-            "id": 108
         }
     ], 
     "links": [
         {
             "source": 1, 
-            "name": "herbalism", 
-            "target": 25
+            "name": "laundry", 
+            "target": 24
         }, 
         {
             "source": 1, 
-            "name": "herbalism", 
-            "target": 6
-        }, 
-        {
-            "source": 2, 
-            "name": "editing", 
-            "target": 93
+            "name": "laundry", 
+            "target": 69
         }, 
         {
             "source": 3, 
-            "name": "electronics fixed", 
-            "target": 44
-        }, 
-        {
-            "source": 3, 
-            "name": "electronics fixed", 
-            "target": 85
+            "name": "beer making", 
+            "target": 20
         }, 
         {
             "source": 4, 
-            "name": "interior decoration", 
-            "target": 10
-        }, 
-        {
-            "source": 4, 
-            "name": "interior decoration", 
-            "target": 50
+            "name": "putting up shelves", 
+            "target": 59
         }, 
         {
             "source": 5, 
-            "name": "editing", 
-            "target": 93
+            "name": "graphic design", 
+            "target": 13
+        }, 
+        {
+            "source": 6, 
+            "name": "haircut for straight", 
+            "target": 68
+        }, 
+        {
+            "source": 6, 
+            "name": "haircut for straight", 
+            "target": 12
+        }, 
+        {
+            "source": 6, 
+            "name": "haircut for straight", 
+            "target": 77
         }, 
         {
             "source": 7, 
-            "name": "shopping", 
-            "target": 81
-        }, 
-        {
-            "source": 7, 
-            "name": "shopping", 
-            "target": 67
-        }, 
-        {
-            "source": 7, 
-            "name": "shopping", 
-            "target": 36
-        }, 
-        {
-            "source": 7, 
-            "name": "shopping", 
-            "target": 46
-        }, 
-        {
-            "source": 7, 
-            "name": "shopping", 
-            "target": 7
-        }, 
-        {
-            "source": 8, 
-            "name": "reiki", 
-            "target": 15
+            "name": "putting up shelves", 
+            "target": 59
         }, 
         {
             "source": 9, 
-            "name": "painting", 
-            "target": 96
+            "name": "programming", 
+            "target": 91
+        }, 
+        {
+            "source": 9, 
+            "name": "programming", 
+            "target": 22
         }, 
         {
             "source": 10, 
-            "name": "programming", 
-            "target": 98
+            "name": "driving a car", 
+            "target": 47
         }, 
         {
             "source": 11, 
-            "name": "graphic design", 
-            "target": 56
+            "name": "landscaping", 
+            "target": 32
         }, 
         {
             "source": 11, 
-            "name": "graphic design", 
-            "target": 18
+            "name": "landscaping", 
+            "target": 72
         }, 
         {
             "source": 11, 
-            "name": "graphic design", 
-            "target": 78
+            "name": "landscaping", 
+            "target": 76
+        }, 
+        {
+            "source": 11, 
+            "name": "landscaping", 
+            "target": 38
         }, 
         {
             "source": 12, 
-            "name": "editing", 
-            "target": 93
+            "name": "landscaping", 
+            "target": 32
+        }, 
+        {
+            "source": 12, 
+            "name": "landscaping", 
+            "target": 72
+        }, 
+        {
+            "source": 12, 
+            "name": "landscaping", 
+            "target": 76
+        }, 
+        {
+            "source": 12, 
+            "name": "landscaping", 
+            "target": 38
         }, 
         {
             "source": 13, 
-            "name": "interior decoration", 
-            "target": 10
+            "name": "sewing", 
+            "target": 6
         }, 
         {
-            "source": 13, 
-            "name": "interior decoration", 
+            "source": 14, 
+            "name": "bookkeeping", 
             "target": 50
         }, 
         {
             "source": 14, 
-            "name": "editing", 
-            "target": 93
+            "name": "bookkeeping", 
+            "target": 63
         }, 
         {
             "source": 15, 
-            "name": "dog training", 
-            "target": 87
+            "name": "laundry", 
+            "target": 75
+        }, 
+        {
+            "source": 15, 
+            "name": "laundry", 
+            "target": 94
+        }, 
+        {
+            "source": 15, 
+            "name": "laundry", 
+            "target": 54
         }, 
         {
             "source": 16, 
-            "name": "electronics fixed", 
-            "target": 44
+            "name": "dog training", 
+            "target": 48
         }, 
         {
             "source": 16, 
-            "name": "electronics fixed", 
-            "target": 85
-        }, 
-        {
-            "source": 17, 
-            "name": "shopping", 
-            "target": 81
-        }, 
-        {
-            "source": 17, 
-            "name": "shopping", 
-            "target": 67
-        }, 
-        {
-            "source": 17, 
-            "name": "shopping", 
-            "target": 36
-        }, 
-        {
-            "source": 17, 
-            "name": "shopping", 
-            "target": 46
-        }, 
-        {
-            "source": 17, 
-            "name": "shopping", 
-            "target": 7
-        }, 
-        {
-            "source": 18, 
-            "name": "hairstyling", 
-            "target": 91
-        }, 
-        {
-            "source": 20, 
-            "name": "tutoring in sciences", 
-            "target": 8
-        }, 
-        {
-            "source": 22, 
-            "name": "soccer instructor", 
-            "target": 5
-        }, 
-        {
-            "source": 22, 
-            "name": "soccer instructor", 
-            "target": 13
-        }, 
-        {
-            "source": 23, 
-            "name": "weaving", 
-            "target": 41
-        }, 
-        {
-            "source": 24, 
-            "name": "electronics fixed", 
-            "target": 44
-        }, 
-        {
-            "source": 24, 
-            "name": "electronics fixed", 
-            "target": 85
-        }, 
-        {
-            "source": 25, 
-            "name": "driving a car", 
-            "target": 28
-        }, 
-        {
-            "source": 25, 
-            "name": "driving a car", 
-            "target": 61
-        }, 
-        {
-            "source": 26, 
             "name": "dog training", 
-            "target": 72
-        }, 
-        {
-            "source": 26, 
-            "name": "dog training", 
-            "target": 49
-        }, 
-        {
-            "source": 27, 
-            "name": "soccer instructor", 
-            "target": 5
-        }, 
-        {
-            "source": 27, 
-            "name": "soccer instructor", 
-            "target": 13
-        }, 
-        {
-            "source": 28, 
-            "name": "programming", 
-            "target": 57
-        }, 
-        {
-            "source": 28, 
-            "name": "programming", 
-            "target": 26
-        }, 
-        {
-            "source": 28, 
-            "name": "programming", 
-            "target": 53
-        }, 
-        {
-            "source": 29, 
-            "name": "carpentry", 
-            "target": 34
-        }, 
-        {
-            "source": 29, 
-            "name": "carpentry", 
-            "target": 22
-        }, 
-        {
-            "source": 30, 
-            "name": "putting up shelves", 
-            "target": 77
-        }, 
-        {
-            "source": 30, 
-            "name": "putting up shelves", 
-            "target": 47
-        }, 
-        {
-            "source": 31, 
-            "name": "driving a car", 
-            "target": 28
-        }, 
-        {
-            "source": 31, 
-            "name": "driving a car", 
-            "target": 61
-        }, 
-        {
-            "source": 33, 
-            "name": "animal grooming", 
             "target": 100
         }, 
         {
-            "source": 34, 
-            "name": "painting", 
-            "target": 97
+            "source": 16, 
+            "name": "dog training", 
+            "target": 78
         }, 
         {
-            "source": 36, 
-            "name": "electronics fixed", 
-            "target": 59
+            "source": 18, 
+            "name": "meditation instructor", 
+            "target": 41
         }, 
         {
-            "source": 36, 
-            "name": "electronics fixed", 
-            "target": 27
+            "source": 18, 
+            "name": "meditation instructor", 
+            "target": 66
         }, 
         {
-            "source": 37, 
-            "name": "speak English", 
-            "target": 1
+            "source": 18, 
+            "name": "meditation instructor", 
+            "target": 28
         }, 
         {
-            "source": 37, 
-            "name": "speak English", 
-            "target": 58
-        }, 
-        {
-            "source": 38, 
-            "name": "lawn mowing", 
-            "target": 86
-        }, 
-        {
-            "source": 38, 
-            "name": "lawn mowing", 
+            "source": 18, 
+            "name": "meditation instructor", 
             "target": 31
         }, 
         {
-            "source": 39, 
-            "name": "hairstyling", 
-            "target": 91
+            "source": 19, 
+            "name": "soccer instructor", 
+            "target": 25
         }, 
         {
-            "source": 40, 
-            "name": "painting", 
-            "target": 24
+            "source": 19, 
+            "name": "soccer instructor", 
+            "target": 61
         }, 
         {
-            "source": 40, 
-            "name": "painting", 
-            "target": 71
-        }, 
-        {
-            "source": 42, 
-            "name": "carpentry", 
-            "target": 34
-        }, 
-        {
-            "source": 42, 
-            "name": "carpentry", 
-            "target": 22
-        }, 
-        {
-            "source": 44, 
-            "name": "pizza making", 
+            "source": 20, 
+            "name": "pick up/drop off", 
             "target": 40
         }, 
         {
-            "source": 44, 
-            "name": "pizza making", 
-            "target": 89
+            "source": 20, 
+            "name": "pick up/drop off", 
+            "target": 42
         }, 
         {
-            "source": 44, 
-            "name": "pizza making", 
-            "target": 19
+            "source": 20, 
+            "name": "pick up/drop off", 
+            "target": 36
         }, 
         {
-            "source": 45, 
+            "source": 21, 
+            "name": "putting up shelves", 
+            "target": 74
+        }, 
+        {
+            "source": 23, 
+            "name": "driving a car", 
+            "target": 15
+        }, 
+        {
+            "source": 24, 
+            "name": "driving a car", 
+            "target": 15
+        }, 
+        {
+            "source": 25, 
+            "name": "cartooning", 
+            "target": 16
+        }, 
+        {
+            "source": 26, 
             "name": "programming", 
-            "target": 98
+            "target": 91
         }, 
         {
-            "source": 46, 
-            "name": "painting", 
+            "source": 26, 
+            "name": "programming", 
+            "target": 22
+        }, 
+        {
+            "source": 27, 
+            "name": "graphic design", 
             "target": 97
         }, 
         {
-            "source": 47, 
-            "name": "lawn mowing", 
-            "target": 86
+            "source": 27, 
+            "name": "graphic design", 
+            "target": 44
         }, 
         {
-            "source": 47, 
-            "name": "lawn mowing", 
+            "source": 28, 
+            "name": "meditation instructor", 
+            "target": 1
+        }, 
+        {
+            "source": 28, 
+            "name": "meditation instructor", 
+            "target": 11
+        }, 
+        {
+            "source": 29, 
+            "name": "bread making", 
+            "target": 17
+        }, 
+        {
+            "source": 29, 
+            "name": "bread making", 
+            "target": 99
+        }, 
+        {
+            "source": 31, 
+            "name": "bookkeeping", 
+            "target": 80
+        }, 
+        {
+            "source": 33, 
+            "name": "programming", 
+            "target": 91
+        }, 
+        {
+            "source": 33, 
+            "name": "programming", 
+            "target": 22
+        }, 
+        {
+            "source": 34, 
+            "name": "playing piano", 
+            "target": 21
+        }, 
+        {
+            "source": 34, 
+            "name": "playing piano", 
+            "target": 29
+        }, 
+        {
+            "source": 36, 
+            "name": "programming", 
+            "target": 91
+        }, 
+        {
+            "source": 36, 
+            "name": "programming", 
+            "target": 22
+        }, 
+        {
+            "source": 37, 
+            "name": "singing", 
+            "target": 4
+        }, 
+        {
+            "source": 37, 
+            "name": "singing", 
+            "target": 79
+        }, 
+        {
+            "source": 38, 
+            "name": "speak English", 
+            "target": 73
+        }, 
+        {
+            "source": 38, 
+            "name": "speak English", 
+            "target": 89
+        }, 
+        {
+            "source": 39, 
+            "name": "putting up shelves", 
+            "target": 74
+        }, 
+        {
+            "source": 40, 
+            "name": "meditation instructor", 
+            "target": 41
+        }, 
+        {
+            "source": 40, 
+            "name": "meditation instructor", 
+            "target": 66
+        }, 
+        {
+            "source": 40, 
+            "name": "meditation instructor", 
+            "target": 28
+        }, 
+        {
+            "source": 40, 
+            "name": "meditation instructor", 
             "target": 31
         }, 
         {
+            "source": 41, 
+            "name": "bread making", 
+            "target": 17
+        }, 
+        {
+            "source": 41, 
+            "name": "bread making", 
+            "target": 99
+        }, 
+        {
+            "source": 42, 
+            "name": "play tuba", 
+            "target": 26
+        }, 
+        {
+            "source": 42, 
+            "name": "play tuba", 
+            "target": 92
+        }, 
+        {
+            "source": 42, 
+            "name": "play tuba", 
+            "target": 14
+        }, 
+        {
+            "source": 43, 
+            "name": "beer making", 
+            "target": 20
+        }, 
+        {
+            "source": 44, 
+            "name": "cartooning", 
+            "target": 16
+        }, 
+        {
+            "source": 45, 
+            "name": "tailoring", 
+            "target": 96
+        }, 
+        {
+            "source": 45, 
+            "name": "tailoring", 
+            "target": 18
+        }, 
+        {
+            "source": 45, 
+            "name": "tailoring", 
+            "target": 58
+        }, 
+        {
+            "source": 45, 
+            "name": "tailoring", 
+            "target": 70
+        }, 
+        {
+            "source": 45, 
+            "name": "tailoring", 
+            "target": 23
+        }, 
+        {
+            "source": 46, 
+            "name": "sewing", 
+            "target": 6
+        }, 
+        {
+            "source": 47, 
+            "name": "dog training", 
+            "target": 48
+        }, 
+        {
+            "source": 47, 
+            "name": "dog training", 
+            "target": 100
+        }, 
+        {
+            "source": 47, 
+            "name": "dog training", 
+            "target": 78
+        }, 
+        {
             "source": 48, 
-            "name": "cleaning rugs", 
-            "target": 76
+            "name": "putting up shelves", 
+            "target": 59
+        }, 
+        {
+            "source": 49, 
+            "name": "meditation instructor", 
+            "target": 39
         }, 
         {
             "source": 50, 
-            "name": "dog training", 
+            "name": "dog/cat sitting", 
+            "target": 65
+        }, 
+        {
+            "source": 50, 
+            "name": "dog/cat sitting", 
             "target": 87
         }, 
         {
             "source": 51, 
-            "name": "painting", 
+            "name": "tailoring", 
             "target": 96
         }, 
         {
-            "source": 53, 
-            "name": "herbalism", 
-            "target": 82
+            "source": 51, 
+            "name": "tailoring", 
+            "target": 18
         }, 
         {
-            "source": 53, 
-            "name": "herbalism", 
-            "target": 37
+            "source": 51, 
+            "name": "tailoring", 
+            "target": 58
         }, 
         {
-            "source": 53, 
-            "name": "herbalism", 
+            "source": 51, 
+            "name": "tailoring", 
+            "target": 70
+        }, 
+        {
+            "source": 51, 
+            "name": "tailoring", 
             "target": 23
         }, 
         {
-            "source": 54, 
-            "name": "weaving", 
-            "target": 41
-        }, 
-        {
-            "source": 57, 
-            "name": "herbalism", 
-            "target": 20
-        }, 
-        {
-            "source": 57, 
-            "name": "herbalism", 
-            "target": 29
-        }, 
-        {
-            "source": 58, 
-            "name": "cooking", 
-            "target": 32
-        }, 
-        {
-            "source": 58, 
-            "name": "cooking", 
-            "target": 42
-        }, 
-        {
-            "source": 58, 
-            "name": "cooking", 
-            "target": 11
-        }, 
-        {
-            "source": 58, 
-            "name": "cooking", 
-            "target": 74
-        }, 
-        {
-            "source": 59, 
-            "name": "yoga instructor", 
-            "target": 64
-        }, 
-        {
-            "source": 60, 
-            "name": "painting", 
-            "target": 96
-        }, 
-        {
-            "source": 61, 
-            "name": "programming", 
-            "target": 80
-        }, 
-        {
-            "source": 61, 
-            "name": "programming", 
-            "target": 17
-        }, 
-        {
-            "source": 61, 
-            "name": "programming", 
-            "target": 66
-        }, 
-        {
-            "source": 61, 
-            "name": "programming", 
-            "target": 90
-        }, 
-        {
-            "source": 62, 
-            "name": "cooking", 
-            "target": 32
-        }, 
-        {
-            "source": 62, 
-            "name": "cooking", 
-            "target": 42
-        }, 
-        {
-            "source": 62, 
-            "name": "cooking", 
-            "target": 11
-        }, 
-        {
-            "source": 62, 
-            "name": "cooking", 
-            "target": 74
-        }, 
-        {
-            "source": 63, 
-            "name": "legal form help", 
-            "target": 21
-        }, 
-        {
-            "source": 63, 
-            "name": "legal form help", 
-            "target": 69
-        }, 
-        {
-            "source": 65, 
-            "name": "herbalism", 
-            "target": 82
-        }, 
-        {
-            "source": 65, 
-            "name": "herbalism", 
-            "target": 37
-        }, 
-        {
-            "source": 65, 
-            "name": "herbalism", 
-            "target": 23
-        }, 
-        {
-            "source": 68, 
-            "name": "carpentry", 
-            "target": 34
-        }, 
-        {
-            "source": 68, 
-            "name": "carpentry", 
-            "target": 22
-        }, 
-        {
-            "source": 69, 
-            "name": "programming", 
-            "target": 80
-        }, 
-        {
-            "source": 69, 
-            "name": "programming", 
-            "target": 17
-        }, 
-        {
-            "source": 69, 
-            "name": "programming", 
-            "target": 66
-        }, 
-        {
-            "source": 69, 
-            "name": "programming", 
-            "target": 90
-        }, 
-        {
-            "source": 70, 
-            "name": "play tuba", 
-            "target": 75
-        }, 
-        {
-            "source": 70, 
-            "name": "play tuba", 
-            "target": 43
-        }, 
-        {
-            "source": 71, 
-            "name": "yoga instructor", 
-            "target": 64
-        }, 
-        {
-            "source": 72, 
-            "name": "meditation instructor", 
+            "source": 52, 
+            "name": "plumbing", 
             "target": 9
         }, 
         {
-            "source": 72, 
+            "source": 52, 
+            "name": "plumbing", 
+            "target": 85
+        }, 
+        {
+            "source": 52, 
+            "name": "plumbing", 
+            "target": 93
+        }, 
+        {
+            "source": 54, 
+            "name": "baking", 
+            "target": 84
+        }, 
+        {
+            "source": 54, 
+            "name": "baking", 
+            "target": 53
+        }, 
+        {
+            "source": 54, 
+            "name": "baking", 
+            "target": 95
+        }, 
+        {
+            "source": 55, 
+            "name": "sewing", 
+            "target": 6
+        }, 
+        {
+            "source": 56, 
+            "name": "playing piano", 
+            "target": 21
+        }, 
+        {
+            "source": 56, 
+            "name": "playing piano", 
+            "target": 29
+        }, 
+        {
+            "source": 57, 
+            "name": "playing guitar", 
+            "target": 71
+        }, 
+        {
+            "source": 57, 
+            "name": "playing guitar", 
+            "target": 43
+        }, 
+        {
+            "source": 57, 
+            "name": "playing guitar", 
+            "target": 55
+        }, 
+        {
+            "source": 58, 
             "name": "meditation instructor", 
-            "target": 54
+            "target": 41
         }, 
         {
-            "source": 73, 
-            "name": "cooking", 
-            "target": 32
+            "source": 58, 
+            "name": "meditation instructor", 
+            "target": 66
         }, 
         {
-            "source": 73, 
-            "name": "cooking", 
-            "target": 42
+            "source": 58, 
+            "name": "meditation instructor", 
+            "target": 28
         }, 
         {
-            "source": 73, 
-            "name": "cooking", 
-            "target": 11
+            "source": 58, 
+            "name": "meditation instructor", 
+            "target": 31
         }, 
         {
-            "source": 73, 
-            "name": "cooking", 
-            "target": 74
+            "source": 60, 
+            "name": "ironing", 
+            "target": 27
         }, 
         {
-            "source": 76, 
-            "name": "graphic design", 
+            "source": 61, 
+            "name": "carpentry", 
+            "target": 86
+        }, 
+        {
+            "source": 62, 
+            "name": "lawn mowing", 
+            "target": 33
+        }, 
+        {
+            "source": 63, 
+            "name": "meditation instructor", 
             "target": 39
         }, 
         {
-            "source": 77, 
-            "name": "pizza making", 
-            "target": 40
+            "source": 65, 
+            "name": "ironing", 
+            "target": 27
         }, 
         {
-            "source": 77, 
-            "name": "pizza making", 
-            "target": 89
+            "source": 67, 
+            "name": "pick up/drop off", 
+            "target": 83
         }, 
         {
-            "source": 77, 
-            "name": "pizza making", 
-            "target": 19
+            "source": 67, 
+            "name": "pick up/drop off", 
+            "target": 67
+        }, 
+        {
+            "source": 68, 
+            "name": "cleaning", 
+            "target": 57
+        }, 
+        {
+            "source": 68, 
+            "name": "cleaning", 
+            "target": 5
+        }, 
+        {
+            "source": 69, 
+            "name": "bookkeeping", 
+            "target": 50
+        }, 
+        {
+            "source": 69, 
+            "name": "bookkeeping", 
+            "target": 63
+        }, 
+        {
+            "source": 70, 
+            "name": "carpentry", 
+            "target": 86
+        }, 
+        {
+            "source": 71, 
+            "name": "cleaning", 
+            "target": 57
+        }, 
+        {
+            "source": 71, 
+            "name": "cleaning", 
+            "target": 5
+        }, 
+        {
+            "source": 72, 
+            "name": "cleaning", 
+            "target": 57
+        }, 
+        {
+            "source": 72, 
+            "name": "cleaning", 
+            "target": 5
+        }, 
+        {
+            "source": 73, 
+            "name": "meditation instructor", 
+            "target": 39
+        }, 
+        {
+            "source": 74, 
+            "name": "cartooning", 
+            "target": 81
+        }, 
+        {
+            "source": 75, 
+            "name": "soccer instructor", 
+            "target": 25
+        }, 
+        {
+            "source": 75, 
+            "name": "soccer instructor", 
+            "target": 61
         }, 
         {
             "source": 78, 
-            "name": "yoga instructor", 
+            "name": "cartooning", 
+            "target": 16
+        }, 
+        {
+            "source": 79, 
+            "name": "animal grooming", 
             "target": 64
         }, 
         {
             "source": 79, 
-            "name": "weaving", 
-            "target": 41
-        }, 
-        {
-            "source": 80, 
-            "name": "putting up shelves", 
-            "target": 77
-        }, 
-        {
-            "source": 80, 
-            "name": "putting up shelves", 
-            "target": 47
-        }, 
-        {
-            "source": 81, 
-            "name": "driving a car", 
-            "target": 28
-        }, 
-        {
-            "source": 81, 
-            "name": "driving a car", 
-            "target": 61
-        }, 
-        {
-            "source": 82, 
-            "name": "cartooning", 
-            "target": 84
-        }, 
-        {
-            "source": 82, 
-            "name": "cartooning", 
-            "target": 68
-        }, 
-        {
-            "source": 83, 
-            "name": "cartooning", 
-            "target": 84
-        }, 
-        {
-            "source": 83, 
-            "name": "cartooning", 
-            "target": 68
-        }, 
-        {
-            "source": 85, 
-            "name": "cooking", 
-            "target": 83
-        }, 
-        {
-            "source": 85, 
-            "name": "cooking", 
-            "target": 51
-        }, 
-        {
-            "source": 85, 
-            "name": "cooking", 
-            "target": 55
-        }, 
-        {
-            "source": 86, 
-            "name": "herbalism", 
-            "target": 20
-        }, 
-        {
-            "source": 86, 
-            "name": "herbalism", 
-            "target": 29
-        }, 
-        {
-            "source": 87, 
-            "name": "party organizing", 
-            "target": 16
-        }, 
-        {
-            "source": 88, 
-            "name": "play tuba", 
-            "target": 75
-        }, 
-        {
-            "source": 88, 
-            "name": "play tuba", 
-            "target": 43
-        }, 
-        {
-            "source": 89, 
-            "name": "programming", 
-            "target": 57
-        }, 
-        {
-            "source": 89, 
-            "name": "programming", 
-            "target": 26
-        }, 
-        {
-            "source": 89, 
-            "name": "programming", 
-            "target": 53
-        }, 
-        {
-            "source": 90, 
-            "name": "herbalism", 
+            "name": "animal grooming", 
             "target": 82
         }, 
         {
-            "source": 90, 
-            "name": "herbalism", 
-            "target": 37
+            "source": 79, 
+            "name": "animal grooming", 
+            "target": 62
         }, 
         {
-            "source": 90, 
-            "name": "herbalism", 
-            "target": 23
+            "source": 80, 
+            "name": "pick up/drop off", 
+            "target": 40
         }, 
         {
-            "source": 91, 
-            "name": "party organizing", 
-            "target": 16
-        }, 
-        {
-            "source": 92, 
-            "name": "herbalism", 
-            "target": 20
-        }, 
-        {
-            "source": 92, 
-            "name": "herbalism", 
-            "target": 29
-        }, 
-        {
-            "source": 93, 
-            "name": "cartooning", 
-            "target": 84
-        }, 
-        {
-            "source": 93, 
-            "name": "cartooning", 
-            "target": 68
-        }, 
-        {
-            "source": 94, 
-            "name": "cooking", 
-            "target": 83
-        }, 
-        {
-            "source": 94, 
-            "name": "cooking", 
-            "target": 51
-        }, 
-        {
-            "source": 94, 
-            "name": "cooking", 
-            "target": 55
-        }, 
-        {
-            "source": 95, 
-            "name": "weaving", 
-            "target": 41
-        }, 
-        {
-            "source": 96, 
-            "name": "electronics fixed", 
-            "target": 59
-        }, 
-        {
-            "source": 96, 
-            "name": "electronics fixed", 
-            "target": 27
-        }, 
-        {
-            "source": 97, 
-            "name": "drawing", 
-            "target": 94
-        }, 
-        {
-            "source": 97, 
-            "name": "drawing", 
-            "target": 79
-        }, 
-        {
-            "source": 99, 
-            "name": "dog training", 
-            "target": 72
-        }, 
-        {
-            "source": 99, 
-            "name": "dog training", 
-            "target": 49
-        }, 
-        {
-            "source": 100, 
-            "name": "hairstyling", 
-            "target": 91
-        }, 
-        {
-            "source": 108, 
-            "name": "cooking", 
-            "target": 32
-        }, 
-        {
-            "source": 108, 
-            "name": "cooking", 
+            "source": 80, 
+            "name": "pick up/drop off", 
             "target": 42
         }, 
         {
-            "source": 108, 
-            "name": "cooking", 
+            "source": 80, 
+            "name": "pick up/drop off", 
+            "target": 36
+        }, 
+        {
+            "source": 84, 
+            "name": "bookkeeping", 
+            "target": 50
+        }, 
+        {
+            "source": 84, 
+            "name": "bookkeeping", 
+            "target": 63
+        }, 
+        {
+            "source": 85, 
+            "name": "meditation instructor", 
+            "target": 1
+        }, 
+        {
+            "source": 85, 
+            "name": "meditation instructor", 
             "target": 11
         }, 
         {
-            "source": 108, 
-            "name": "cooking", 
-            "target": 74
+            "source": 86, 
+            "name": "cartooning", 
+            "target": 81
+        }, 
+        {
+            "source": 88, 
+            "name": "meditation instructor", 
+            "target": 1
+        }, 
+        {
+            "source": 88, 
+            "name": "meditation instructor", 
+            "target": 11
+        }, 
+        {
+            "source": 90, 
+            "name": "programming", 
+            "target": 91
+        }, 
+        {
+            "source": 90, 
+            "name": "programming", 
+            "target": 22
+        }, 
+        {
+            "source": 92, 
+            "name": "writing poetry", 
+            "target": 98
+        }, 
+        {
+            "source": 93, 
+            "name": "plumbing", 
+            "target": 9
+        }, 
+        {
+            "source": 93, 
+            "name": "plumbing", 
+            "target": 85
+        }, 
+        {
+            "source": 93, 
+            "name": "plumbing", 
+            "target": 93
+        }, 
+        {
+            "source": 95, 
+            "name": "hairstyling", 
+            "target": 49
+        }, 
+        {
+            "source": 96, 
+            "name": "programming", 
+            "target": 91
+        }, 
+        {
+            "source": 96, 
+            "name": "programming", 
+            "target": 22
+        }, 
+        {
+            "source": 97, 
+            "name": "cartooning", 
+            "target": 81
+        }, 
+        {
+            "source": 99, 
+            "name": "cleaning", 
+            "target": 57
+        }, 
+        {
+            "source": 99, 
+            "name": "cleaning", 
+            "target": 5
+        }, 
+        {
+            "source": 100, 
+            "name": "playing piano", 
+            "target": 21
+        }, 
+        {
+            "source": 100, 
+            "name": "playing piano", 
+            "target": 29
         }
     ], 
     "multigraph": false

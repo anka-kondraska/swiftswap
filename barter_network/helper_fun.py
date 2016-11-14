@@ -5,10 +5,11 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 # createdb -E UTF8 -T template0 --locale=en_US.utf8 barternet
 
-
+import sys
+sys.path.append('..')
 
 from model import db, User, Skill, UserSkill
-from network import Z
+# from network import Z
 
 
 

@@ -1,8 +1,8 @@
-from faker import Faker
+from faker import Faker, Factory
 from random import choice, sample,randrange
 import numpy as np
 
-fake = Faker()
+fake = Factory.create('en_US')
 
 fake.seed(4321)
 

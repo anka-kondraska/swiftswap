@@ -1,29 +1,33 @@
 """Barter Network App"""
+from barter_network import app
 
 from jinja2 import StrictUndefined
 
 from flask import render_template, request, flash, redirect, session
 
 
-
 from model import connect_to_db, db, User, Skill, UserSkill
 import bcrypt
 import os
 
-import helper_fun
-from network import Z
+# import helper_fun
+# from network import Z
+
+import sys
+sys.path.append('..')
+
 from barter_network import app
+
+
 
 app.jinja_env.undefined = StrictUndefined
 app.jinja_env.auto_reload = True
 
 
-# app = Flask(__name__)
-
 app.secret_key = os.environ["APP_KEY"]
 map_key = os.environ["GOOGLE_API_KEY"]
 
-connect_to_db(app)
+
 
 @app.route('/')
 def index():
@@ -67,7 +71,7 @@ def barter_up_process():
 
         session['user_id'] = new_user.user_id
         flash('You are now logged in!')
-        helper_fun.add_node(new_user.user_id,new_user.user_fname)
+        # helper_fun.add_node(new_user.user_id,new_user.user_fname)
     return render_template("user_skill.html", user=new_user)
 
 
@@ -141,11 +145,13 @@ def user_skill():
     return redirect("/users/%s" % user.user_id)
 
 @app.route('/update_skill')
+def update_skill():
+    pass
+
 
 @app.route('/login', methods=['GET'])
 def login_form():
     """Show login form."""
-
     return render_template("login_form.html")
 
 
@@ -178,13 +184,14 @@ def login_process():
 
 
 
-
-
 ####################
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
+#     connect_to_db(app)
+#     DebugToolbarExtension(app)
+#     app.run(host='0.0.0.0', debug=True)
 
     
-    connect_to_db(app)
+    
 
     

@@ -3,6 +3,8 @@
 from flask_sqlalchemy import SQLAlchemy
 import datetime
 import bcrypt
+import sys
+sys.path.append('..')
 
 db = SQLAlchemy()
 
@@ -111,7 +113,8 @@ def connect_to_db(app):
 
 if __name__ == "__main__":
 
-    # from server import app
+    from barter_network import app
+    
+    db.create_all()
     connect_to_db(app)
-    # db.create_all()
     print "Connected to barternet"

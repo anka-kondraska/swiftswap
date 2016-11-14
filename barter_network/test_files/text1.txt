@@ -1,6 +1,0 @@
-anka|nails|gardening
-jane|gardening|painting
-joe|painting|dog walking
-michael|dog walking|programming
-jason|programming|plumbing
-bob|plumbing|nails

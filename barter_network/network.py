@@ -7,10 +7,10 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 # createdb -E UTF8 -T template0 --locale=en_US.utf8 barternet
 
-
+import sys
+sys.path.append('..')
 
 from model import connect_to_db, db, User, Skill, UserSkill
-# from server import app
 from barter_network import app
 connect_to_db(app)
 
@@ -39,18 +39,18 @@ def add_edges(skill_to, skill_from):
 
 add_edges(skill_to, skill_from)
 
-def create_graph(graph=Z):
-    plt.figure(1)
-    pos = nx.spring_layout(Z)
-    nx.draw(Z, pos, node_color="r",edge_color='blue', #with_labels=True,
-        alpha=0.5, node_size=700, width=1, font_size=15, scale=30)
-    node_labels = nx.get_node_attributes(Z, 'name')
-    nx.draw_networkx_labels(Z, pos, labels=node_labels)
-    edge_labels = nx.get_edge_attributes(Z, 'name')
-    nx.draw_networkx_edge_labels(Z, pos, labels=edge_labels)
-    plt.savefig(FILE_PATH+'/graph1.png')
+# def create_graph(graph=Z):
+#     plt.figure(1)
+#     pos = nx.spring_layout(Z)
+#     nx.draw(Z, pos, node_color="r",edge_color='blue', #with_labels=True,
+#         alpha=0.5, node_size=700, width=1, font_size=15, scale=30)
+#     node_labels = nx.get_node_attributes(Z, 'name')
+#     nx.draw_networkx_labels(Z, pos, labels=node_labels)
+#     edge_labels = nx.get_edge_attributes(Z, 'name')
+#     nx.draw_networkx_edge_labels(Z, pos, labels=edge_labels)
+#     plt.savefig(FILE_PATH+'/graph1.png')
 
-create_graph(Z)
+# create_graph(Z)
 
 
 # def save(G, fname):
@@ -60,11 +60,23 @@ create_graph(Z)
 # save(Z, 'static/graph1.json')
 
 
-# def find_closed_loop(Z):
-#     print [loop for loop in nx.simple_cycles(Z)]
-        
-# print list(nx.simple_cycles(Z))
-one = [line for line in list(nx.simple_cycles(Z)) if line[0]==5]
+
+# def closed_loop_user(Z,user_id):
+#     user_loops = [line for line in list(nx.simple_cycles(Z)) if line[0]==user_id]
+#     for line in user_loops:
+#         if 
+
+
+# # print len(one[0])
+# ls=[]
+# for i in range(len(one[0])-1):
+#     ls.append((one[0][i:i+2]))
+# ls.append((one[0][-1],one[0][0]))
+
+
+
+one = [line for line in list(nx.simple_cycles(Z)) if line[0]==67]
+print one
 B = nx.DiGraph()
 B.clear
 

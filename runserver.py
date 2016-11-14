@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 from barter_network import app
 from flask_debugtoolbar import DebugToolbarExtension
 

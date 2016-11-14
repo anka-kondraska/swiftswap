@@ -27,6 +27,7 @@
       <ul class="nav navbar-nav navbar-right">
       {% if 'user_id' in session %}
         <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Barter Out!</a></li>
+         <li><a href="/users/{{ session['user_id'] }}"><span class="glyphicon glyphicon-user" ></span>Profile</a></li>
       {% else %}
 
         <li><a href="/register" data-toggle="modal" data-target=="#basicModal"><span class="glyphicon glyphicon-user" ></span> Sign Up</a></li>

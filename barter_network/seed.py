@@ -3,14 +3,14 @@
 from sqlalchemy import func
 from model import User, UserSkill, Skill, connect_to_db, db
 
-from server import app
-connect_to_db(app)
+import sys
+sys.path.append('..')
+
+from barter_network import app
+
+
 
 import bcrypt
-
-
-
-
 
 
 def load_users():
@@ -97,10 +97,11 @@ def load_skills():
 #     db.session.execute(query_skill, {'new_id_skill': max_id_userskill+1})
 #     db.session.commit()
 
+
 if __name__ == "__main__":
 
     
-    
+    connect_to_db(app)
     db.drop_all()
     db.create_all()
 
