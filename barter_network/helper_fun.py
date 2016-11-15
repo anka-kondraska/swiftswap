@@ -9,7 +9,7 @@ import sys
 sys.path.append('..')
 
 from model import db, User, Skill, UserSkill
-# from network import Z
+from network import Z
 
 
 

@@ -401,6 +401,10 @@
         {
             "name": "Zachary", 
             "id": 100
+        }, 
+        {
+            "name": "anka", 
+            "id": 101
         }
     ], 
     "links": [
@@ -985,6 +989,11 @@
             "target": 5
         }, 
         {
+            "source": 68, 
+            "name": "cleaning", 
+            "target": 101
+        }, 
+        {
             "source": 69, 
             "name": "bookkeeping", 
             "target": 50
@@ -1010,6 +1019,11 @@
             "target": 5
         }, 
         {
+            "source": 71, 
+            "name": "cleaning", 
+            "target": 101
+        }, 
+        {
             "source": 72, 
             "name": "cleaning", 
             "target": 57
@@ -1018,6 +1032,11 @@
             "source": 72, 
             "name": "cleaning", 
             "target": 5
+        }, 
+        {
+            "source": 72, 
+            "name": "cleaning", 
+            "target": 101
         }, 
         {
             "source": 73, 
@@ -1168,6 +1187,11 @@
             "source": 99, 
             "name": "cleaning", 
             "target": 5
+        }, 
+        {
+            "source": 99, 
+            "name": "cleaning", 
+            "target": 101
         }, 
         {
             "source": 100, 

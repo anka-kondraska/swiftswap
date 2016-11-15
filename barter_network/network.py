@@ -23,6 +23,8 @@ skill_from = db.session.query(UserSkill,Skill.skill_name).join(Skill).filter(Use
 
 Z = nx.DiGraph()
 Z.clear
+B = nx.DiGraph()
+B.clear
 
 def add_nodes(data):
     for a in data:
@@ -74,17 +76,66 @@ add_edges(skill_to, skill_from)
 # ls.append((one[0][-1],one[0][0]))
 
 
+# for line in list(nx.simple_cycles(Z)):
+#     print line
 
-one = [line for line in list(nx.simple_cycles(Z)) if line[0]==67]
-print one
-B = nx.DiGraph()
-B.clear
+def find_loop(Z, user):
+    try:
+        loop = min([line for line in list(nx.simple_cycles(Z)) if line[0]==user], key=len)
+        print loop
+        return loop
+    except:
+        message = 'No closed loop'
+        print message
+        return message
+        
+# lp = find_loop(Z, 16) 
+# print lp
+
+
+def generate_edges(loop_nodes):
+    ls = []
+    for i in xrange(len(loop_nodes)-1):
+        ls.append((loop_nodes[i],loop_nodes[i+1]))
+    ls.append((loop_nodes[-1],loop_nodes[0]))
+    return ls
+
+# ed = generate_edges(lp)
+# print ed
+
+a = nx.get_node_attributes(Z, 'name')
+# {1: u'Jonathan', 2: u'Ryan', 3: u'Mason'}
+b = nx.get_edge_attributes(Z, 'name')
+# {(79, 64): u'animal grooming', (80, 40): u'pick up/drop off', (45, 58): u'tailoring'}
+
+
+def add_attributes(B, nodes, edges):
+    for node in nodes:
+        if node in a:
+            B.add_node(node, {'name':a[node]})
+    for edge in edges:
+        if edge in b:
+            B.add_edge(a[edge[0]],a[edge[1]], name=b[edge])
+            # B.add_edge(edge[0],edge[1], name=b[edge])
+
+
+
+# add_attributes(B, lp, ed)
+# print B.nodes(data=True)
+# print
+# print B.edges(data=True)
+
+
+# one = [line for line in list(nx.simple_cycles(Z)) if line[0]==67]
+# print one
+# B = nx.DiGraph()
+# B.clear
 
 # print len(one[0])
-ls=[]
-for i in range(len(one[0])-1):
-    ls.append((one[0][i:i+2]))
-ls.append((one[0][-1],one[0][0]))
+# ls=[]
+# for i in range(len(one[0])-1):
+#     ls.append((one[0][i:i+2]))
+# ls.append((one[0][-1],one[0][0]))
 
 # ls=[(one[0][0:2]),(one[0][1:3]),(one[0][2:4]),(one[0][3:5]),(one[0][-1],one[0][0])]
 
@@ -93,11 +144,11 @@ ls.append((one[0][-1],one[0][0]))
 #     print nx.edges(Z,[i])
 #     print Z.out_edges(i)
 
-plt.figure(2)
-B.add_nodes_from(one[0])
-B.add_edges_from(ls)
-nx.draw_networkx(B, with_labels=True)
-plt.savefig('barter_network/static/loop1.png')
+# plt.figure(2)
+# B.add_nodes_from(one[0])
+# B.add_edges_from(ls)
+# nx.draw_networkx(B, with_labels=True)
+# plt.savefig('barter_network/static/loop1.png')
 
 
 
@@ -197,14 +248,15 @@ def json_my_net_data(Z):
     with open(FILE_PATH+'/graph1.json', 'w') as f:
         json.dump(data,f,indent=4)
 
-json_my_net_data(Z)
+# json_my_net_data(Z)
 
 def json_my_smallnet_data(B):
     data = node_link_data(B)
+    print data
     with open('barter_network/static/smallgraph.json', 'w') as f:
         json.dump(data,f,indent=4)
         
-json_my_smallnet_data(B)
+# json_my_smallnet_data(B)
 
 
 

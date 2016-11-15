@@ -10,8 +10,8 @@ from model import connect_to_db, db, User, Skill, UserSkill
 import bcrypt
 import os
 
-# import helper_fun
-# from network import Z
+import helper_fun
+import network
 
 import sys
 sys.path.append('..')
@@ -71,7 +71,7 @@ def barter_up_process():
 
         session['user_id'] = new_user.user_id
         flash('You are now logged in!')
-        # helper_fun.add_node(new_user.user_id,new_user.user_fname)
+        helper_fun.add_node(new_user.user_id,new_user.user_fname)
     return render_template("user_skill.html", user=new_user)
 
 
@@ -80,6 +80,13 @@ def user_detail(user_id):
     """Show info about user."""
 
     user = User.query.get(user_id)
+
+    # info for the smaller closed loop graph
+    network.B.clear
+    lp = network.find_loop(network.Z, user_id)
+    ed = network.generate_edges(lp)
+    network.add_attributes(network.B, lp, ed)
+    network.json_my_smallnet_data(network.B)
     return render_template("user_profile.html", user=user,map_key_api = map_key)
 
 
@@ -142,7 +149,7 @@ def user_skill():
         db.session.add(new_userskill)
         db.session.commit()
         flash("your skills have been added to our network")
-    return redirect("/users/%s" % user.user_id)
+    return redirect("/users/%s" % session['user_id'])
 
 @app.route('/update_skill')
 def update_skill():
@@ -180,7 +187,17 @@ def login_process():
     flash("Logged in")
     return redirect("/users/%s" % user.user_id)
 
-
+@app.after_request
+def add_header(r):
+    """
+    Add headers to both force latest IE rendering engine or Chrome Frame,
+    and also to cache the rendered page for 10 minutes.
+    """
+    r.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    r.headers["Pragma"] = "no-cache"
+    r.headers["Expires"] = "0"
+    r.headers['Cache-Control'] = 'public, max-age=0'
+    return r
 
 
 

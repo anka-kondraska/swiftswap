@@ -8,8 +8,6 @@ sys.path.append('..')
 
 from barter_network import app
 
-
-
 import bcrypt
 
 

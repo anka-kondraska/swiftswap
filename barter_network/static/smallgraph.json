@@ -1,16 +1,7 @@
 {
     "directed": true, 
     "graph": {}, 
-    "nodes": [
-        {
-            "id": 67
-        }
-    ], 
-    "links": [
-        {
-            "source": 67, 
-            "target": 67
-        }
-    ], 
+    "nodes": [], 
+    "links": [], 
     "multigraph": false
 }
