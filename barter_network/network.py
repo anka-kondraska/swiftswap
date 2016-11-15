@@ -156,20 +156,6 @@ def add_attributes(B, nodes, edges):
 # print B.edges(data=True)
 
 
-# one = [line for line in list(nx.simple_cycles(Z)) if line[0]==67]
-# print one
-# B = nx.DiGraph()
-# B.clear
-
-# print len(one[0])
-# ls=[]
-# for i in range(len(one[0])-1):
-#     ls.append((one[0][i:i+2]))
-# ls.append((one[0][-1],one[0][0]))
-
-# ls=[(one[0][0:2]),(one[0][1:3]),(one[0][2:4]),(one[0][3:5]),(one[0][-1],one[0][0])]
-
-
 # for i in one[0]:
 #     print nx.edges(Z,[i])
 #     print Z.out_edges(i)
