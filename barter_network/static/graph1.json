@@ -405,6 +405,14 @@
         {
             "name": "anka", 
             "id": 101
+        }, 
+        {
+            "name": "john", 
+            "id": 102
+        }, 
+        {
+            "name": "rachel", 
+            "id": 103
         }
     ], 
     "links": [
@@ -1164,6 +1172,11 @@
             "target": 49
         }, 
         {
+            "source": 95, 
+            "name": "hairstyling", 
+            "target": 102
+        }, 
+        {
             "source": 96, 
             "name": "programming", 
             "target": 91
@@ -1202,6 +1215,16 @@
             "source": 100, 
             "name": "playing piano", 
             "target": 29
+        }, 
+        {
+            "source": 102, 
+            "name": "speak English", 
+            "target": 73
+        }, 
+        {
+            "source": 102, 
+            "name": "speak English", 
+            "target": 89
         }
     ], 
     "multigraph": false

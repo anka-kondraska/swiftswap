@@ -26,7 +26,7 @@ Z.clear
 B = nx.DiGraph()
 B.clear
 
-def add_nodes(data):
+def add_nodes( data):
     for a in data:
         Z.add_node(a[0],name=a[1])
     # print Z.nodes(data=True)
@@ -82,23 +82,52 @@ add_edges(skill_to, skill_from)
 def find_loop(Z, user):
     try:
         loop = min([line for line in list(nx.simple_cycles(Z)) if line[0]==user], key=len)
+        message = "Loop Found"
         print loop
         return loop
     except:
-        message = 'No closed loop'
+        message = 'Loop Not Found'
         print message
         return message
         
 # lp = find_loop(Z, 16) 
 # print lp
 
+def find_other(Z, user):
+    top_num = max(Z.nodes())
+    for num in xrange(1,top_num+1):
+        try:
+            path = [line for line in nx.shortest_path(Z, user, num)]
+            if path:
+                print path
+                return path
+            num += 1
+            print num
+        except:
+            message = "Path Not Found"
+            print message
+    return message
 
-def generate_edges(loop_nodes):
+print '>>>>PATHS'
+ab = find_other(Z, 15)
+print ab
+
+def generate_edges(nodes):
+    ls = []
+    for i in xrange(len(nodes)-1):
+        ls.append((nodes[i],nodes[i+1]))
+    return ls
+cd = generate_edges(ab)
+print cd 
+
+def generate_loop_edges(loop_nodes):
     ls = []
     for i in xrange(len(loop_nodes)-1):
         ls.append((loop_nodes[i],loop_nodes[i+1]))
     ls.append((loop_nodes[-1],loop_nodes[0]))
     return ls
+
+
 
 # ed = generate_edges(lp)
 # print ed
@@ -110,6 +139,7 @@ b = nx.get_edge_attributes(Z, 'name')
 
 
 def add_attributes(B, nodes, edges):
+    B.clear
     for node in nodes:
         if node in a:
             B.add_node(node, {'name':a[node]})

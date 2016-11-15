@@ -1,5 +1,6 @@
 """Barter Network App"""
 from barter_network import app
+import random
 
 from jinja2 import StrictUndefined
 
@@ -71,7 +72,7 @@ def barter_up_process():
 
         session['user_id'] = new_user.user_id
         flash('You are now logged in!')
-        helper_fun.add_node(new_user.user_id,new_user.user_fname)
+        helper_fun.add_node(network.Z, new_user.user_id,new_user.user_fname)
     return render_template("user_skill.html", user=new_user)
 
 
@@ -84,9 +85,18 @@ def user_detail(user_id):
     # info for the smaller closed loop graph
     network.B.clear
     lp = network.find_loop(network.Z, user_id)
-    ed = network.generate_edges(lp)
+    if lp == "Loop Not Found":
+        lp = network.find_other(network.Z, user_id)
+        ed = network.generate_edges(lp)
+        network.add_attributes(network.B, lp, ed)
+
+    ed = network.generate_loop_edges(lp)
     network.add_attributes(network.B, lp, ed)
+
     network.json_my_smallnet_data(network.B)
+    print network.B.nodes(data=True)
+    print network.B.edges(data=True)
+
     return render_template("user_profile.html", user=user,map_key_api = map_key)
 
 
@@ -149,6 +159,10 @@ def user_skill():
         db.session.add(new_userskill)
         db.session.commit()
         flash("your skills have been added to our network")
+        network.add_edges(network.skill_to, network.skill_from)
+        network.json_my_net_data(network.Z)
+        print network.Z.nodes(data=True)
+        print network.Z.edges(data=True)
     return redirect("/users/%s" % session['user_id'])
 
 @app.route('/update_skill')

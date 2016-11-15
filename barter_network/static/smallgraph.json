@@ -1,7 +1,177 @@
 {
     "directed": true, 
     "graph": {}, 
-    "nodes": [], 
-    "links": [], 
+    "nodes": [
+        {
+            "name": "Jonathan", 
+            "id": 1
+        }, 
+        {
+            "id": "Ian"
+        }, 
+        {
+            "id": "Robert"
+        }, 
+        {
+            "name": "Caitlin", 
+            "id": 15
+        }, 
+        {
+            "name": "Arthur", 
+            "id": 16
+        }, 
+        {
+            "id": "Kimberly"
+        }, 
+        {
+            "id": "Brittney"
+        }, 
+        {
+            "name": "Charles", 
+            "id": 20
+        }, 
+        {
+            "name": "Ian", 
+            "id": 24
+        }, 
+        {
+            "name": "Carol", 
+            "id": 25
+        }, 
+        {
+            "id": "Jonathan"
+        }, 
+        {
+            "name": "Brittney", 
+            "id": 28
+        }, 
+        {
+            "name": "Robert", 
+            "id": 29
+        }, 
+        {
+            "id": "John"
+        }, 
+        {
+            "name": "Kimberly", 
+            "id": 40
+        }, 
+        {
+            "name": "Nicole", 
+            "id": 43
+        }, 
+        {
+            "id": "Caitlin"
+        }, 
+        {
+            "name": "Mark", 
+            "id": 57
+        }, 
+        {
+            "id": "Carol"
+        }, 
+        {
+            "id": "Beth"
+        }, 
+        {
+            "name": "Beth", 
+            "id": 75
+        }, 
+        {
+            "id": "Zachary"
+        }, 
+        {
+            "id": "Arthur"
+        }, 
+        {
+            "id": "Mark"
+        }, 
+        {
+            "name": "John", 
+            "id": 99
+        }, 
+        {
+            "name": "Zachary", 
+            "id": 100
+        }, 
+        {
+            "id": "Charles"
+        }, 
+        {
+            "id": "Nicole"
+        }
+    ], 
+    "links": [
+        {
+            "source": "Ian", 
+            "name": "driving a car", 
+            "target": "Caitlin"
+        }, 
+        {
+            "source": "Robert", 
+            "name": "bread making", 
+            "target": "John"
+        }, 
+        {
+            "source": "Kimberly", 
+            "name": "meditation instructor", 
+            "target": "Brittney"
+        }, 
+        {
+            "source": "Brittney", 
+            "name": "meditation instructor", 
+            "target": "Jonathan"
+        }, 
+        {
+            "source": "Jonathan", 
+            "name": "laundry", 
+            "target": "Ian"
+        }, 
+        {
+            "source": "John", 
+            "name": "cleaning", 
+            "target": "Mark"
+        }, 
+        {
+            "source": "Caitlin", 
+            "name": "laundry", 
+            "target": "Beth"
+        }, 
+        {
+            "source": "Carol", 
+            "name": "cartooning", 
+            "target": "Arthur"
+        }, 
+        {
+            "source": "Beth", 
+            "name": "soccer instructor", 
+            "target": "Carol"
+        }, 
+        {
+            "source": "Zachary", 
+            "name": "playing piano", 
+            "target": "Robert"
+        }, 
+        {
+            "source": "Arthur", 
+            "name": "dog training", 
+            "target": "Zachary"
+        }, 
+        {
+            "source": "Mark", 
+            "name": "playing guitar", 
+            "target": "Nicole"
+        }, 
+        {
+            "source": "Charles", 
+            "name": "pick up/drop off", 
+            "target": "Kimberly"
+        }, 
+        {
+            "source": "Nicole", 
+            "name": "beer making", 
+            "target": "Charles"
+        }
+    ], 
     "multigraph": false
 }

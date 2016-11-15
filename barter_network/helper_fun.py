@@ -13,7 +13,7 @@ from network import Z
 
 
 
-def add_node(u_id, name):
+def add_node(Z, u_id, name):
     Z.add_node(u_id,{'name':name})
 
 
