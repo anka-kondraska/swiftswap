@@ -94,10 +94,10 @@ def user_detail(user_id):
     network.add_attributes(network.B, lp, ed)
 
     network.json_my_smallnet_data(network.B)
-    print network.B.nodes(data=True)
-    print network.B.edges(data=True)
+    print ">>>B nodes",network.B.nodes(data=True)
+    print ">>>B edges",network.B.edges(data=True)
 
-    return render_template("user_profile.html", user=user,map_key_api = map_key)
+    return render_template("user_profile.html", user=user, map_key_api = map_key)
 
 
 
@@ -106,7 +106,20 @@ def user_detail(user_id):
 def cycle_data():
     """JSON information about ."""
 
+    # info for the smaller closed loop graph
+    # network.B.clear
+    # lp = network.find_loop(network.Z, user_id)
+    # if lp == "Loop Not Found":
+    #     lp = network.find_other(network.Z, user_id)
+    #     ed = network.generate_edges(lp)
+    #     network.add_attributes(network.B, lp, ed)
 
+    # ed = network.generate_loop_edges(lp)
+    # network.add_attributes(network.B, lp, ed)
+
+    # graph_data = network.json_my_smallnet_data(network.B)
+    # print ">>>B nodes",network.B.nodes(data=True)
+    # print ">>>B edges",network.B.edges(data=True)
 
     # cycles = {
     #     bear.marker_id: {
@@ -159,7 +172,9 @@ def user_skill():
         db.session.add(new_userskill)
         db.session.commit()
         flash("your skills have been added to our network")
-        network.add_edges(network.skill_to, network.skill_from)
+        skillto = network.skill_to
+        skillfrom = network.skill_from
+        network.add_edges(skillto,skillfrom )
         network.json_my_net_data(network.Z)
         print network.Z.nodes(data=True)
         print network.Z.edges(data=True)

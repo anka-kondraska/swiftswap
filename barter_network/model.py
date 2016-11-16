@@ -32,7 +32,7 @@ class User(db.Model):
     user_city = db.Column(db.String(64), nullable=True)
     user_state = db.Column(db.String(2), nullable=True)
     user_zipcode = db.Column(db.String(15), nullable=True)
-    user_dob = db.Column(db.DateTime, nullable=True) 
+    user_dob = db.Column(db.DateTime, nullable=True)
     user_occupation = db.Column(db.String(62), nullable=True)
 
     user_lat = db.Column(db.Float, nullable=True)

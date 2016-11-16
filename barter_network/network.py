@@ -16,7 +16,7 @@ connect_to_db(app)
 
 FILE_PATH = 'barter_network/static'
 
-nodes = db.session.query(UserSkill.user_id,User.user_fname).join(User).all() 
+nodes = db.session.query(UserSkill.user_id,User.user_fname).join(User).all()
 skill_to = UserSkill.query.filter(UserSkill.skill_direction =='to').all()
 skill_from = db.session.query(UserSkill,Skill.skill_name).join(Skill).filter(UserSkill.skill_direction=='from').all()
 
@@ -108,17 +108,17 @@ def find_other(Z, user):
             print message
     return message
 
-print '>>>>PATHS'
-ab = find_other(Z, 15)
-print ab
+# print '>>>>PATHS'
+# ab = find_other(Z, 15)
+# print ab
 
 def generate_edges(nodes):
     ls = []
     for i in xrange(len(nodes)-1):
         ls.append((nodes[i],nodes[i+1]))
     return ls
-cd = generate_edges(ab)
-print cd 
+# cd = generate_edges(ab)
+# print cd 
 
 def generate_loop_edges(loop_nodes):
     ls = []
@@ -268,9 +268,10 @@ json_my_net_data(Z)
 
 def json_my_smallnet_data(B):
     data = node_link_data(B)
-    print data
-    with open('barter_network/static/smallgraph.json', 'w') as f:
-        json.dump(data,f,indent=4)
+    return data
+    # print data
+    # with open('barter_network/static/smallgraph.json', 'w') as f:
+    #     json.dump(data,f,indent=4)
         
 # json_my_smallnet_data(B)
 

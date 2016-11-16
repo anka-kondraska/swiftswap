@@ -3,66 +3,85 @@
     "graph": {}, 
     "nodes": [
         {
-            "name": "Mary", 
-            "id": 96
+            "id": "Ian"
         }, 
         {
-            "id": "Jeffrey"
+            "id": "Joseph"
         }, 
         {
-            "name": "Jeffrey", 
-            "id": 99
+            "name": "Jacob", 
+            "id": 98
         }, 
         {
-            "id": "Jenny"
+            "name": "Joseph", 
+            "id": 3
         }, 
         {
-            "name": "Jenny", 
-            "id": 10
+            "name": "Ian", 
+            "id": 40
         }, 
         {
-            "id": "Michael"
+            "id": "Robert"
         }, 
         {
-            "name": "Madeline", 
-            "id": 35
+            "id": "Jacob"
         }, 
         {
-            "id": "Madeline"
+            "name": "Christopher", 
+            "id": 46
         }, 
         {
-            "name": "Michael", 
-            "id": 25
+            "name": "Robert", 
+            "id": 17
         }, 
         {
-            "id": "Mary"
+            "id": "Daniel"
+        }, 
+        {
+            "id": "Christopher"
+        }, 
+        {
+            "id": "Steven"
+        }, 
+        {
+            "name": "Daniel", 
+            "id": 56
+        }, 
+        {
+            "name": "Steven", 
+            "id": 59
         }
     ], 
     "links": [
         {
-            "source": "Jeffrey", 
-            "name": "drawing", 
-            "target": "Madeline"
+            "source": "Ian", 
+            "name": "massage", 
+            "target": "Christopher"
         }, 
         {
-            "source": "Jenny", 
+            "source": "Robert", 
+            "name": "tutoring in humanities", 
+            "target": "Steven"
+        }, 
+        {
+            "source": "Jacob", 
             "name": "playing piano", 
-            "target": "Michael"
+            "target": "Ian"
         }, 
         {
-            "source": "Michael", 
-            "name": "gardening", 
-            "target": "Mary"
+            "source": "Daniel", 
+            "name": "drawing", 
+            "target": "Jacob"
         }, 
         {
-            "source": "Madeline", 
+            "source": "Christopher", 
             "name": "tailoring", 
-            "target": "Jenny"
+            "target": "Joseph"
         }, 
         {
-            "source": "Mary", 
-            "name": "haircut for straight", 
-            "target": "Jeffrey"
+            "source": "Steven", 
+            "name": "graphic design", 
+            "target": "Daniel"
         }
     ], 
     "multigraph": false
