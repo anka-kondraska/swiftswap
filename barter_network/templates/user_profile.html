@@ -1,19 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
+
 <style type="text/css">#user-map { height: 400px; width:400px; }</style>
-<style>
-
-/*.links line {
-  stroke: #999;
-  stroke-opacity: 0.6;
-}
-
-.nodes circle {
-  stroke: #fff;
-  stroke-width: 1.5px;
-}*/
-
-</style>
 <style>
 
 path.link {
@@ -233,27 +221,28 @@ http://bl.ocks.org/mbostock/4062045 -->
 
 
 <!-- USER DATA -->
+<input type='hidden' id='fname' value='{{user.user_fname}}'>
+<input type='hidden' id='lname' value='{{user.user_lname}}'>
 <input type='hidden' id='street-address' value='{{user.user_street_address}}'>
 <input type='hidden' id='city' value='{{user.user_city}}'>
 <input type='hidden' id='state' value='{{user.user_state}}'>
 <input type='hidden' id='zipcode' value='{{user.user_zipcode}}'>
+<input type='hidden' id='lat' value='{{user.user_lat}}'>
+<input type='hidden' id='lng' value='{{user.user_lng}}'>
 
 <!-- MAP -->
 <div id="user-map"></div>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key={{map_key_api}}&callback=initMap"></script>
-
-
     <script type="text/javascript">
-    var map;
+    
     var geocoder;
 
     function initMap() {
         console.log("inside initmap");
-      var myLatLng = {lat: 0, lng: 0};
+      
       var mapOptions = { 
-        center: myLatLng,
+        center:{lat:40.4385,lng:-99.3945},
         scrollwheel: false,
-        zoom: 15,
+        zoom: 10,
         zoomControl: true,
         panControl: false,
         streetViewControl: false,
@@ -263,9 +252,25 @@ http://bl.ocks.org/mbostock/4062045 -->
     var infoWindow = new google.maps.InfoWindow({
           width: 150
       });
-    
+    debugger;
 
-      map = new google.maps.Map(document.getElementById('user-map'), mapOptions);
+      var map = new google.maps.Map(document.getElementById('user-map'), mapOptions);
+
+      var lat = $('#lat').val();
+      var lng = $('#lng').val();
+      console.log(lat);
+      console.log(lng);
+      var fname = $('#fname').val();
+      var lname = $('#lname').val();
+
+debugger;
+      var marker = new google.maps.Marker({
+      position: {lat:parseFloat(lat),lng:parseFloat(lng)},
+      map: map,
+      title: fname
+    });
+      
+    console.log(marker);
 
       geocoder = new google.maps.Geocoder();
       // var streetAddress = document.getElementById('street-address').value;
@@ -275,23 +280,23 @@ http://bl.ocks.org/mbostock/4062045 -->
 
 
      
-      var street_address = $('#street-address').val();
-      var city = $('#city').val();
-      var state = $('#state').val();
-      var zipcode = $('#zipcode').val();
+      // var street_address = $('#street-address').val();
+      // var city = $('#city').val();
+      // var state = $('#state').val();
+      // var zipcode = $('#zipcode').val();
 
-      var address = street_address+''+city+','+state+''+zipcode
-      geocoder.geocode({'address': address}, function(results, status){
-        if (status=='OK'){
-            map.setCenter(results[0].geometry.location);
-            var marker = new google.maps.Marker({
-                map: map,
-                position: results[0].geometry.location
-            });
-        } else {
-            alert('Geocode was not successful for the following reason'+ status);
-        }
-      });
+      // var address = street_address+''+city+','+state+''+zipcode
+      // geocoder.geocode({'address': address}, function(results, status){
+      //   if (status=='OK'){
+      //       map.setCenter(results[0].geometry.location);
+      //       var marker = new google.maps.Marker({
+      //           map: map,
+      //           position: results[0].geometry.location
+      //       });
+      //   } else {
+      //       alert('Geocode was not successful for the following reason'+ status);
+      //   }
+      // });
   }
 
   // $('#register-form').on('submit',function(evt){
@@ -300,9 +305,11 @@ http://bl.ocks.org/mbostock/4062045 -->
   //   initMap();
   //  })
 
-    google.maps.event.addDomListener(window, 'load');
+    // google.maps.event.addDomListener(window, 'load', initMap);
 
     </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key={{map_key_api}}&callback=initMap"></script>
+    
     
 
     {% endblock %}

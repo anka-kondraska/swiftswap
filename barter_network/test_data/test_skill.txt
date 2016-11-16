@@ -1,65 +1,65 @@
-carpentry|0
-nails|0
-bookkeeping|0
-laundry|0
-sewing|0
-driving a car|0
-playing piano|0
-ironing|0
-bookkeeping|0
+speak Spanish|0
+attorney|0
+herbalism|0
 baking|0
-writing poetry|0
-shoe repair|0
-pick up/drop off|0
-programming|0
-putting up shelves|0
-cartooning|0
-graphic design|0
-dog walking|0
-speak English|0
-dog training|0
-hairstyling|0
-driving a car|0
-programming|0
-lawn mowing|0
-pick up/drop off|0
-bread making|0
-yoga instructor|0
-gardening|0
-programming|0
-pick up/drop off|0
-landscaping|0
+playing piano|0
+herbalism|0
+sewing|0
 bookkeeping|0
-tutoring in humanities|0
+legal form help|0
 graphic design|0
-cleaning|0
-singing|0
-soccer instructor|0
-yoga instructor|0
-play tuba|0
-play tuba|0
-ironing|0
-driving a car|0
-editing|0
-dog walking|0
-cooking|0
-cartooning|0
+haircut for curly|0
 plumbing|0
-playing guitar|0
-tailoring|0
-meditation instructor|0
-party organizing|0
-cleaning|0
-pick up/drop off|0
-singing|0
+playing piano|0
+hairstyling|0
+leather work|0
+leather work|0
+cooking|0
 writing poetry|0
+tutoring in humanities|0
+driving a car|0
+cooking|0
 haircut for straight|0
-laundry|0
-animal grooming|0
-meditation instructor|0
+cleaning|0
+haircut for curly|0
+carpentry|0
+shopping|0
+interior decoration|0
 dog/cat sitting|0
-meditation instructor|0
-ironing|0
+cartooning|0
+graphic design|0
+tailoring|0
+massage|0
+shoe repair|0
+hairstyling|0
 putting up shelves|0
-tennis instructor|0
-beer making|0
+party organizing|0
+leather work|0
+gardening|0
+herbalism|0
+laundry|0
+haircut for curly|0
+laundry|0
+playing piano|0
+painting|0
+pick up/drop off|0
+acupuncture|0
+writing poetry|0
+laundry|0
+cleaning|0
+lawn mowing|0
+bookkeeping|0
+legal form help|0
+drawing|0
+cleaning rugs|0
+gardening|0
+editing|0
+lawn mowing|0
+shoe repair|0
+tailoring|0
+ironing|0
+tailoring|0
+electronics fixed|0
+ironing|0
+drawing|0
+soccer instructor|0

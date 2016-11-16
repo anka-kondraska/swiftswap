@@ -264,7 +264,7 @@ def json_my_net_data(Z):
     with open(FILE_PATH+'/graph1.json', 'w') as f:
         json.dump(data,f,indent=4)
 
-# json_my_net_data(Z)
+json_my_net_data(Z)
 
 def json_my_smallnet_data(B):
     data = node_link_data(B)

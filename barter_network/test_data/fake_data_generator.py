@@ -1,6 +1,7 @@
 from faker import Faker, Factory
 from random import choice, sample,randrange
 import numpy as np
+from barnum import gen_data
 
 fake = Factory.create('en_US')
 
@@ -25,12 +26,17 @@ SKILL = ['gardening','programming','painting','dog walking','brick laying',
 
 def fake_user():
     f = open('test_user.txt', 'w')
+    lat = 40.4365
+    lng = -99.3925
     for i in xrange(100):
-        f.write(fake.first_name()+'|'+fake.last_name()+'|'+fake.street_address()+
-                '|'+fake.city()+'|'+fake.state_abbr()+'|'+fake.zipcode()+
-                '|'+fake.date()+'|'+fake.job()+'|'+fake.email()+
+        lat += 0.0001
+        lng -= 0.0001
+        zipcode, city, state = gen_data.create_city_state_zip()
+        f.write(fake.first_name()+'|'+fake.last_name()+'|'+gen_data.create_street()+
+                '|'+city+'|'+state+'|'+zipcode+
+                '|'+fake.date()+'|'+gen_data.create_job_title()+'|'+fake.email()+
                 '|'+fake.password(length=6, special_chars=True, 
-                    digits=True, upper_case=True, lower_case=True)+'\n')
+                    digits=True, upper_case=True, lower_case=True)+'|'+str(lat)+'|'+str(lng)+'\n')
     f.close()
 
 fake_user()

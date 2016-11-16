@@ -3,174 +3,66 @@
     "graph": {}, 
     "nodes": [
         {
-            "name": "Jonathan", 
-            "id": 1
+            "name": "Mary", 
+            "id": 96
         }, 
         {
-            "id": "Ian"
+            "id": "Jeffrey"
         }, 
         {
-            "id": "Robert"
-        }, 
-        {
-            "name": "Caitlin", 
-            "id": 15
-        }, 
-        {
-            "name": "Arthur", 
-            "id": 16
-        }, 
-        {
-            "id": "Kimberly"
-        }, 
-        {
-            "id": "Brittney"
-        }, 
-        {
-            "name": "Charles", 
-            "id": 20
-        }, 
-        {
-            "name": "Ian", 
-            "id": 24
-        }, 
-        {
-            "name": "Carol", 
-            "id": 25
-        }, 
-        {
-            "id": "Jonathan"
-        }, 
-        {
-            "name": "Brittney", 
-            "id": 28
-        }, 
-        {
-            "name": "Robert", 
-            "id": 29
-        }, 
-        {
-            "id": "John"
-        }, 
-        {
-            "name": "Kimberly", 
-            "id": 40
-        }, 
-        {
-            "name": "Nicole", 
-            "id": 43
-        }, 
-        {
-            "id": "Caitlin"
-        }, 
-        {
-            "name": "Mark", 
-            "id": 57
-        }, 
-        {
-            "id": "Carol"
-        }, 
-        {
-            "id": "Beth"
-        }, 
-        {
-            "name": "Beth", 
-            "id": 75
-        }, 
-        {
-            "id": "Zachary"
-        }, 
-        {
-            "id": "Arthur"
-        }, 
-        {
-            "id": "Mark"
-        }, 
-        {
-            "name": "John", 
+            "name": "Jeffrey", 
             "id": 99
         }, 
         {
-            "name": "Zachary", 
-            "id": 100
+            "id": "Jenny"
         }, 
         {
-            "id": "Charles"
+            "name": "Jenny", 
+            "id": 10
         }, 
         {
-            "id": "Nicole"
+            "id": "Michael"
+        }, 
+        {
+            "name": "Madeline", 
+            "id": 35
+        }, 
+        {
+            "id": "Madeline"
+        }, 
+        {
+            "name": "Michael", 
+            "id": 25
+        }, 
+        {
+            "id": "Mary"
         }
     ], 
     "links": [
         {
-            "source": "Ian", 
-            "name": "driving a car", 
-            "target": "Caitlin"
+            "source": "Jeffrey", 
+            "name": "drawing", 
+            "target": "Madeline"
         }, 
         {
-            "source": "Robert", 
-            "name": "bread making", 
-            "target": "John"
-        }, 
-        {
-            "source": "Kimberly", 
-            "name": "meditation instructor", 
-            "target": "Brittney"
-        }, 
-        {
-            "source": "Brittney", 
-            "name": "meditation instructor", 
-            "target": "Jonathan"
-        }, 
-        {
-            "source": "Jonathan", 
-            "name": "laundry", 
-            "target": "Ian"
-        }, 
-        {
-            "source": "John", 
-            "name": "cleaning", 
-            "target": "Mark"
-        }, 
-        {
-            "source": "Caitlin", 
-            "name": "laundry", 
-            "target": "Beth"
-        }, 
-        {
-            "source": "Carol", 
-            "name": "cartooning", 
-            "target": "Arthur"
-        }, 
-        {
-            "source": "Beth", 
-            "name": "soccer instructor", 
-            "target": "Carol"
-        }, 
-        {
-            "source": "Zachary", 
+            "source": "Jenny", 
             "name": "playing piano", 
-            "target": "Robert"
+            "target": "Michael"
         }, 
         {
-            "source": "Arthur", 
-            "name": "dog training", 
-            "target": "Zachary"
+            "source": "Michael", 
+            "name": "gardening", 
+            "target": "Mary"
         }, 
         {
-            "source": "Mark", 
-            "name": "playing guitar", 
-            "target": "Nicole"
+            "source": "Madeline", 
+            "name": "tailoring", 
+            "target": "Jenny"
         }, 
         {
-            "source": "Charles", 
-            "name": "pick up/drop off", 
-            "target": "Kimberly"
-        }, 
-        {
-            "source": "Nicole", 
-            "name": "beer making", 
-            "target": "Charles"
+            "source": "Mary", 
+            "name": "haircut for straight", 
+            "target": "Jeffrey"
         }
     ], 
     "multigraph": false
