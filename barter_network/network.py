@@ -22,12 +22,11 @@ skill_from = db.session.query(UserSkill,Skill.skill_name).join(Skill).filter(Use
 
 
 Z = nx.DiGraph()
-Z.clear
+Z.clear()
 B = nx.DiGraph()
-B.clear
+B.clear()
 
 a = nx.get_node_attributes(Z, 'name')
-print a
 # {1: u'Jonathan', 2: u'Ryan', 3: u'Mason'}
 b = nx.get_edge_attributes(Z, 'name')
 # {(79, 64): u'animal grooming', (80, 40): u'pick up/drop off', (45, 58): u'tailoring'}
@@ -125,12 +124,12 @@ def find_other(Z, user):
 # print ab
 
 def find_ngbrs(B,Z,user):
-    B.clear
-    B.add_edges_from(Z.out_edges(12, data=True))
-    B.add_edges_from(Z.in_edges(12, data=True))
-    for node in B.nodes():
-        nx.set_node_attributes(B, 'name', {node: a[node]} )
- 
+    B.clear()
+    for edge in Z.out_edges([user], data=True):
+        B.add_edge(a[edge[0]],a[edge[1]],edge[2])
+    for edge in Z.in_edges([user], data=True):
+        B.add_edge(a[edge[0]],a[edge[1]],edge[2])
+
 
 
 def generate_edges(nodes):
@@ -157,7 +156,7 @@ def generate_loop_edges(loop_nodes):
 
 
 def add_attributes(B, nodes, edges):
-    B.clear
+    B.clear()
     for node in nodes:
         if node in a:
             B.add_node(node, {'name':a[node]})
@@ -277,16 +276,16 @@ def node_link_data(G, attrs=_attrs):
     return data
 
 # data = json_graph.node_link_data(Z)
-# def json_my_net_data(Z):
-#     data = node_link_data(Z)
-#     with open(FILE_PATH+'/graph1.json', 'w') as f:
-#         json.dump(data,f,indent=4)
+def json_my_net_data(Z):
+    data = node_link_data(Z)
+    return data
+    # with open(FILE_PATH+'/graph1.json', 'w') as f:
+    #     json.dump(data,f,indent=4)
 
 # json_my_net_data(Z)
 
 def json_my_smallnet_data(B):
     data = node_link_data(B)
-    print ">>>data",data
     return data
     # print data
     # with open('barter_network/static/smallgraph.json', 'w') as f:

@@ -82,22 +82,19 @@ def user_detail(user_id):
 
     user = User.query.get(user_id)
 
-    # # info for the smaller closed loop graph
-    # network.B.clear
-    # lp = network.find_loop(network.Z, user_id)
-    # if lp == "Loop Not Found":
-    #     lp = network.find_other(network.Z, user_id)
-    #     ed = network.generate_edges(lp)
-    #     network.add_attributes(network.B, lp, ed)
-
-    # ed = network.generate_loop_edges(lp)
-    # network.add_attributes(network.B, lp, ed)
-
-    # network.json_my_smallnet_data(network.B)
-    # print ">>>B nodes",network.B.nodes(data=True)
-    # print ">>>B edges",network.B.edges(data=True)
-
     return render_template("user_profile.html", user=user, map_key_api=map_key)
+
+
+
+
+@app.route('/network_graph.json')
+def network_data():
+    """JSON information about ."""
+    network.add_nodes(network.nodes)
+    network.add_edges(network.skill_to, network.skill_from)
+
+    graph_data = network.json_my_net_data(network.Z)
+    return jsonify(graph_data)
 
 
 
@@ -106,19 +103,18 @@ def cycle_data(user_id):
     """JSON information about ."""
   
     # info for the smaller closed loop graph
-    network.B.clear
+    network.B.clear()
     lp = network.find_loop(network.Z, user_id)
     if lp == "Loop Not Found":
-        lp = network.find_other(network.Z, user_id)
-        ed = network.generate_edges(lp)
-        network.add_attributes(network.B, lp, ed)
+        network.find_ngbrs(network.B,network.Z,user_id)
+    #     lp = network.find_other(network.Z, user_id)
+    #     ed = network.generate_edges(lp)
+    #     network.add_attributes(network.B, lp, ed)
 
     ed = network.generate_loop_edges(lp)
     network.add_attributes(network.B, lp, ed)
 
     user_graph_data = network.json_my_smallnet_data(network.B)
-    # print ">>>B nodes",network.B.nodes(data=True)
-    # print ">>>B edges",network.B.edges(data=True)
     return jsonify(user_graph_data)
 
 @app.route('/logout')
