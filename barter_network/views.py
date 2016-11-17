@@ -33,7 +33,28 @@ map_key = os.environ["GOOGLE_API_KEY"]
 @app.route('/')
 def index():
     """Homepage"""
+
     return render_template("homepage.html")
+
+
+@app.route('/pagerank.json')
+def pagerank():
+    """Return data about Melon Sales."""
+
+
+    data_dict = {
+                "labels": network.node_names,
+                "datasets": [
+                    {
+                        "data": network.page_rank,
+                        "backgroundColor": network.random_col,
+                      
+                        "hoverBackgroundColor": network.random_col
+                
+                    }]
+            }
+
+    return jsonify(data_dict)
 
 @app.route('/register', methods=['GET'])
 def barter_up_form():

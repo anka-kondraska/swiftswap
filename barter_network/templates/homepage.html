@@ -15,8 +15,8 @@
 </style>
 <!-- Graph by Mike Bostock 
 http://bl.ocks.org/mbostock/4062045 -->
-<script src="https://d3js.org/d3.v4.min.js"></script>
-
+<!-- <script src="https://d3js.org/d3.v4.min.js"></script>
+ -->
 
     <p><h1>Welcome to Barter Network</h1></p>
     <p>We are here to provide alternatives to the current economical model</p>
@@ -24,6 +24,15 @@ http://bl.ocks.org/mbostock/4062045 -->
     <!-- <div id="d3-container">< /div> -->
 
 <svg width="1060" height="1000"></svg>
+
+<!-- Chart JS -->
+
+<div class="pagerank-chart">
+    <canvas id="myChart" width="100" height="100"></canvas>
+    <!-- <div id="chartlegend" class="chart-legend"></div> -->
+  </div>
+
+<!-- <script src="Chart.js"></script> -->
 
 
 <script>
@@ -109,6 +118,22 @@ function dragended(d) {
 
 
 
+<script>
+  var options = {
+      responsive: true
+    };
+
+    var ctx_donut = $("#myChart").get(0).getContext("2d");
+
+    $.get("/pagerank.json", function (data) {
+      var myDonutChart = new Chart(ctx_donut, {
+                                              type: 'doughnut',
+                                              data: data,
+                                              options: options
+                                            });
+      $('#chartlegend').html(myDonutChart.generateLegend());
+    });
+</script>
 
 
 {% endblock %}

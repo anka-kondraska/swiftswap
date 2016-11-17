@@ -11,6 +11,8 @@ import sys
 sys.path.append('..')
 
 from model import connect_to_db, db, User, Skill, UserSkill
+import random
+random.seed(4321)
 from barter_network import app
 connect_to_db(app)
 
@@ -46,10 +48,30 @@ def add_edges(skill_to, skill_from):
 
 add_edges(skill_to, skill_from)
 
+
+
 a = nx.get_node_attributes(Z, 'name')
 # {1: u'Jonathan', 2: u'Ryan', 3: u'Mason'}
 b = nx.get_edge_attributes(Z, 'name')
 # {(79, 64): u'animal grooming', (80, 40): u'pick up/drop off', (45, 58): u'tailoring'}
+node_names = [a[node] for node in a]
+
+pr = nx.pagerank(Z)
+page_rank = [pr[i] for i in pr]
+
+for i in xrange(len(node_names)):
+    random.randrange(0,10)
+
+def hex_generator(num):
+    colors=[]
+    for i in xrange(num):
+        colors.append("#"+"".join([random.choice('0123456789ABCDEF') for x in range(6)]))
+    return colors 
+
+random_col= hex_generator(len(node_names))
+
+
+
 
 # def create_graph(graph=Z):
 #     plt.figure(1)
