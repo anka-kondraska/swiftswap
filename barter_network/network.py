@@ -26,7 +26,13 @@ Z.clear
 B = nx.DiGraph()
 B.clear
 
-def add_nodes( data):
+a = nx.get_node_attributes(Z, 'name')
+print a
+# {1: u'Jonathan', 2: u'Ryan', 3: u'Mason'}
+b = nx.get_edge_attributes(Z, 'name')
+# {(79, 64): u'animal grooming', (80, 40): u'pick up/drop off', (45, 58): u'tailoring'}
+
+def add_nodes(data):
     for a in data:
         Z.add_node(a[0],name=a[1])
     # print Z.nodes(data=True)
@@ -40,6 +46,11 @@ def add_edges(skill_to, skill_from):
  
 
 add_edges(skill_to, skill_from)
+
+a = nx.get_node_attributes(Z, 'name')
+# {1: u'Jonathan', 2: u'Ryan', 3: u'Mason'}
+b = nx.get_edge_attributes(Z, 'name')
+# {(79, 64): u'animal grooming', (80, 40): u'pick up/drop off', (45, 58): u'tailoring'}
 
 # def create_graph(graph=Z):
 #     plt.figure(1)
@@ -81,7 +92,7 @@ add_edges(skill_to, skill_from)
 
 def find_loop(Z, user):
     try:
-        loop = min([line for line in list(nx.simple_cycles(Z)) if line[0]==user], key=len)
+        loop = min([line for line in nx.simple_cycles(Z) if user in line], key=len)
         message = "Loop Found"
         print loop
         return loop
@@ -89,11 +100,12 @@ def find_loop(Z, user):
         message = 'Loop Not Found'
         print message
         return message
-        
-# lp = find_loop(Z, 16) 
+ 
+# lp = find_loop(Z, 46)
 # print lp
 
 def find_other(Z, user):
+
     top_num = max(Z.nodes())
     for num in xrange(1,top_num+1):
         try:
@@ -111,6 +123,15 @@ def find_other(Z, user):
 # print '>>>>PATHS'
 # ab = find_other(Z, 15)
 # print ab
+
+def find_ngbrs(B,Z,user):
+    B.clear
+    B.add_edges_from(Z.out_edges(12, data=True))
+    B.add_edges_from(Z.in_edges(12, data=True))
+    for node in B.nodes():
+        nx.set_node_attributes(B, 'name', {node: a[node]} )
+ 
+
 
 def generate_edges(nodes):
     ls = []
@@ -132,10 +153,7 @@ def generate_loop_edges(loop_nodes):
 # ed = generate_edges(lp)
 # print ed
 
-a = nx.get_node_attributes(Z, 'name')
-# {1: u'Jonathan', 2: u'Ryan', 3: u'Mason'}
-b = nx.get_edge_attributes(Z, 'name')
-# {(79, 64): u'animal grooming', (80, 40): u'pick up/drop off', (45, 58): u'tailoring'}
+
 
 
 def add_attributes(B, nodes, edges):
@@ -259,15 +277,16 @@ def node_link_data(G, attrs=_attrs):
     return data
 
 # data = json_graph.node_link_data(Z)
-def json_my_net_data(Z):
-    data = node_link_data(Z)
-    with open(FILE_PATH+'/graph1.json', 'w') as f:
-        json.dump(data,f,indent=4)
+# def json_my_net_data(Z):
+#     data = node_link_data(Z)
+#     with open(FILE_PATH+'/graph1.json', 'w') as f:
+#         json.dump(data,f,indent=4)
 
-json_my_net_data(Z)
+# json_my_net_data(Z)
 
 def json_my_smallnet_data(B):
     data = node_link_data(B)
+    print ">>>data",data
     return data
     # print data
     # with open('barter_network/static/smallgraph.json', 'w') as f:

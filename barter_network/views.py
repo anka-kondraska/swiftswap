@@ -4,7 +4,7 @@ import random
 
 from jinja2 import StrictUndefined
 
-from flask import render_template, request, flash, redirect, session
+from flask import render_template, request, flash, redirect, session, jsonify
 
 
 from model import connect_to_db, db, User, Skill, UserSkill
@@ -82,6 +82,29 @@ def user_detail(user_id):
 
     user = User.query.get(user_id)
 
+    # # info for the smaller closed loop graph
+    # network.B.clear
+    # lp = network.find_loop(network.Z, user_id)
+    # if lp == "Loop Not Found":
+    #     lp = network.find_other(network.Z, user_id)
+    #     ed = network.generate_edges(lp)
+    #     network.add_attributes(network.B, lp, ed)
+
+    # ed = network.generate_loop_edges(lp)
+    # network.add_attributes(network.B, lp, ed)
+
+    # network.json_my_smallnet_data(network.B)
+    # print ">>>B nodes",network.B.nodes(data=True)
+    # print ">>>B edges",network.B.edges(data=True)
+
+    return render_template("user_profile.html", user=user, map_key_api=map_key)
+
+
+
+@app.route('/simple_cycle.json/<int:user_id>')
+def cycle_data(user_id):
+    """JSON information about ."""
+  
     # info for the smaller closed loop graph
     network.B.clear
     lp = network.find_loop(network.Z, user_id)
@@ -93,47 +116,10 @@ def user_detail(user_id):
     ed = network.generate_loop_edges(lp)
     network.add_attributes(network.B, lp, ed)
 
-    network.json_my_smallnet_data(network.B)
-    print ">>>B nodes",network.B.nodes(data=True)
-    print ">>>B edges",network.B.edges(data=True)
-
-    return render_template("user_profile.html", user=user, map_key_api = map_key)
-
-
-
-
-@app.route('/simple_cycle.json')
-def cycle_data():
-    """JSON information about ."""
-
-    # info for the smaller closed loop graph
-    # network.B.clear
-    # lp = network.find_loop(network.Z, user_id)
-    # if lp == "Loop Not Found":
-    #     lp = network.find_other(network.Z, user_id)
-    #     ed = network.generate_edges(lp)
-    #     network.add_attributes(network.B, lp, ed)
-
-    # ed = network.generate_loop_edges(lp)
-    # network.add_attributes(network.B, lp, ed)
-
-    # graph_data = network.json_my_smallnet_data(network.B)
+    user_graph_data = network.json_my_smallnet_data(network.B)
     # print ">>>B nodes",network.B.nodes(data=True)
     # print ">>>B edges",network.B.edges(data=True)
-
-    # cycles = {
-    #     bear.marker_id: {
-    #         "bearId": bear.bear_id,
-    #         "gender": bear.gender,
-    #         "birthYear": bear.birth_year,
-    #         "capYear": bear.cap_year,
-    #         "capLat": bear.cap_lat,
-    #         "capLong": bear.cap_long,
-    #         "collared": bear.collared.lower()
-    #     }
-    #     for cycle in Bear.query.limit(50)}
-
-    return jsonify(cycles)
+    return jsonify(user_graph_data)
 
 @app.route('/logout')
 def log_out():

@@ -45,9 +45,10 @@ text {
 
 
 <script>
+// {{ url_for('static', filename='smallgraph.json') }}
 
 // get the data
-d3.json("{{ url_for('static', filename='smallgraph.json') }}", function(error, graph) {
+d3.json("/simple_cycle.json/{{user.user_id}}", function(error, graph) {
 
 var nodes = {};
 
@@ -252,7 +253,7 @@ http://bl.ocks.org/mbostock/4062045 -->
     var infoWindow = new google.maps.InfoWindow({
           width: 150
       });
-    debugger;
+   
 
       var map = new google.maps.Map(document.getElementById('user-map'), mapOptions);
 
@@ -263,7 +264,7 @@ http://bl.ocks.org/mbostock/4062045 -->
       var fname = $('#fname').val();
       var lname = $('#lname').val();
 
-debugger;
+
       var marker = new google.maps.Marker({
       position: {lat:parseFloat(lat),lng:parseFloat(lng)},
       map: map,

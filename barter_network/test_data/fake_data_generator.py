@@ -9,18 +9,18 @@ fake.seed(4321)
 
 SKILL = ['gardening','programming','painting','dog walking',
          'cooking','cleaning','drawing','singing','playing guitar',
-         'speak English','yoga instructor','meditation instructor','nails', 'haircut']
-         # 'animal grooming','shopping','driving a car'
-         # 'plumbing','legal form help','bookkeeping',
-         # 'electronics fixed','tutoring',
-         # 'dog/cat sitting','party organizing','home organizing',
-         # 'pick up/drop off','laundry','massage','reiki','sewing','baking'
-         # 'moving','putting up shelves','bread making',
-         # 'pizza making','weaving','leather work','herbalism','acupuncture',
-         # 'dog training','lawn mowing','landscaping','playing piano',
-         # 'composing music','graphic design','cartooning','interior decoration',
-         # 'shoe repair','tailoring','ironing', 'beer making', 'writing poetry',
-         # 'editing', 'tennis instructor', 'soccer instructor','knife skills']
+         'speak English','yoga instructor','meditation instructor','nails', 'haircut',
+         'animal grooming','shopping','driving a car'
+         'plumbing','legal form help','bookkeeping',
+         'electronics fixed','tutoring',
+         'dog/cat sitting','party organizing','home organizing',
+         'pick up/drop off','laundry','massage','reiki','sewing','baking',
+         'moving','putting up shelves','bread making',
+         'pizza making','weaving','leather work','herbalism','acupuncture',
+         'dog training','lawn mowing','landscaping','playing piano',
+         'composing music','graphic design','cartooning','interior decoration',
+         'shoe repair','tailoring','ironing', 'beer making', 'writing poetry',
+         'editing', 'tennis instructor', 'soccer instructor','knife skills']
 
 
 def fake_user():

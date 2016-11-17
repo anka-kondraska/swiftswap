@@ -1,14 +1,55 @@
-dog walking|0
-painting|0
-yoga instructor|0
 cleaning|0
-haircut|0
-speak English|0
-gardening|0
-painting|0
+tennis instructor|0
+shopping|0
+electronics fixed|0
+meditation instructor|0
+meditation instructor|0
 nails|0
-dog walking|0
-nails|0
+animal grooming|0
+tailoring|0
+legal form help|0
 gardening|0
+driving a carplumbing|0
+tennis instructor|0
+leather work|0
+cartooning|0
+weaving|0
+interior decoration|0
+soccer instructor|0
+driving a carplumbing|0
+meditation instructor|0
+tutoring|0
+nails|0
+reiki|0
+laundry|0
+cleaning|0
+soccer instructor|0
 dog walking|0
-cooking|0
+cleaning|0
+leather work|0
+tailoring|0
+bread making|0
+laundry|0
+home organizing|0
+meditation instructor|0
+sewing|0
+putting up shelves|0
+dog/cat sitting|0
+playing piano|0
+bookkeeping|0
+interior decoration|0
+bread making|0
+home organizing|0
+electronics fixed|0
+dog/cat sitting|0
+drawing|0
+party organizing|0
+bookkeeping|0
+programming|0
+party organizing|0
+dog training|0
+nails|0
+interior decoration|0
+meditation instructor|0
+weaving|0
+gardening|0
