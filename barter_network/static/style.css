@@ -11,11 +11,31 @@ body {
         background-position: center;
         background-attachment: fixed;
         height: 800px;
+   
+        /*filter: opacity(50%);   */
     }
 
-img {
-    height: 100%;
+/*body {
+   position: relative;
+   
 }
+body:after {
+    content : "";
+    display: block;
+    position: absolute;
+    
+        background-repeat: no-repeat;
+        background-position: center;
+        background-attachment: fixed;
+    top: 0;
+    left: 0;
+    background-image: url("background-img.jpeg"); 
+   
+    width: 100%;
+    height: 100%;
+    opacity : 0.7;
+    z-index: -1;
+}*/
 
 #register-map { height: 100%; }
 

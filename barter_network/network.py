@@ -31,6 +31,9 @@ B = nx.DiGraph()
 # Ngbrs graph
 C = nx.DiGraph()
 
+# Mutual Relationships graph
+E = nx.DiGraph()
+
 
 a = nx.get_node_attributes(Z, 'name')
 # {1: u'Jonathan', 2: u'Ryan', 3: u'Mason'}
@@ -185,6 +188,11 @@ def generate_loop_edges(loop_nodes):
 
 
 def add_attributes(B, nodes, edges):
+    """Add nodes and adges to DiGraph including attributes
+    using main network graph as source. Edges are added using 
+    node attributes, not node ids.This is to prepare data to be 
+    used in D3 directional graph using links/edges only"""
+
     for node in nodes:
         if node in a:
             B.add_node(node, {'name':a[node]})

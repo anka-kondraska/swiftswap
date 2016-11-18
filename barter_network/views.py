@@ -162,7 +162,24 @@ def ngbrs_data(user_id):
 def mutual_rel_data(user_id):
     """JSON information about ."""
 
-    
+    userer = UserSkill.query.filter_by(user_id=user_id).all()
+    for line in userer:
+            si ,di = line.skill_id, line.skill_direction
+            if direction == 'from':
+                skillname = db.session.query(Skill.skill_name).filter(Skill.skill_id==skillid).all()
+                print "SKILLNAME FROM"
+                sk = db.session.query(UserSkill.user_id).filter(UserSkill.skill_id==skillid, UserSkill.skill_direction=='to').all()
+                print "SK FROM",sk
+                network.Z.add_edges_from([(user_id_insession,n[0],{'name':skillname[0][0]}) for n in sk])
+
+            skillname = db.session.query(Skill.skill_name).filter(Skill.skill_id==skillid).all()
+            print "SKILLNAME TO"
+            sk = db.session.query(UserSkill.user_id).filter(UserSkill.skill_id==skillid, UserSkill.skill_direction=='from').all()
+            print "SK TO", sk
+            network.Z.add_edges_from([(n[0],user_id_insession,{'name':skillname[0][0]}) for n in sk])
+
+
+
   
     # info for the smaller closed loop graph
     # network.B.clear()
