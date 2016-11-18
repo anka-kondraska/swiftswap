@@ -78,7 +78,7 @@ def barter_up_process():
 
     g = geocoder.google(street_address+''+city+''+state)
     lat = g.latlng[0]
-    lng =g.latlng[1]
+    lng = g.latlng[1]
 
 
     if User.query.filter_by(user_email=email).first():

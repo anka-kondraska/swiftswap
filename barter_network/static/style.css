@@ -4,36 +4,35 @@ html, body {
     padding: 0; 
 }
 
-body {    
+/*body {    
         background: url("background-img.jpeg");
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
         background-attachment: fixed;
-        height: 800px;
+        height: 800px;*/
    
-        /*filter: opacity(50%);   */
-    }
+        /*filter: opacity(50%);  */
+/*    }*/
 
 /*body {
    position: relative;
+   
    
 }
 body:after {
     content : "";
     display: block;
     position: absolute;
-    
-        background-repeat: no-repeat;
-        background-position: center;
-        background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
     top: 0;
     left: 0;
     background-image: url("background-img.jpeg"); 
-   
     width: 100%;
     height: 100%;
-    opacity : 0.7;
+    opacity : 0.8;
     z-index: -1;
 }*/
 

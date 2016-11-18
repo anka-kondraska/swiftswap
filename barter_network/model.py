@@ -100,6 +100,30 @@ class Skill(db.Model):
 
 
 
+def sample_data():
+
+    user1 = User(user_fname="Anka",user_lname="Kon",
+                    user_street_address="683 Sutter Street",user_city="San Francisco",
+                    user_state="CA",user_zipcode="94102", user_dob=02-02-1988, 
+                    user_occupation="programmer", user_email="anka@anka.com", 
+                    user_password="666", user_lat="37.7886679", user_lng="-122.4136874")
+    user2 = User(user_fname="Boy",user_lname="George",
+                    user_street_address="449 Powell Street",user_city="San Francisco",
+                    user_state="CA",user_zipcode="94108", user_dob=01-01-1988, 
+                    user_occupation="brick layer", user_email="boy@george.com", 
+                    user_password="666", user_lat="37.7888078", user_lng="-122.4111715,")
+
+    skill1 = Skill(skill_name="jogging budy", skill_value=0)
+    skill2 = Skill(skill_name="cartooning", skill_value=0)
+
+    userskill1 = UserSkill(user_id=1,skill_id=1,skill_direction="to")
+    userskill2 = UserSkill(user_id=1,skill_id=2,skill_direction="from")
+    userskill3 = UserSkill(user_id=2,skill_id=1,skill_direction="from")
+    userskill4 = UserSkill(user_id=2,skill_id=2,skill_direction="to")
+
+    db.session.add_all([user1, user2, skill1, skill2, userskill1, userskill2, userskill3, userskill4])
+    db.session.commit()
+
 
 ################################
 # Helper functions
