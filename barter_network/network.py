@@ -22,11 +22,15 @@ nodes = db.session.query(UserSkill.user_id,User.user_fname).join(User).all()
 skill_to = UserSkill.query.filter(UserSkill.skill_direction =='to').all()
 skill_from = db.session.query(UserSkill,Skill.skill_name).join(Skill).filter(UserSkill.skill_direction=='from').all()
 
-
+# Main Network graph
 Z = nx.DiGraph()
-Z.clear()
+
+# Closed loop graph
 B = nx.DiGraph()
-B.clear()
+
+# Ngbrs graph
+C = nx.DiGraph()
+
 
 a = nx.get_node_attributes(Z, 'name')
 # {1: u'Jonathan', 2: u'Ryan', 3: u'Mason'}
@@ -50,6 +54,8 @@ add_edges(skill_to, skill_from)
 
 
 
+
+
 a = nx.get_node_attributes(Z, 'name')
 # {1: u'Jonathan', 2: u'Ryan', 3: u'Mason'}
 b = nx.get_edge_attributes(Z, 'name')
@@ -59,8 +65,6 @@ node_names = [a[node] for node in a]
 pr = nx.pagerank(Z)
 page_rank = [pr[i] for i in pr]
 
-for i in xrange(len(node_names)):
-    random.randrange(0,10)
 
 def hex_generator(num):
     colors=[]
@@ -146,11 +150,14 @@ def find_other(Z, user):
 # print ab
 
 def find_ngbrs(B,Z,user):
-    B.clear()
     for edge in Z.out_edges([user], data=True):
+        print "Z.OUT-EDGES",edge
         B.add_edge(a[edge[0]],a[edge[1]],edge[2])
+        print B.edges(data=True)
     for edge in Z.in_edges([user], data=True):
+        print "Z.IN-EDGES",edge
         B.add_edge(a[edge[0]],a[edge[1]],edge[2])
+        print B.edges(data=True)
 
 
 
@@ -178,7 +185,6 @@ def generate_loop_edges(loop_nodes):
 
 
 def add_attributes(B, nodes, edges):
-    B.clear()
     for node in nodes:
         if node in a:
             B.add_node(node, {'name':a[node]})

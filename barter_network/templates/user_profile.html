@@ -23,10 +23,14 @@ text {
 }
 
 </style>
-<p>Hello {{user.user_fname}}</p>
+<h3>Hello {{user.user_fname}}</h3>
+
+<p>Your Current Skills</p>
+
+<p><label>Current Skill You Want:</label> {{skill_to}}</p>
+<p><label>Current Skill You Provide:</label> {{skill_from}}</p>
 
 <p>Update Your Skills</p>
-
 <form action="/update_skill" method="POST">
 
         <p><label>Update Skill You Want </label><input type="text" name="skill-name-to"></p>
@@ -38,13 +42,23 @@ text {
 </form>
 
 <script src="https://d3js.org/d3.v3.min.js"></script>
+<!-- CLOSED LOOP D3 GRAPH -->
+<svg id='d3-container-loops'></svg>
 
-<svg id='d3-container'></svg>
+<!-- NGBRS D3 GRAPH -->
+<svg id='d3-container-ngbrs'></svg>
 
-<!-- SMALLER D3 GRAPH -->
 
 
+<!-- D3 GRAPH -->
+<!-- Graph by Mike Bostock 
+http://bl.ocks.org/mbostock/4062045 -->
+<!-- <script src="https://d3js.org/d3.v4.min.js"></script> -->
+<!-- <script src="{{ url_for('static', filename='smallgraph.json') }}"></script> -->
+
+<!-- CLOSED LOOP D3 GRAPH -->
 <script>
+
 // {{ url_for('static', filename='smallgraph.json') }}
 
 // get the data
@@ -59,8 +73,8 @@ graph.links.forEach(function(link) {
 });
 
 
-var width = 600,
-    height = 600;
+var width = 500,
+    height = 500;
 
 var force = d3.layout.force()
     .nodes(d3.values(nodes))
@@ -71,7 +85,7 @@ var force = d3.layout.force()
     .on("tick", tick)
     .start();
 
-var svg = d3.select("#d3-container")
+var svg = d3.select("#d3-container-loops")
     .attr("width", width)
     .attr("height", height);
 
@@ -100,26 +114,6 @@ var path = svg.append("svg:g").selectAll("path")
     // .attr("marker-end", function(d) { return "url(#" + d.type + ")"});
     .attr("marker-end", "url(#end)");
 
-// link.append("text")
-//     .attr("font-family", "Arial, Helvetica, sans-serif")
-//     .attr("fill", "Black")
-//     .style("font", "normal 12px Arial")
-//     .attr("transform", function(d) {
-//         return "translate(" +
-//             ((d.source.y + d.target.y)/2) + "," + 
-//             ((d.source.x + d.target.x)/2) + ")";
-//     })   
-//     .attr("dy", ".35em")
-//     .attr("text-anchor", "middle")
-//     .text(function(d) {
-//         // console.log(d.target.rule);
-//          return d.name;
-//     });
-
-// var link = svg.selectAll(".link")
-//     .data(force.links())
-//   .enter().append("line")
-//     .attr("class", "link");
 
 var node = svg.selectAll(".node")
     .data(force.nodes())
@@ -178,16 +172,6 @@ function tick() {
         return "translate(" + d.x + "," + d.y + ")"; });
 }
 
-// function tick() {
-//   link
-//       .attr("x1", function(d) { return d.source.x; })
-//       .attr("y1", function(d) { return d.source.y; })
-//       .attr("x2", function(d) { return d.target.x; })
-//       .attr("y2", function(d) { return d.target.y; });
-
-//   node
-//       .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
-// }
 
 function mouseover() {
   d3.select(this).select("circle").transition()
@@ -205,19 +189,132 @@ function mouseout() {
 
 
 
+<!-- NGBRS D3 GRAPH -->
+<script>
+d3.json("/ngbrs_data.json/{{user.user_id}}", function(error, graph) {
+
+var nodes = {};
+
+// Compute the distinct nodes from the links.
+graph.links.forEach(function(link) {
+  link.source = nodes[link.source] || (nodes[link.source] = {name: link.source});
+  link.target = nodes[link.target] || (nodes[link.target] = {name: link.target});
+});
 
 
+var width = 500,
+    height = 500;
+
+var force = d3.layout.force()
+    .nodes(d3.values(nodes))
+    .links(graph.links)
+    .size([width, height])
+    .linkDistance(200)
+    .charge(-500)
+    .on("tick", tick)
+    .start();
+
+var svg = d3.select("#d3-container-ngbrs")
+    .attr("width", width)
+    .attr("height", height);
+
+// build the arrow.
+svg.append("svg:defs").selectAll("marker")
+    .data(["end"])      // Different link/path types can be defined here
+  .enter().append("svg:marker")    // This section adds in the arrows
+    .attr("id", String)
+    .attr("viewBox", "0 -5 10 10")
+    .attr("refX", 15)
+    .attr("refY", -1.5)
+    .attr("markerWidth", 6)
+    .attr("markerHeight", 6)
+    .attr("orient", "auto")
+  .append("svg:path")
+    .attr("d", "M0,-5L10,0L0,5");
+
+// add the links and the arrows
+var path = svg.append("svg:g").selectAll("path")
+    .data(force.links())
+  .enter().append("svg:path")
+//    .attr("class", function(d) { return "link " + d.type; })
+    .attr("class", "link")
+    .attr("id",function(d,i) { return "linkId_" + i; })
+    .attr("class", function(d) { return "link " + d.type; })
+    // .attr("marker-end", function(d) { return "url(#" + d.type + ")"});
+    .attr("marker-end", "url(#end)");
 
 
+var node = svg.selectAll(".node")
+    .data(force.nodes())
+  .enter().append("g")
+    .attr("class", "node")
+    .on("mouseover", mouseover)
+    .on("mouseout", mouseout)
+    .call(force.drag);
 
-<!-- D3 GRAPH -->
-<!-- Graph by Mike Bostock 
-http://bl.ocks.org/mbostock/4062045 -->
-<!-- <script src="https://d3js.org/d3.v4.min.js"></script> -->
-<!-- <script src="{{ url_for('static', filename='smallgraph.json') }}"></script> -->
+node.append("circle")
+    .attr("r", 6);
+    
+
+node.append("text")
+    .style("font-size", "13px")
+    .attr("x", 10)
+    .attr("dy", ".35em")
+    .text(function(d) { return d.name; });
+
+//http://stackoverflow.com/questions/8663844/add-text-label-onto-links-in-d3-force-directed-graph
+
+var linktext = svg.append("svg:g").selectAll("g.linklabelholder").data(force.links());
+     linktext.enter().append("g").attr("class", "linklabelholder")
+     .append("text")
+     .attr("class", "linklabel")
+     .style("font-size", "13px")
+     .attr("x", 50)
+     .attr("y", 20)
+     .attr("text-anchor", "start")
+     .style("fill","#000")
+     .append("textPath")
+    .attr("xlink:href",function(d,i) { return "#linkId_" + i;})
+     .text(function(d) { 
+        console.log(d.name);
+        return d.name; //Can be dynamic via d object 
+         
+     });
 
 
+// add the curvy lines
+function tick() {
+    path.attr("d", function(d) {
+        var dx = d.target.x - d.source.x,
+            dy = d.target.y - d.source.y,
+            dr = Math.sqrt(dx * dx + dy * dy);
+        return "M" + 
+            d.source.x + "," + 
+            d.source.y + "A" + 
+            dr + "," + dr + " 0 0,1 " + 
+            d.target.x + "," + 
+            d.target.y;
+    });
 
+    node
+        .attr("transform", function(d) { 
+        return "translate(" + d.x + "," + d.y + ")"; });
+}
+
+
+function mouseover() {
+  d3.select(this).select("circle").transition()
+      .duration(750)
+      .attr("r", 16);
+}
+
+function mouseout() {
+  d3.select(this).select("circle").transition()
+      .duration(750)
+      .attr("r", 8);
+}
+});
+</script>
 
 
 
@@ -230,40 +327,42 @@ http://bl.ocks.org/mbostock/4062045 -->
 <input type='hidden' id='zipcode' value='{{user.user_zipcode}}'>
 <input type='hidden' id='lat' value='{{user.user_lat}}'>
 <input type='hidden' id='lng' value='{{user.user_lng}}'>
+<input type='hidden' id='skillto' value='{{skill_to}}'>
+<input type='hidden' id='skillfrom' value='{{skill_from}}'>
 
 <!-- MAP -->
 <div id="user-map"></div>
     <script type="text/javascript">
+
+    var street_address = $('#street-address').val();
+    var city = $('#city').val();
+    var state = $('#state').val();
+    var zipcode = $('#zipcode').val();
+    var skillto = $('#skillto').val();
+    var skillfrom = $('#skillfrom').val();
     
-    var geocoder;
+    // var geocoder;
+    var lat = $('#lat').val();
+    var lng = $('#lng').val();
+    var fname = $('#fname').val();
+    var lname = $('#lname').val();
 
     function initMap() {
         console.log("inside initmap");
       
       var mapOptions = { 
-        center:{lat:40.4385,lng:-99.3945},
+        center:{lat:parseFloat(lat),lng:parseFloat(lng)},
         scrollwheel: false,
-        zoom: 10,
+        zoom: 15,
         zoomControl: true,
         panControl: false,
         streetViewControl: false,
         // styles: MAPSTYLES,
         mapTypeId: google.maps.MapTypeId.TERRAIN
     };
-    var infoWindow = new google.maps.InfoWindow({
-          width: 150
-      });
    
 
       var map = new google.maps.Map(document.getElementById('user-map'), mapOptions);
-
-      var lat = $('#lat').val();
-      var lng = $('#lng').val();
-      console.log(lat);
-      console.log(lng);
-      var fname = $('#fname').val();
-      var lname = $('#lname').val();
-
 
       var marker = new google.maps.Marker({
       position: {lat:parseFloat(lat),lng:parseFloat(lng)},
@@ -272,8 +371,29 @@ http://bl.ocks.org/mbostock/4062045 -->
     });
       
     console.log(marker);
+    var contentString = '<div id="content">'+
+            '<div id="userInfo">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">{{user.user_fname}}</h1>'+
+            '<div id="bodyContent">'+
+            '<p><b>Skill you are providing</b>: {{skill_from}}</p>'+
+            '<b>Skill you are looking for</b>: {{skill_to}}</p>' +
+            '</div>'+
+            '</div>';
 
-      geocoder = new google.maps.Geocoder();
+      // Construct a new InfoWindow.
+            var infowindow = new google.maps.InfoWindow({
+                content: contentString
+            });
+
+            // Opens the InfoWindow when marker is clicked.
+            marker.addListener('click', function () {
+                infowindow.open(map, marker);
+              });
+
+            
+}
+      // geocoder = new google.maps.Geocoder();
       // var streetAddress = document.getElementById('street-address').value;
       // var city = document.getElementById('city').value;
       // var state = document.getElementById('state').value;
@@ -298,7 +418,7 @@ http://bl.ocks.org/mbostock/4062045 -->
       //       alert('Geocode was not successful for the following reason'+ status);
       //   }
       // });
-  }
+  
 
   // $('#register-form').on('submit',function(evt){
   //   evt.preventDefault();

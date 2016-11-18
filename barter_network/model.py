@@ -111,15 +111,11 @@ def connect_to_db(app):
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///barternet'
     app.config['SQLALCHEMY_ECHO'] = True
     db.app = app
-    db.init_app(app) 
-   
-
-
-
+    db.init_app(app)
+     
 if __name__ == "__main__":
 
     from barter_network import app
-    
-    db.create_all()
+    # db.create_all()
     connect_to_db(app)
     print "Connected to barternet"

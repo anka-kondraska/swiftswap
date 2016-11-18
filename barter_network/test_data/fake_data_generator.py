@@ -9,7 +9,7 @@ fake.seed(4321)
 
 SKILL = ['gardening','programming','painting','dog walking',
          'cooking','cleaning','drawing','singing','playing guitar',
-         'speak English','yoga instructor','meditation instructor','nails', 'haircut',
+         'speak English','yoga instructor','meditation instructor','nails','haircut',
          'animal grooming','shopping','driving a car'
          'plumbing','legal form help','bookkeeping',
          'electronics fixed','tutoring',
@@ -42,8 +42,10 @@ fake_user()
 
 def fake_skill():
     f = open('test_skill.txt', 'w')
-    for i in xrange(len(SKILL)):
-        f.write(np.random.choice(SKILL, replace=False)+'|'+'0'+'\n')
+    # for i in xrange(len(SKILL)):
+    for skill in SKILL:
+        f.write(skill+'|'+'0'+'\n')
+        # f.write(np.random.choice(SKILL, replace=False)+'|'+'0'+'\n')
     f.close()
 
 fake_skill()

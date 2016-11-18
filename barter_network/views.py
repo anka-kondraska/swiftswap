@@ -10,7 +10,7 @@ from flask import render_template, request, flash, redirect, session, jsonify
 from model import connect_to_db, db, User, Skill, UserSkill
 import bcrypt
 import os
-
+import geocoder
 import helper_fun
 import network
 
@@ -39,9 +39,7 @@ def index():
 
 @app.route('/pagerank.json')
 def pagerank():
-    """Return data about Melon Sales."""
-
-
+    """Pagerank chart js"""
     data_dict = {
                 "labels": network.node_names,
                 "datasets": [
@@ -60,7 +58,7 @@ def pagerank():
 def barter_up_form():
     """Sign Up form"""
 
-    return render_template("barter_up_form.html")
+    return render_template("barter_up_form.html",map_key_api=map_key)
 
 
 @app.route('/register', methods=['POST'])
@@ -78,6 +76,10 @@ def barter_up_process():
     city = request.form.get('city')
     state = request.form.get('state')
 
+    g = geocoder.google(street_address+''+city+''+state)
+    lat = g.latlng[0]
+    lng =g.latlng[1]
+
 
     if User.query.filter_by(user_email=email).first():
         flash('Please log in, you are alreday registered')
@@ -86,7 +88,7 @@ def barter_up_process():
     else:
         new_user = User(user_fname=fname,user_lname=lname,
             user_zipcode=zipcode,user_street_address=street_address, user_city=city, user_state=state,user_dob=dob, user_occupation=occupation, 
-            user_email=email, user_password=bcrypt.hashpw(password.encode('UTF_8'), bcrypt.gensalt()))
+            user_email=email, user_password=bcrypt.hashpw(password.encode('UTF_8'), bcrypt.gensalt()), user_lat=lat, user_lng=lng)
 
         db.session.add(new_user)
         db.session.commit()
@@ -100,10 +102,10 @@ def barter_up_process():
 @app.route("/users/<int:user_id>")
 def user_detail(user_id):
     """Show info about user."""
-
     user = User.query.get(user_id)
-
-    return render_template("user_profile.html", user=user, map_key_api=map_key)
+    skillto = db.session.query(Skill.skill_name).join(UserSkill).filter(UserSkill.skill_direction=='to', UserSkill.user_id==user_id).scalar()
+    skillfrom = db.session.query(Skill.skill_name).join(UserSkill).filter(UserSkill.skill_direction=='from', UserSkill.user_id==user_id).scalar()
+    return render_template("user_profile.html", user=user, map_key_api=map_key, skill_from=skillfrom, skill_to=skillto)
 
 
 
@@ -126,6 +128,7 @@ def cycle_data(user_id):
     # info for the smaller closed loop graph
     network.B.clear()
     lp = network.find_loop(network.Z, user_id)
+    print "WE ARE HERE"
     if lp == "Loop Not Found":
         network.find_ngbrs(network.B,network.Z,user_id)
     #     lp = network.find_other(network.Z, user_id)
@@ -134,9 +137,50 @@ def cycle_data(user_id):
 
     ed = network.generate_loop_edges(lp)
     network.add_attributes(network.B, lp, ed)
+    print "BEFORE USER GRAPH DATA"
 
     user_graph_data = network.json_my_smallnet_data(network.B)
+    print user_graph_data
     return jsonify(user_graph_data)
+
+@app.route('/ngbrs_data.json/<int:user_id>')
+def ngbrs_data(user_id):
+    """JSON information about ."""
+  
+    # info for the ngbrs loop graph
+    network.C.clear()
+    network.find_ngbrs(network.C,network.Z,user_id)
+  
+    print "BEFORE USER GRAPH DATA"
+
+    ngbrs_graph_data = network.json_my_smallnet_data(network.C)
+    print ngbrs_graph_data
+    return jsonify(ngbrs_graph_data)
+
+
+@app.route('/one_to_one.json/<int:user_id>')
+def mutual_rel_data(user_id):
+    """JSON information about ."""
+
+    
+  
+    # info for the smaller closed loop graph
+    # network.B.clear()
+    # lp = network.find_loop(network.Z, user_id)
+    # print "WE ARE HERE"
+    # if lp == "Loop Not Found":
+    #     network.find_ngbrs(network.B,network.Z,user_id)
+    # #     lp = network.find_other(network.Z, user_id)
+    # #     ed = network.generate_edges(lp)
+    # #     network.add_attributes(network.B, lp, ed)
+
+    # ed = network.generate_loop_edges(lp)
+    # network.add_attributes(network.B, lp, ed)
+    # print "BEFORE USER GRAPH DATA"
+
+    # user_graph_data = network.json_my_smallnet_data(network.B)
+    # print user_graph_data
+    # return jsonify(user_graph_data)
 
 @app.route('/logout')
 def log_out():
@@ -160,27 +204,59 @@ def user_skill():
 
     # Adding skill to db
     for skill_name, direction in skillz_to_eval:
-        skill = db.session.query(Skill.skill_name, Skill.skill_id).join(UserSkill).filter(
-                Skill.skill_name==skill_name,
-                UserSkill.skill_direction==direction).first()
-
-        if not skill:
+        if not Skill.query.filter_by(skill_name=skill_name).all():
             new_skill = Skill(skill_name=skill_name)
             db.session.add(new_skill)
             db.session.commit()
-            skill = new_skill
-
-        new_userskill = UserSkill(user_id=user_id_insession, 
-                                  skill_id=skill.skill_id, skill_direction=direction)
-        db.session.add(new_userskill)
+       
+        # skill = db.session.query(Skill.skill_name, Skill.skill_id).join(UserSkill).filter(
+        #         Skill.skill_name==skill_name,
+        #         UserSkill.skill_direction==direction).first()
+        s_id = db.session.query(Skill.skill_id).filter(Skill.skill_name==skill_name).first()
+    
+        skill = UserSkill.query.filter_by(user_id=user_id_insession, skill_direction=direction, skill_id=s_id).scalar()
+        
+        if not skill:
+            new_userskill = UserSkill(user_id=user_id_insession, 
+                                  skill_id=s_id, skill_direction=direction)
+            
+            db.session.add(new_userskill)
+            db.session.commit()
+            
+        UserSkill.query.filter_by(user_id=user_id_insession,skill_direction=direction).update(dict(skill_id=s_id))
         db.session.commit()
+
+        #finding edges from the new user skills and adding to network
+        ######
+        # all user connections with skills
+        st = UserSkill.query.filter_by(user_id=user_id_insession).all()
+        for line in st:
+            skillid ,direction = line.skill_id, line.skill_direction
+            if direction == 'from':
+                skillname = db.session.query(Skill.skill_name).filter(Skill.skill_id==skillid).all()
+                print "SKILLNAME FROM"
+                sk = db.session.query(UserSkill.user_id).filter(UserSkill.skill_id==skillid, UserSkill.skill_direction=='to').all()
+                print "SK FROM",sk
+                network.Z.add_edges_from([(user_id_insession,n[0],{'name':skillname[0][0]}) for n in sk])
+
+            skillname = db.session.query(Skill.skill_name).filter(Skill.skill_id==skillid).all()
+            print "SKILLNAME TO"
+            sk = db.session.query(UserSkill.user_id).filter(UserSkill.skill_id==skillid, UserSkill.skill_direction=='from').all()
+            print "SK TO", sk
+            network.Z.add_edges_from([(n[0],user_id_insession,{'name':skillname[0][0]}) for n in sk])
+
+        # if not skill:
+        #     new_skill = Skill(skill_name=skill_name)
+        #     db.session.add(new_skill)
+        #     db.session.commit()
+        #     skill = new_skill
+
+        # new_userskill = UserSkill(user_id=user_id_insession, 
+        #                           skill_id=skill.skill_id, skill_direction=direction)
+        # db.session.add(new_userskill)
+        # db.session.commit()
         flash("your skills have been added to our network")
-        skillto = network.skill_to
-        skillfrom = network.skill_from
-        network.add_edges(skillto,skillfrom )
-        network.json_my_net_data(network.Z)
-        print network.Z.nodes(data=True)
-        print network.Z.edges(data=True)
+
     return redirect("/users/%s" % session['user_id'])
 
 @app.route('/update_skill')
@@ -222,8 +298,7 @@ def login_process():
 @app.after_request
 def add_header(r):
     """
-    Add headers to both force latest IE rendering engine or Chrome Frame,
-    and also to cache the rendered page for 10 minutes.
+    Add headers to both force latest.
     """
     r.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
     r.headers["Pragma"] = "no-cache"

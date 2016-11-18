@@ -13,26 +13,33 @@
 }
 
 </style>
-<!-- Graph by Mike Bostock 
-http://bl.ocks.org/mbostock/4062045 -->
-<!-- <script src="https://d3js.org/d3.v4.min.js"></script>
- -->
+
 
     <p><h1>Welcome to Barter Network</h1></p>
     <p>We are here to provide alternatives to the current economical model</p>
 
-    <!-- <div id="d3-container">< /div> -->
 
+
+<!-- D3 Forced Layout Network Graph by Mike Bostock 
+http://bl.ocks.org/mbostock/4062045 -->
+<h2>Our Network Graph</h2>
+<div class="network-graph"> 
 <svg width="1060" height="1000"></svg>
+</div>
+
+
 
 <!-- Chart JS -->
-
+<h2>Pagerank Donut of Our Network</h2>
+<p>How connected are you?</p>
+<p>Incoming node connections: frequency with which skills we are looking for (want) are being provided</p>
+<p>How quickly your needs will be satisfied</p>
 <div class="pagerank-chart">
     <canvas id="myChart" width="100" height="100"></canvas>
     <!-- <div id="chartlegend" class="chart-legend"></div> -->
   </div>
 
-<!-- <script src="Chart.js"></script> -->
+
 
 
 <script>
