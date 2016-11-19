@@ -309,7 +309,7 @@ def login_process():
 
     session["user_id"] = user.user_id
 
-    flash("Logged in")
+    flash("Logged In")
     return redirect("/users/%s" % user.user_id)
 
 @app.after_request

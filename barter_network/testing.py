@@ -38,8 +38,22 @@ class FlaskTestsDatabase(TestCase):
         db.create_all()
         sample_data()
 
-    def test(self):
-        pass
+    def tearDown(self):
+        """"""
+
+        db.session.close()
+        db.drop_all()
+
+
+    def test_login(self):
+        """Test login page"""
+
+        result = self.client.post("/login", data={"email":"anka@anka.com","password":"666"},
+            follow_redirects=True)
+        self.assertIn("Logged In", result.data)
+
+
+        
 
 
 
