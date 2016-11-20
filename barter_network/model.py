@@ -93,7 +93,7 @@ class Skill(db.Model):
     __tablename__ = "skills"
 
     skill_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    skill_name = db.Column(db.String(64), nullable=False)
+    skill_name = db.Column(db.String(64), nullable=True)
     skill_value = db.Column(db.Integer, nullable=True) #  for future feature, to use weight attribute for edge, quantify the need for a skill
 
     def __repr__(self):

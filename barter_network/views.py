@@ -114,7 +114,7 @@ def barter_up_process():
 
     print "PRED FROM",pred_skill_from
     print "PRED TO",pred_skill_to
-    return render_template("user_skill.html", user=new_user, pred_skill_to=pred_skill_to,pred_skill_from=pred_skill_from)
+    return render_template("user_skill.html", user=new_user, pred_skill_to=pred_skill_to[0],pred_skill_from=pred_skill_from[0])
 
 
 @app.route("/users/<int:user_id>")
@@ -254,9 +254,12 @@ def user_skill():
         skill = UserSkill.query.filter_by(user_id=user_id_insession, skill_direction=direction, skill_id=s_id).scalar()
         
         if not skill:
+            if direction=="from":
+                new_userskill = UserSkill(user_id=user_id_insession, 
+                                  skill_id=s_id, skill_direction=direction,direction_id=0)
             new_userskill = UserSkill(user_id=user_id_insession, 
-                                  skill_id=s_id, skill_direction=direction)
-            
+                                  skill_id=s_id, skill_direction=direction,direction_id=1)
+
             db.session.add(new_userskill)
             db.session.commit()
             
@@ -296,9 +299,58 @@ def user_skill():
 
     return redirect("/users/%s" % session['user_id'])
 
-@app.route('/update_skill')
+@app.route('/update_skill', methods=['POST'])
 def update_skill():
-    pass
+    user_id_insession = session['user_id']
+    skill_name_to = request.form.get('update-skill-name-to')
+    skill_name_from = request.form.get('update-skill-name-from')
+
+    skillz_to_eval = [(skill_name_to,'to'), (skill_name_from, 'from')]
+    for skill_name, direction in skillz_to_eval:
+        if not Skill.query.filter_by(skill_name=skill_name).all():
+            new_skill = Skill(skill_name=skill_name)
+            db.session.add(new_skill)
+            db.session.commit()
+        s_id = db.session.query(Skill.skill_id).filter(Skill.skill_name==skill_name).first()
+    
+        skill = UserSkill.query.filter_by(user_id=user_id_insession, skill_direction=direction, skill_id=s_id).scalar()
+        
+        if not skill:
+            if direction=='from':
+                new_userskill = UserSkill(user_id=user_id_insession, 
+                                  skill_id=s_id, skill_direction=direction,direction_id=0)
+            
+            new_userskill = UserSkill(user_id=user_id_insession, 
+                                  skill_id=s_id, skill_direction=direction,direction_id=1)
+            
+            db.session.add(new_userskill)
+            db.session.commit()
+            
+        UserSkill.query.filter_by(user_id=user_id_insession,skill_direction=direction).update(dict(skill_id=s_id))
+        db.session.commit()
+
+        st = UserSkill.query.filter_by(user_id=user_id_insession).all()
+        for line in st:
+            skillid ,direction = line.skill_id, line.skill_direction
+            if direction == 'from':
+                skillname = db.session.query(Skill.skill_name).filter(Skill.skill_id==skillid).all()
+                print "SKILLNAME FROM"
+                sk = db.session.query(UserSkill.user_id).filter(UserSkill.skill_id==skillid, UserSkill.skill_direction=='to').all()
+                print "SK FROM",sk
+                network.Z.add_edges_from([(user_id_insession,n[0],{'name':skillname[0][0]}) for n in sk])
+
+            skillname = db.session.query(Skill.skill_name).filter(Skill.skill_id==skillid).all()
+            print "SKILLNAME TO"
+            sk = db.session.query(UserSkill.user_id).filter(UserSkill.skill_id==skillid, UserSkill.skill_direction=='from').all()
+            print "SK TO", sk
+            network.Z.add_edges_from([(n[0],user_id_insession,{'name':skillname[0][0]}) for n in sk])
+
+        flash("your skills have been updated to our network")
+
+    return redirect("/users/%s" % session['user_id'])
+
+
+
 
 
 @app.route('/login', methods=['GET'])
