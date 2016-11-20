@@ -27,13 +27,14 @@ def fake_user():
     f = open('test_user.txt', 'w')
     lat = 40.4365
     lng = -99.3925
+    jobs = [gen_data.create_job_title() for i in xrange(200)]
     for i in xrange(100):
         lat += 0.0001
         lng -= 0.0001
         zipcode, city, state = gen_data.create_city_state_zip()
         f.write(fake.first_name()+'|'+fake.last_name()+'|'+gen_data.create_street()+
                 '|'+city+'|'+state+'|'+zipcode+
-                '|'+fake.date()+'|'+gen_data.create_job_title()+'|'+fake.email()+
+                '|'+fake.date()+'|'+str(sample(jobs,1)[0])+'|'+ str(i)+'|'+fake.email()+
                 '|'+fake.password(length=6, special_chars=True, 
                     digits=True, upper_case=True, lower_case=True)+'|'+str(lat)+'|'+str(lng)+'\n')
     f.close()
@@ -53,9 +54,9 @@ fake_skill()
 def fake_userskill():
     f = open('test_userskill.txt', 'w')
     for i in xrange(1,101):
-        f.write(str(i)+'|'+str(randrange(1,len(SKILL)+1))+'|'+'to'+'\n')
+        f.write(str(i)+'|'+str(randrange(1,len(SKILL)+1))+'|'+'to'+'|'+'1'+'\n')
     for i in xrange(1,101):
-        f.write(str(i)+'|'+str(randrange(1,len(SKILL)+1))+'|'+'from'+'\n')
+        f.write(str(i)+'|'+str(randrange(1,len(SKILL)+1))+'|'+'from'+'|'+'0'+'\n')
     f.close()
 
 fake_userskill()

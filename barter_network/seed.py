@@ -18,13 +18,13 @@ def load_users():
 
     for row in open("test_data/test_user.txt"):
         row = row.rstrip()
-        fname, lname, street_address, city, state, zipcode, date, occupation, email, password, lat, lng = row.split("|")
+        fname, lname, street_address, city, state, zipcode, date, occupation, oc_id,email, password, lat, lng = row.split("|")
                     
 
         user = User(user_fname=fname,user_lname=lname,
                     user_street_address=street_address,user_city=city,
                     user_state=state,user_zipcode=zipcode, user_dob=date, 
-                    user_occupation=occupation, user_email=email, 
+                    user_occupation=occupation, user_occupation_id=oc_id, user_email=email, 
                     user_password=bcrypt.hashpw(password, bcrypt.gensalt()), user_lat=lat, user_lng=lng)
         
 
@@ -41,10 +41,10 @@ def load_userskills():
     
     for row in open("test_data/test_userskill.txt"):
         row = row.rstrip()
-        u_id, s_id, direction = row.split("|")
+        u_id, s_id, direction, d_id = row.split("|")
                     
 
-        userskill = UserSkill(user_id=u_id,skill_id=s_id,skill_direction=direction)# skill_direction=direction
+        userskill = UserSkill(user_id=u_id,skill_id=s_id,skill_direction=direction,direction_id=d_id)# skill_direction=direction
                     
 
         db.session.add(userskill)

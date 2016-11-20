@@ -6,13 +6,15 @@ from jinja2 import StrictUndefined
 
 from flask import render_template, request, flash, redirect, session, jsonify
 
-
+from sqlalchemy import func
 from model import connect_to_db, db, User, Skill, UserSkill
 import bcrypt
 import os
 import geocoder
 import helper_fun
 import network
+import ml
+import numpy as np
 
 import sys
 sys.path.append('..')
@@ -80,29 +82,47 @@ def barter_up_process():
     lat = g.latlng[0]
     lng = g.latlng[1]
 
+    qry = db.session.query(func.max(User.user_occupation_id).label("max_score"))
+    res = qry.one()
+    oc_max = res.max_score
+
 
     if User.query.filter_by(user_email=email).first():
         flash('Please log in, you are alreday registered')
 
         return redirect('/login')
     else:
+        oc_id = db.session.query(User.user_occupation_id).filter(User.user_occupation==occupation).first()
+        
+        if not oc_id:
+            oc_id = oc_max+1
+        
         new_user = User(user_fname=fname,user_lname=lname,
             user_zipcode=zipcode,user_street_address=street_address, user_city=city, user_state=state,user_dob=dob, user_occupation=occupation, 
-            user_email=email, user_password=bcrypt.hashpw(password.encode('UTF_8'), bcrypt.gensalt()), user_lat=lat, user_lng=lng)
-
+            user_occupation_id= oc_id,user_email=email, user_password=bcrypt.hashpw(password.encode('UTF_8'), bcrypt.gensalt()), user_lat=lat, user_lng=lng)
         db.session.add(new_user)
         db.session.commit()
 
-        session['user_id'] = new_user.user_id
-        flash('You are now logged in!')
-        helper_fun.add_node(network.Z, new_user.user_id,new_user.user_fname)
-    return render_template("user_skill.html", user=new_user)
+    session['user_id'] = new_user.user_id
+    flash('You are now logged in!')
+    helper_fun.add_node(network.Z, new_user.user_id,new_user.user_fname)
+
+    ml_skill_to,ml_skill_from = ml.predict(db.session.query(User.user_occupation_id).filter(User.user_id==session['user_id']).first())
+    t = np.asscalar(np.int16(ml_skill_to))
+    f = np.asscalar(np.int16(ml_skill_from))
+    pred_skill_to, pred_skill_from = db.session.query(Skill.skill_name).filter((Skill.skill_id==t)|(Skill.skill_id==f)).all()
+
+    print "PRED FROM",pred_skill_from
+    print "PRED TO",pred_skill_to
+    return render_template("user_skill.html", user=new_user, pred_skill_to=pred_skill_to,pred_skill_from=pred_skill_from)
 
 
 @app.route("/users/<int:user_id>")
 def user_detail(user_id):
     """Show info about user."""
+
     user = User.query.get(user_id)
+
     skillto = db.session.query(Skill.skill_name).join(UserSkill).filter(UserSkill.skill_direction=='to', UserSkill.user_id==user_id).scalar()
     skillfrom = db.session.query(Skill.skill_name).join(UserSkill).filter(UserSkill.skill_direction=='from', UserSkill.user_id==user_id).scalar()
     return render_template("user_profile.html", user=user, map_key_api=map_key, skill_from=skillfrom, skill_to=skillto)

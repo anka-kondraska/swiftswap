@@ -1,6 +1,7 @@
 """Models and database functions for Barter Network."""
 
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import func
 import datetime
 import bcrypt
 import sys
@@ -34,6 +35,7 @@ class User(db.Model):
     user_zipcode = db.Column(db.String(15), nullable=True)
     user_dob = db.Column(db.DateTime, nullable=True)
     user_occupation = db.Column(db.String(62), nullable=True)
+    user_occupation_id = db.Column(db.Integer, nullable=False)
 
     user_lat = db.Column(db.Float, nullable=True)
     user_lng = db.Column(db.Float, nullable=True)
@@ -69,6 +71,7 @@ class UserSkill(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
     skill_id = db.Column(db.Integer, db.ForeignKey('skills.skill_id'), nullable=False)
     skill_direction = db.Column(db.String(4), nullable=False)
+    direction_id = db.Column(db.Integer, nullable=False)
 
     # define relationship to user
     user = db.relationship('User', backref=db.backref('userskills'))
@@ -81,7 +84,7 @@ class UserSkill(db.Model):
     def __repr__(self):
         """Userskill repr when printed"""
         return "<Userskill userskill_id=%s user_id=%s skill_id=%s skill_direction=%s>" % \
-        (self.userskill_id, self.user_id, self.skill_id, self.skill_direction)
+        (self.userskill_id, self.user_id, self.skill_id, self.skill_direction, self.direction_id)
 
 
 class Skill(db.Model):
