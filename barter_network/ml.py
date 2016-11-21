@@ -14,11 +14,14 @@ userskills_df = pd.read_sql_table('userskills', con='postgresql:///barternet',co
 datauser = pd.merge(users_df, userskills_df, on='user_id',how='right')
 
 # MERGING DATAUSER AND SKILLS_DF ON SKILL_ID
-data = pd.merge(datauser, skills_df, on='skill_id', how="right")
+data = pd.merge(datauser, skills_df, on='skill_id', how="outer")
 
 # LOCATING LAST TWO NAN ROWS AND DROPPING THEM IN PLACE
-print data.iloc[199:203]
-data.drop(data.index[[200]], inplace=True)
+# print "BEFORE DROPNA",data.iloc[195:210]
+# data.drop(data.index[[200]], inplace=True)
+
+print data.dropna(axis=0,inplace=True)
+# print "AFTER DROPNA",data.iloc[195:210]
 
 # data["job_id"] = pd.factorize(data.user_occupation, sort=True)[0]
 
@@ -32,6 +35,7 @@ print df.sort_values(["user_occupation_id"], axis=0,ascending=False)
 
 data_to=df.loc[df['direction_id'] == 1]
 data_from=df.loc[df['direction_id'] == 0]
+
 
 job = data[["user_occupation","user_occupation_id"]]
 skill = data[["skill_name","skill_id"]]
@@ -62,7 +66,6 @@ accuracy_from = sum(predictions_from == validation_labels_from)/float(len(predic
 print accuracy_from
 
 wrong_from = np.where(predictions_from != validation_labels_from)
-print wrong_from
 
 for i in wrong_from:
     print "predicted: ", predictions_from[i], "answer: ", validation_labels_from[i]

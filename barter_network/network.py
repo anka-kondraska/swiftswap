@@ -36,6 +36,7 @@ E = nx.DiGraph()
 
 
 a = nx.get_node_attributes(Z, 'name')
+print a
 # {1: u'Jonathan', 2: u'Ryan', 3: u'Mason'}
 b = nx.get_edge_attributes(Z, 'name')
 # {(79, 64): u'animal grooming', (80, 40): u'pick up/drop off', (45, 58): u'tailoring'}
@@ -135,24 +136,34 @@ def find_loop(Z, user):
 def find_other(Z, user):
 
     top_num = max(Z.nodes())
+    print top_num
     for num in xrange(1,top_num+1):
+        print num
         try:
-            path = [line for line in nx.shortest_path(Z, user, num)]
+            path = nx.shortest_path(Z, user, num)
+            num += 1
             if path:
                 print path
                 return path
-            num += 1
-            print num
+        # try:
+        #     path = [line for line in nx.shortest_path(Z, user, num)]
+        #     print path
+        #     if path:
+        #         print "PATH FOUND",path
+        #         return path
+        #     num += 1
         except:
             message = "Path Not Found"
             print message
-    return message
+            
 
 # print '>>>>PATHS'
 # ab = find_other(Z, 15)
 # print ab
 
 def find_ngbrs(B,Z,user):
+    a = nx.get_node_attributes(Z, 'name')
+    print "BEFORE Z OUT EDGES"
     for edge in Z.out_edges([user], data=True):
         print "Z.OUT-EDGES",edge
         B.add_edge(a[edge[0]],a[edge[1]],edge[2])

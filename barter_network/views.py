@@ -148,16 +148,22 @@ def cycle_data(user_id):
     # info for the smaller closed loop graph
     network.B.clear()
     lp = network.find_loop(network.Z, user_id)
+    print lp
     print "WE ARE HERE"
     if lp == "Loop Not Found":
-        network.find_ngbrs(network.B,network.Z,user_id)
-    #     lp = network.find_other(network.Z, user_id)
-    #     ed = network.generate_edges(lp)
-    #     network.add_attributes(network.B, lp, ed)
+        print "FIND OTHER"
+        # network.find_ngbrs(network.B,network.Z,user_id)
+        lp = network.find_other(network.Z, user_id)
+        if lp == "Path Not Found":
+            message = "Path Not Found"
+            print message
+            return message
+        ed = network.generate_edges(lp)
+        network.add_attributes(network.B, lp, ed)
 
     ed = network.generate_loop_edges(lp)
     network.add_attributes(network.B, lp, ed)
-    print "BEFORE USER GRAPH DATA"
+    print "BEFORE USER GRAPH DATA LOOP DATA"
 
     user_graph_data = network.json_my_smallnet_data(network.B)
     print user_graph_data
@@ -171,7 +177,7 @@ def ngbrs_data(user_id):
     network.C.clear()
     network.find_ngbrs(network.C,network.Z,user_id)
   
-    print "BEFORE USER GRAPH DATA"
+    print "BEFORE USER GRAPH DATA NGBRS DATA"
 
     ngbrs_graph_data = network.json_my_smallnet_data(network.C)
     print ngbrs_graph_data
@@ -184,40 +190,23 @@ def mutual_rel_data(user_id):
 
     userer = UserSkill.query.filter_by(user_id=user_id).all()
     for line in userer:
-            si ,di = line.skill_id, line.skill_direction
-            if direction == 'from':
-                skillname = db.session.query(Skill.skill_name).filter(Skill.skill_id==skillid).all()
-                print "SKILLNAME FROM"
-                sk = db.session.query(UserSkill.user_id).filter(UserSkill.skill_id==skillid, UserSkill.skill_direction=='to').all()
-                print "SK FROM",sk
-                network.Z.add_edges_from([(user_id_insession,n[0],{'name':skillname[0][0]}) for n in sk])
+        if line.direction_id==1:
+            lineto = [line.skill_id, line.skill_direction,line.direction_id]
+            print lineto
+        linefrom=[line.skill_id, line.skill_direction,line.direction_id]
+        print linefrom
+        
+        skillname = db.session.query(Skill.skill_name).filter(Skill.skill_id==linefrom[0]).all()
+        print "SKILLNAME FROM",skillname
+        sk = db.session.query(UserSkill.user_id).filter(UserSkill.skill_id==linefrom[0], UserSkill.skill_direction!=0).all()
+        print "SK FROM",sk
+        for s in sk:
+            sb = db.session.query(UserSkill.user_id).filter(UserSkill.user_id==s[0],UserSkill.skill_id==lineto[0], UserSkill.skill_direction!=1).all()
+        print sb
 
-            skillname = db.session.query(Skill.skill_name).filter(Skill.skill_id==skillid).all()
-            print "SKILLNAME TO"
-            sk = db.session.query(UserSkill.user_id).filter(UserSkill.skill_id==skillid, UserSkill.skill_direction=='from').all()
-            print "SK TO", sk
-            network.Z.add_edges_from([(n[0],user_id_insession,{'name':skillname[0][0]}) for n in sk])
 
 
 
-  
-    # info for the smaller closed loop graph
-    # network.B.clear()
-    # lp = network.find_loop(network.Z, user_id)
-    # print "WE ARE HERE"
-    # if lp == "Loop Not Found":
-    #     network.find_ngbrs(network.B,network.Z,user_id)
-    # #     lp = network.find_other(network.Z, user_id)
-    # #     ed = network.generate_edges(lp)
-    # #     network.add_attributes(network.B, lp, ed)
-
-    # ed = network.generate_loop_edges(lp)
-    # network.add_attributes(network.B, lp, ed)
-    # print "BEFORE USER GRAPH DATA"
-
-    # user_graph_data = network.json_my_smallnet_data(network.B)
-    # print user_graph_data
-    # return jsonify(user_graph_data)
 
 @app.route('/logout')
 def log_out():
@@ -237,10 +226,10 @@ def user_skill():
 
     user_id_insession = session['user_id']
 
-    skillz_to_eval = [(skill_name_to,'to'), (skill_name_from, 'from')]
+    skillz_to_eval = [(skill_name_to,'to',1), (skill_name_from, 'from',0)]
 
     # Adding skill to db
-    for skill_name, direction in skillz_to_eval:
+    for skill_name, direction, dir_id in skillz_to_eval:
         if not Skill.query.filter_by(skill_name=skill_name).all():
             new_skill = Skill(skill_name=skill_name)
             db.session.add(new_skill)
@@ -254,16 +243,16 @@ def user_skill():
         skill = UserSkill.query.filter_by(user_id=user_id_insession, skill_direction=direction, skill_id=s_id).scalar()
         
         if not skill:
-            if direction=="from":
+            if dir_id==0:
                 new_userskill = UserSkill(user_id=user_id_insession, 
-                                  skill_id=s_id, skill_direction=direction,direction_id=0)
+                                  skill_id=s_id, skill_direction=direction,direction_id=dir_id)
             new_userskill = UserSkill(user_id=user_id_insession, 
-                                  skill_id=s_id, skill_direction=direction,direction_id=1)
+                                  skill_id=s_id, skill_direction=direction,direction_id=dir_id)
 
             db.session.add(new_userskill)
             db.session.commit()
             
-        UserSkill.query.filter_by(user_id=user_id_insession,skill_direction=direction).update(dict(skill_id=s_id))
+        UserSkill.query.filter_by(user_id=user_id_insession,skill_direction=direction,direction_id=dir_id).update(dict(skill_id=s_id))
         db.session.commit()
 
         #finding edges from the new user skills and adding to network
@@ -277,13 +266,13 @@ def user_skill():
                 print "SKILLNAME FROM"
                 sk = db.session.query(UserSkill.user_id).filter(UserSkill.skill_id==skillid, UserSkill.skill_direction=='to').all()
                 print "SK FROM",sk
-                network.Z.add_edges_from([(user_id_insession,n[0],{'name':skillname[0][0]}) for n in sk])
+                network.Z.add_edges_from([(user_id_insession,n[0],{'name':skillname[0][0]}) for n in sk if user_id_insession!=n[0]])
 
             skillname = db.session.query(Skill.skill_name).filter(Skill.skill_id==skillid).all()
             print "SKILLNAME TO"
             sk = db.session.query(UserSkill.user_id).filter(UserSkill.skill_id==skillid, UserSkill.skill_direction=='from').all()
             print "SK TO", sk
-            network.Z.add_edges_from([(n[0],user_id_insession,{'name':skillname[0][0]}) for n in sk])
+            network.Z.add_edges_from([(n[0],user_id_insession,{'name':skillname[0][0]}) for n in sk if user_id_insession!=n[0]])
 
         # if not skill:
         #     new_skill = Skill(skill_name=skill_name)
@@ -305,29 +294,43 @@ def update_skill():
     skill_name_to = request.form.get('update-skill-name-to')
     skill_name_from = request.form.get('update-skill-name-from')
 
-    skillz_to_eval = [(skill_name_to,'to'), (skill_name_from, 'from')]
-    for skill_name, direction in skillz_to_eval:
+    skillz_to_eval = [(skill_name_to,'to',1), (skill_name_from, 'from',0)]
+    for skill_name, direction, dir_id in skillz_to_eval:
         if not Skill.query.filter_by(skill_name=skill_name).all():
             new_skill = Skill(skill_name=skill_name)
             db.session.add(new_skill)
             db.session.commit()
         s_id = db.session.query(Skill.skill_id).filter(Skill.skill_name==skill_name).first()
+        print "UPDATING ID", s_id
     
-        skill = UserSkill.query.filter_by(user_id=user_id_insession, skill_direction=direction, skill_id=s_id).scalar()
+        skill = UserSkill.query.filter_by(user_id=user_id_insession, skill_direction=direction,direction_id=dir_id).scalar()
+        print "LOOKING UP UPDATING SKILL",skill
         
         if not skill:
-            if direction=='from':
+            print "IF NOT SKILL"
+            if dir_id==0:
                 new_userskill = UserSkill(user_id=user_id_insession, 
-                                  skill_id=s_id, skill_direction=direction,direction_id=0)
+                                  skill_id=s_id, skill_direction=direction,direction_id=dir_id)
+                db.session.add(new_userskill)
+                db.session.commit()
             
             new_userskill = UserSkill(user_id=user_id_insession, 
-                                  skill_id=s_id, skill_direction=direction,direction_id=1)
+                                  skill_id=s_id, skill_direction=direction,direction_id=dir_id)
             
             db.session.add(new_userskill)
             db.session.commit()
-            
-        UserSkill.query.filter_by(user_id=user_id_insession,skill_direction=direction).update(dict(skill_id=s_id))
+
+        print "STARTING TO REMOVE EDGES"
+
+        if direction=='from':
+            print "REMOVING OUT EDGES",network.Z.out_edges([user_id_insession], data=True)
+            network.Z.remove_edges_from(network.Z.out_edges([user_id_insession], data=True))
+        print "REMOVING IN EDGES",network.Z.in_edges([user_id_insession], data=True)      
+        network.Z.remove_edges_from(network.Z.in_edges([user_id_insession], data=True)) 
+        
+        UserSkill.query.filter_by(user_id=user_id_insession,skill_direction=direction).update(dict(skill_id=s_id,direction_id=dir_id))
         db.session.commit()
+        print "NEW USERSKILL UPDATED"
 
         st = UserSkill.query.filter_by(user_id=user_id_insession).all()
         for line in st:
@@ -337,13 +340,13 @@ def update_skill():
                 print "SKILLNAME FROM"
                 sk = db.session.query(UserSkill.user_id).filter(UserSkill.skill_id==skillid, UserSkill.skill_direction=='to').all()
                 print "SK FROM",sk
-                network.Z.add_edges_from([(user_id_insession,n[0],{'name':skillname[0][0]}) for n in sk])
+                network.Z.add_edges_from([(user_id_insession,n[0],{'name':skillname[0][0]}) for n in sk if user_id_insession!=n[0]])
 
             skillname = db.session.query(Skill.skill_name).filter(Skill.skill_id==skillid).all()
             print "SKILLNAME TO"
             sk = db.session.query(UserSkill.user_id).filter(UserSkill.skill_id==skillid, UserSkill.skill_direction=='from').all()
             print "SK TO", sk
-            network.Z.add_edges_from([(n[0],user_id_insession,{'name':skillname[0][0]}) for n in sk])
+            network.Z.add_edges_from([(n[0],user_id_insession,{'name':skillname[0][0]}) for n in sk if user_id_insession!=n[0]])
 
         flash("your skills have been updated to our network")
 

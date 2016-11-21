@@ -23,6 +23,44 @@ text {
 }
 
 </style>
+<style>
+ 
+path.link {
+  fill: none;
+  stroke: #666;
+  stroke-width: 1.5px;
+}
+ 
+path.link.twofive {
+  opacity: 0.25;
+}
+ 
+path.link.fivezero {
+  opacity: 0.50;
+}
+ 
+path.link.sevenfive {
+  opacity: 0.75;
+}
+ 
+path.link.onezerozero {
+  opacity: 1.0;
+}
+ 
+circle {
+  fill: #ccc;
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+ 
+text {
+  fill: #000;
+  font: 10px sans-serif;
+  pointer-events: none;
+}
+ 
+</style>
+
 <h3>Hello {{user.user_fname}}</h3>
 
 <p>Your Current Skills</p>
@@ -43,10 +81,10 @@ text {
 
 <script src="https://d3js.org/d3.v3.min.js"></script>
 <!-- CLOSED LOOP D3 GRAPH -->
-<svg id='d3-container-loops'></svg>
+<div id='d3-container-loops'><!-- <svg ></svg> --></div>
 
 <!-- NGBRS D3 GRAPH -->
-<svg id='d3-container-ngbrs'></svg>
+<div id='d3-container-ngbrs'><!-- <svg ></svg> --></div>
 
 
 
@@ -63,6 +101,7 @@ http://bl.ocks.org/mbostock/4062045 -->
 
 // get the data
 d3.json("/simple_cycle.json/{{user.user_id}}", function(error, graph) {
+// d3.json("/one_to_one.json/{{user.user_id}}", function(error, graph) {
 
 var nodes = {};
 
@@ -81,18 +120,19 @@ var force = d3.layout.force()
     .links(graph.links)
     .size([width, height])
     .linkDistance(200)
-    .charge(-500)
+    .charge(-800)
     .on("tick", tick)
     .start();
 
-var svg = d3.select("#d3-container-loops")
+var cycle = d3.select("#d3-container-loops")
+    .append("svg")
     .attr("width", width)
     .attr("height", height);
 
 // build the arrow.
-svg.append("svg:defs").selectAll("marker")
+cycle.append("cycle:defs").selectAll("marker")
     .data(["end"])      // Different link/path types can be defined here
-  .enter().append("svg:marker")    // This section adds in the arrows
+  .enter().append("cycle:marker")    // This section adds in the arrows
     .attr("id", String)
     .attr("viewBox", "0 -5 10 10")
     .attr("refX", 15)
@@ -100,13 +140,13 @@ svg.append("svg:defs").selectAll("marker")
     .attr("markerWidth", 6)
     .attr("markerHeight", 6)
     .attr("orient", "auto")
-  .append("svg:path")
+  .append("cycle:path")
     .attr("d", "M0,-5L10,0L0,5");
 
 // add the links and the arrows
-var path = svg.append("svg:g").selectAll("path")
+var path = cycle.append("cycle:g").selectAll("path")
     .data(force.links())
-  .enter().append("svg:path")
+  .enter().append("cycle:path")
 //    .attr("class", function(d) { return "link " + d.type; })
     .attr("class", "link")
     .attr("id",function(d,i) { return "linkId_" + i; })
@@ -115,7 +155,7 @@ var path = svg.append("svg:g").selectAll("path")
     .attr("marker-end", "url(#end)");
 
 
-var node = svg.selectAll(".node")
+var node = cycle.selectAll(".node")
     .data(force.nodes())
   .enter().append("g")
     .attr("class", "node")
@@ -135,7 +175,7 @@ node.append("text")
 
 //http://stackoverflow.com/questions/8663844/add-text-label-onto-links-in-d3-force-directed-graph
 
-var linktext = svg.append("svg:g").selectAll("g.linklabelholder").data(force.links());
+var linktext = cycle.append("cycle:g").selectAll("g.linklabelholder").data(force.links());
      linktext.enter().append("g").attr("class", "linklabelholder")
      .append("text")
      .attr("class", "linklabel")
@@ -190,34 +230,60 @@ function mouseout() {
 
 
 <!-- NGBRS D3 GRAPH -->
+
 <script>
+ 
+// get the data
 d3.json("/ngbrs_data.json/{{user.user_id}}", function(error, graph) {
-
+ 
 var nodes = {};
-
+ 
 // Compute the distinct nodes from the links.
 graph.links.forEach(function(link) {
-  link.source = nodes[link.source] || (nodes[link.source] = {name: link.source});
-  link.target = nodes[link.target] || (nodes[link.target] = {name: link.target});
+    link.source = nodes[link.source] || 
+        (nodes[link.source] = {name: link.source});
+    link.target = nodes[link.target] || 
+        (nodes[link.target] = {name: link.target});
+    // link.value = +link.value;
 });
+ 
+var width = 960,
+    height = 500,
+    color = d3.scale.category20c();
 
-
-var width = 500,
-    height = 500;
-
+ 
 var force = d3.layout.force()
     .nodes(d3.values(nodes))
     .links(graph.links)
     .size([width, height])
-    .linkDistance(200)
-    .charge(-500)
+    .linkDistance(160)
+    .charge(-800)
     .on("tick", tick)
     .start();
-
-var svg = d3.select("#d3-container-ngbrs")
+ 
+// Set the range
+// var  v = d3.scale.linear().range([0, 100]);
+ 
+// Scale the range of the data
+// v.domain([0, d3.max(links, function(d) { return d.value; })]);
+ 
+// asign a type per value to encode opacity
+// links.forEach(function(link) {
+//   if (v(link.value) <= 25) {
+//     link.type = "twofive";
+//   } else if (v(link.value) <= 50 && v(link.value) > 25) {
+//     link.type = "fivezero";
+//   } else if (v(link.value) <= 75 && v(link.value) > 50) {
+//     link.type = "sevenfive";
+//   } else if (v(link.value) <= 100 && v(link.value) > 75) {
+//     link.type = "onezerozero";
+//   }
+// });
+ 
+var svg = d3.select("#d3-container-ngbrs").append("svg")
     .attr("width", width)
     .attr("height", height);
-
+ 
 // build the arrow.
 svg.append("svg:defs").selectAll("marker")
     .data(["end"])      // Different link/path types can be defined here
@@ -231,38 +297,36 @@ svg.append("svg:defs").selectAll("marker")
     .attr("orient", "auto")
   .append("svg:path")
     .attr("d", "M0,-5L10,0L0,5");
-
+ 
 // add the links and the arrows
 var path = svg.append("svg:g").selectAll("path")
     .data(force.links())
   .enter().append("svg:path")
-//    .attr("class", function(d) { return "link " + d.type; })
-    .attr("class", "link")
-    .attr("id",function(d,i) { return "linkId_" + i; })
     .attr("class", function(d) { return "link " + d.type; })
-    // .attr("marker-end", function(d) { return "url(#" + d.type + ")"});
+    .attr("id",function(d,i) { return "link1Id_" + i; })
     .attr("marker-end", "url(#end)");
-
-
+ 
+// define the nodes
 var node = svg.selectAll(".node")
     .data(force.nodes())
   .enter().append("g")
     .attr("class", "node")
-    .on("mouseover", mouseover)
-    .on("mouseout", mouseout)
+    .on("click", click)
+    .on("dblclick", dblclick)
     .call(force.drag);
-
+ 
+// add the nodes
 node.append("circle")
-    .attr("r", 6);
-    
+    .attr("r", 5)
+    .style("fill", function(d) { return color(d.name); });
 
+ 
+// add the text 
 node.append("text")
-    .style("font-size", "13px")
-    .attr("x", 10)
+    .attr("x", 12)
     .attr("dy", ".35em")
     .text(function(d) { return d.name; });
 
-//http://stackoverflow.com/questions/8663844/add-text-label-onto-links-in-d3-force-directed-graph
 
 var linktext = svg.append("svg:g").selectAll("g.linklabelholder").data(force.links());
      linktext.enter().append("g").attr("class", "linklabelholder")
@@ -274,14 +338,13 @@ var linktext = svg.append("svg:g").selectAll("g.linklabelholder").data(force.lin
      .attr("text-anchor", "start")
      .style("fill","#000")
      .append("textPath")
-    .attr("xlink:href",function(d,i) { return "#linkId_" + i;})
+    .attr("xlink:href",function(d,i) { return "#link1Id_" + i;})
      .text(function(d) { 
         console.log(d.name);
         return d.name; //Can be dynamic via d object 
          
      });
-
-
+ 
 // add the curvy lines
 function tick() {
     path.attr("d", function(d) {
@@ -295,26 +358,168 @@ function tick() {
             d.target.x + "," + 
             d.target.y;
     });
-
+ 
     node
         .attr("transform", function(d) { 
         return "translate(" + d.x + "," + d.y + ")"; });
 }
-
-
-function mouseover() {
-  d3.select(this).select("circle").transition()
-      .duration(750)
-      .attr("r", 16);
+ 
+// action to take on mouse click
+function click() {
+    d3.select(this).select("text").transition()
+        .duration(750)
+        .attr("x", 22)
+        .style("stroke", "lightsteelblue")
+        .style("stroke-width", ".5px")
+        .style("font", "20px sans-serif");
+    d3.select(this).select("circle").transition()
+        .duration(750)
+        .attr("r", 16);
 }
-
-function mouseout() {
-  d3.select(this).select("circle").transition()
-      .duration(750)
-      .attr("r", 8);
+ 
+// action to take on mouse double click
+function dblclick() {
+    d3.select(this).select("circle").transition()
+        .duration(750)
+        .attr("r", 6);
+    d3.select(this).select("text").transition()
+        .duration(750)
+        .attr("x", 12)
+        .style("stroke", "none")
+        .style("fill", "black")
+        .style("stroke", "none")
+        .style("font", "10px sans-serif");
 }
+ 
 });
-</script>
+ 
+</script> 
+<script>
+// d3.json("/ngbrs_data.json/{{user.user_id}}", function(error, graph) {
+
+// var nodes = {};
+
+// // Compute the distinct nodes from the links.
+// graph.links.forEach(function(link) {
+//   link.source = nodes[link.source] || (nodes[link.source] = {name: link.source});
+//   link.target = nodes[link.target] || (nodes[link.target] = {name: link.target});
+// });
+
+
+// var width = 500,
+//     height = 500;
+
+// var force = d3.layout.force()
+//     .nodes(d3.values(nodes))
+//     .links(graph.links)
+//     .size([width, height])
+//     .linkDistance(200)
+//     .charge(-500)
+//     .on("tick", tick)
+//     .start();
+
+// var ngbrs = d3.select("#d3-container-ngbrs")
+//     .append("svg")
+//     .attr("width", width)
+//     .attr("height", height);
+
+// // build the arrow.
+// ngbrs.append("ngbrs:defs").selectAll("marker")
+//     .data(["end"])      // Different link/path types can be defined here
+//   .enter().append("ngbrs:marker")    // This section adds in the arrows
+//     .attr("id", String)
+//     .attr("viewBox", "0 -5 10 10")
+//     .attr("refX", 15)
+//     .attr("refY", -1.5)
+//     .attr("markerWidth", 6)
+//     .attr("markerHeight", 6)
+//     .attr("orient", "auto")
+//   .append("ngbrs:path1")
+//     .attr("d", "M0,-5L10,0L0,5");
+
+// // add the links and the arrows
+// var path1 = ngbrs.append("ngbrs:g").selectAll("path1")
+//     .data(force.links())
+//   .enter().append("ngbrs:path1")
+// //    .attr("class", function(d) { return "link " + d.type; })
+//     .attr("class", "link")
+//     .attr("id",function(d,i) { return "linkId_" + i; })
+//     .attr("class", function(d) { return "link " + d.type; })
+//     // .attr("marker-end", function(d) { return "url(#" + d.type + ")"});
+//     .attr("marker-end", "url(#end)");
+
+
+// var node = ngbrs.selectAll(".node")
+//     .data(force.nodes())
+//   .enter().append("g")
+//     .attr("class", "node")
+//     .on("mouseover", mouseover)
+//     .on("mouseout", mouseout)
+//     .call(force.drag);
+
+// node.append("circle")
+//     .attr("r", 6);
+    
+
+// node.append("text")
+//     .style("font-size", "13px")
+//     .attr("x", 10)
+//     .attr("dy", ".35em")
+//     .text(function(d) { return d.name; });
+
+// //http://stackoverflow.com/questions/8663844/add-text-label-onto-links-in-d3-force-directed-graph
+
+// var linktext1 = ngbrs.append("ngbrs:g").selectAll("g.linklabelholder1").data(force.links());
+//      linktext1.enter().append("g").attr("class", "linklabelholder1")
+//      .append("text")
+//      .attr("class", "linklabel1")
+//      .style("font-size", "12px")
+//      .attr("x", 50)
+//      .attr("y", 20)
+//      .attr("text-anchor", "start")
+//      .style("fill","#000")
+//      .append("textPath")
+//     .attr("xlink:href",function(d,i) { return "#linkId_" + i;})
+//      .text(function(d) { 
+//         console.log(d.name);
+//         return d.name; //Can be dynamic via d object 
+         
+//      });
+
+
+// // add the curvy lines
+// function tick() {
+//     path1.attr("d", function(d) {
+//         var dx = d.target.x - d.source.x,
+//             dy = d.target.y - d.source.y,
+//             dr = Math.sqrt(dx * dx + dy * dy);
+//         return "M" + 
+//             d.source.x + "," + 
+//             d.source.y + "A" + 
+//             dr + "," + dr + " 0 0,1 " + 
+//             d.target.x + "," + 
+//             d.target.y;
+//     });
+
+//     node
+//         .attr("transform", function(d) { 
+//         return "translate(" + d.x + "," + d.y + ")"; });
+// }
+
+
+// function mouseover() {
+//   d3.select(this).select("circle").transition()
+//       .duration(750)
+//       .attr("r", 16);
+// }
+
+// function mouseout() {
+//   d3.select(this).select("circle").transition()
+//       .duration(750)
+//       .attr("r", 8);
+// }
+// });
+// </script>
 
 
 

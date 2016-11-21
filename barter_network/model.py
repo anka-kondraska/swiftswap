@@ -83,7 +83,7 @@ class UserSkill(db.Model):
 
     def __repr__(self):
         """Userskill repr when printed"""
-        return "<Userskill userskill_id=%s user_id=%s skill_id=%s skill_direction=%s>" % \
+        return "<Userskill userskill_id=%s user_id=%s skill_id=%s skill_direction=%s direction_id=%i>" % \
         (self.userskill_id, self.user_id, self.skill_id, self.skill_direction, self.direction_id)
 
 
