@@ -42,3 +42,7 @@ body:after {
     height: 80%;
     width: 80%;
 }
+
+div {
+    position: center;
+}

@@ -82,6 +82,57 @@ text {
 <script src="https://d3js.org/d3.v3.min.js"></script>
 <!-- CLOSED LOOP D3 GRAPH -->
 <div id='d3-container-loops'><!-- <svg ></svg> --></div>
+<div class='window-content'>
+  
+<p>Users in Your Network</p>
+
+
+<script type="text/javascript">
+  $.get('/simple_cycle.json/{{user.user_id}}', function (users) {
+
+    var data = users;
+    var ids = []
+    var names = []
+    
+    for (i=0; i<data.nodes.length; i++){
+      var userd = data.nodes[i]
+    if (parseInt(userd.id)){
+        
+        ids.push({"id":userd.id,"name":userd.name})
+    console.log(ids);
+  
+
+      // if (parseInt(userd.id))
+      //   ids.push(userd);
+      // else
+      //   names.push(userd);
+      }
+     
+     // console.log(ids);
+     // console.log(names);
+}
+  
+
+    for (var i=0; i<ids.length; i++){
+    id = ids[i]
+    console.log(id);
+
+        var html = (
+                    
+                    '<p><b>User link: </b>'+'<a href="/users/'+id.id+'">'+id.name+'</a>'+'</p>'
+                    );
+        console.log(html);
+        $(".window-content").append(html);
+      }
+        
+
+      
+     
+});
+
+
+</script>
+</div>
 
 <!-- NGBRS D3 GRAPH -->
 <div id='d3-container-ngbrs'><!-- <svg ></svg> --></div>
@@ -119,8 +170,8 @@ var force = d3.layout.force()
     .nodes(d3.values(nodes))
     .links(graph.links)
     .size([width, height])
-    .linkDistance(200)
-    .charge(-800)
+    .linkDistance(150)
+    .charge(-1100)
     .on("tick", tick)
     .start();
 
@@ -553,7 +604,6 @@ function dblclick() {
     var lname = $('#lname').val();
 
     function initMap() {
-        console.log("inside initmap");
       
       var mapOptions = { 
         center:{lat:parseFloat(lat),lng:parseFloat(lng)},
@@ -575,7 +625,7 @@ function dblclick() {
       title: fname
     });
       
-    console.log(marker);
+    
     var contentString = '<div id="content">'+
             '<div id="userInfo">'+
             '</div>'+

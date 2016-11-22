@@ -161,17 +161,19 @@ def find_other(Z, user):
 # ab = find_other(Z, 15)
 # print ab
 
-def find_ngbrs(B,Z,user):
+def find_ngbrs(C,Z,user):
     a = nx.get_node_attributes(Z, 'name')
     print "BEFORE Z OUT EDGES"
     for edge in Z.out_edges([user], data=True):
         print "Z.OUT-EDGES",edge
-        B.add_edge(a[edge[0]],a[edge[1]],edge[2])
-        print B.edges(data=True)
+        C.add_edge(a[edge[0]],a[edge[1]],edge[2])
+        C.add_node(edge[1],{'name':a[edge[1]]})
     for edge in Z.in_edges([user], data=True):
         print "Z.IN-EDGES",edge
-        B.add_edge(a[edge[0]],a[edge[1]],edge[2])
-        print B.edges(data=True)
+        C.add_edge(a[edge[0]],a[edge[1]],edge[2])
+        C.add_node(edge[0],{'name': a[edge[0]]})
+    print C.edges(data=True)
+    print C.nodes(data=True)
 
 
 
