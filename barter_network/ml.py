@@ -31,7 +31,7 @@ print data.dropna(axis=0,inplace=True)
 # BASED ON JOB PREDICT SKILL
 df = data[["skill_id","user_occupation_id","direction_id"]] # to-1, from-0
 
-print df.sort_values(["user_occupation_id"], axis=0,ascending=False)
+# print df.sort_values(["user_occupation_id"], axis=0,ascending=False)
 
 data_to=df.loc[df['direction_id'] == 1]
 data_from=df.loc[df['direction_id'] == 0]
@@ -54,8 +54,8 @@ knn_from.fit(train_small_from.iloc[:,1:], train_small_from.iloc[:,0]) #data labe
 predictions_from = knn_from.predict(validation_small_from.iloc[:,1:])
 validation_labels_from = validation_small_from.iloc[:,0].values
 
-print predictions_from[:20]
-print validation_labels_from[:20]
+# print predictions_from[:20]
+# print validation_labels_from[:20]
 
 # for i in predictions_from[:2]:
 #     print skill[skill['skill_id'] == i]

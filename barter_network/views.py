@@ -6,7 +6,7 @@ from jinja2 import StrictUndefined
 
 from flask import render_template, request, flash, redirect, session, jsonify
 
-from sqlalchemy import func
+from sqlalchemy import func, desc
 from model import connect_to_db, db, User, Skill, UserSkill
 import bcrypt
 import os
@@ -107,14 +107,14 @@ def barter_up_process():
     flash('You are now logged in!')
     helper_fun.add_node(network.Z, new_user.user_id,new_user.user_fname)
 
-    ml_skill_to,ml_skill_from = ml.predict(db.session.query(User.user_occupation_id).filter(User.user_id==session['user_id']).first())
-    t = np.asscalar(np.int16(ml_skill_to))
-    f = np.asscalar(np.int16(ml_skill_from))
-    pred_skill_to, pred_skill_from = db.session.query(Skill.skill_name).filter((Skill.skill_id==t)|(Skill.skill_id==f)).all()
+    # ml_skill_to,ml_skill_from = ml.predict(db.session.query(User.user_occupation_id).filter(User.user_id==session['user_id']).first())
+    # t = np.asscalar(np.int16(ml_skill_to))
+    # f = np.asscalar(np.int16(ml_skill_from))
+    # pred_skill_to, pred_skill_from = db.session.query(Skill.skill_name).filter((Skill.skill_id==t)|(Skill.skill_id==f)).all()
 
-    print "PRED FROM",pred_skill_from
-    print "PRED TO",pred_skill_to
-    return render_template("user_skill.html", user=new_user, pred_skill_to=pred_skill_to[0],pred_skill_from=pred_skill_from[0])
+    # print "PRED FROM",pred_skill_from
+    # print "PRED TO",pred_skill_to
+    return render_template("user_skill.html", user=new_user)
 
 
 @app.route("/users/<int:user_id>")
@@ -125,7 +125,16 @@ def user_detail(user_id):
 
     skillto = db.session.query(Skill.skill_name).join(UserSkill).filter(UserSkill.skill_direction=='to', UserSkill.user_id==user_id).scalar()
     skillfrom = db.session.query(Skill.skill_name).join(UserSkill).filter(UserSkill.skill_direction=='from', UserSkill.user_id==user_id).scalar()
-    return render_template("user_profile.html", user=user, map_key_api=map_key, skill_from=skillfrom, skill_to=skillto)
+
+    ml_skill_to,ml_skill_from = ml.predict(db.session.query(User.user_occupation_id).filter(User.user_id==session['user_id']).first())
+    t = np.asscalar(np.int16(ml_skill_to))
+    f = np.asscalar(np.int16(ml_skill_from))
+    pred_skill_to, pred_skill_from = db.session.query(Skill.skill_name).filter((Skill.skill_id==t)|(Skill.skill_id==f)).all()
+
+    print "PRED FROM",pred_skill_from
+    print "PRED TO",pred_skill_to
+    return render_template("user_profile.html", user=user, map_key_api=map_key, skill_from=skillfrom, skill_to=skillto,
+        pred_skill_to=pred_skill_to[0],pred_skill_from=pred_skill_from[0])
 
 
 

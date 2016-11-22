@@ -16,6 +16,8 @@ random.seed(4321)
 from barter_network import app
 connect_to_db(app)
 
+from collections import Counter
+
 FILE_PATH = 'barter_network/static'
 
 nodes = db.session.query(UserSkill.user_id,User.user_fname).join(User).all()
@@ -181,6 +183,7 @@ def generate_edges(nodes):
     ls = []
     for i in xrange(len(nodes)-1):
         ls.append((nodes[i],nodes[i+1]))
+    print ls
     return ls
 # cd = generate_edges(ab)
 # print cd 
