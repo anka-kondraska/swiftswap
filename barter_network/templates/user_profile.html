@@ -1,6 +1,28 @@
 {% extends 'base.html' %}
 {% block content %}
 
+{% if 'user.user_id' in session %}
+  <h3>Hello {{user.user_fname}}</h3>
+
+  <p>Your Current Skills</p>
+  <p><label>Current Skill You Want:</label> {{skill_to}}</p>
+  <p><label>Current Skill You Provide:</label> {{skill_from}}</p>
+
+  <p>Update Your Skills</p>
+  <form action="/update_skill" method="POST">
+      <p><label>Update Skill You Want </label><input type="text" name="update-skill-name-to"></p>
+      <p><label>Update Skill You Provide </label><input type="text" name="update-skill-name-from"></p>
+      <p><input type="submit" value="Submit"></p>
+  </form>
+{% else %}
+
+  <h3>{{user.user_fname}}'s Skills</h3>
+  <p><label>Current Skill You Want:</label> {{skill_to}}</p>
+  <p><label>Current Skill You Provide:</label> {{skill_from}}</p>
+
+{% endif %}
+
+
 <style type="text/css">#user-map { height: 400px; width:400px; }</style>
 <style>
 
@@ -61,31 +83,12 @@ text {
  
 </style>
 
-<h3>Hello {{user.user_fname}}</h3>
-
-<p>Your Current Skills</p>
-
-<p><label>Current Skill You Want:</label> {{skill_to}}</p>
-<p><label>Current Skill You Provide:</label> {{skill_from}}</p>
-
-<p>Update Your Skills</p>
-<form action="/update_skill" method="POST">
-
-        <p><label>Update Skill You Want </label><input type="text" name="update-skill-name-to"></p>
-        <p><label>Update Skill You Provide </label><input type="text" name="update-skill-name-from"></p>
-
-        <p><input type="submit" value="Submit"></p>
-
-
-</form>
-
 <script src="https://d3js.org/d3.v3.min.js"></script>
 <!-- CLOSED LOOP D3 GRAPH -->
 <div id='d3-container-loops'><!-- <svg ></svg> --></div>
-<div class='window-content'>
-  
-<p>Users in Your Network</p>
 
+<div class='window-content'>
+<p>Users in Your Network</p>
 
 <script type="text/javascript">
   $.get('/simple_cycle.json/{{user.user_id}}', function (users) {
@@ -100,16 +103,7 @@ text {
         
         ids.push({"id":userd.id,"name":userd.name})
     console.log(ids);
-  
-
-      // if (parseInt(userd.id))
-      //   ids.push(userd);
-      // else
-      //   names.push(userd);
       }
-     
-     // console.log(ids);
-     // console.log(names);
 }
   
 
@@ -124,12 +118,8 @@ text {
         console.log(html);
         $(".window-content").append(html);
       }
-        
-
-      
      
 });
-
 
 </script>
 </div>
@@ -312,25 +302,6 @@ var force = d3.layout.force()
     .on("tick", tick)
     .start();
  
-// Set the range
-// var  v = d3.scale.linear().range([0, 100]);
- 
-// Scale the range of the data
-// v.domain([0, d3.max(links, function(d) { return d.value; })]);
- 
-// asign a type per value to encode opacity
-// links.forEach(function(link) {
-//   if (v(link.value) <= 25) {
-//     link.type = "twofive";
-//   } else if (v(link.value) <= 50 && v(link.value) > 25) {
-//     link.type = "fivezero";
-//   } else if (v(link.value) <= 75 && v(link.value) > 50) {
-//     link.type = "sevenfive";
-//   } else if (v(link.value) <= 100 && v(link.value) > 75) {
-//     link.type = "onezerozero";
-//   }
-// });
- 
 var svg = d3.select("#d3-container-ngbrs").append("svg")
     .attr("width", width)
     .attr("height", height);
@@ -445,132 +416,6 @@ function dblclick() {
 });
  
 </script> 
-<script>
-// d3.json("/ngbrs_data.json/{{user.user_id}}", function(error, graph) {
-
-// var nodes = {};
-
-// // Compute the distinct nodes from the links.
-// graph.links.forEach(function(link) {
-//   link.source = nodes[link.source] || (nodes[link.source] = {name: link.source});
-//   link.target = nodes[link.target] || (nodes[link.target] = {name: link.target});
-// });
-
-
-// var width = 500,
-//     height = 500;
-
-// var force = d3.layout.force()
-//     .nodes(d3.values(nodes))
-//     .links(graph.links)
-//     .size([width, height])
-//     .linkDistance(200)
-//     .charge(-500)
-//     .on("tick", tick)
-//     .start();
-
-// var ngbrs = d3.select("#d3-container-ngbrs")
-//     .append("svg")
-//     .attr("width", width)
-//     .attr("height", height);
-
-// // build the arrow.
-// ngbrs.append("ngbrs:defs").selectAll("marker")
-//     .data(["end"])      // Different link/path types can be defined here
-//   .enter().append("ngbrs:marker")    // This section adds in the arrows
-//     .attr("id", String)
-//     .attr("viewBox", "0 -5 10 10")
-//     .attr("refX", 15)
-//     .attr("refY", -1.5)
-//     .attr("markerWidth", 6)
-//     .attr("markerHeight", 6)
-//     .attr("orient", "auto")
-//   .append("ngbrs:path1")
-//     .attr("d", "M0,-5L10,0L0,5");
-
-// // add the links and the arrows
-// var path1 = ngbrs.append("ngbrs:g").selectAll("path1")
-//     .data(force.links())
-//   .enter().append("ngbrs:path1")
-// //    .attr("class", function(d) { return "link " + d.type; })
-//     .attr("class", "link")
-//     .attr("id",function(d,i) { return "linkId_" + i; })
-//     .attr("class", function(d) { return "link " + d.type; })
-//     // .attr("marker-end", function(d) { return "url(#" + d.type + ")"});
-//     .attr("marker-end", "url(#end)");
-
-
-// var node = ngbrs.selectAll(".node")
-//     .data(force.nodes())
-//   .enter().append("g")
-//     .attr("class", "node")
-//     .on("mouseover", mouseover)
-//     .on("mouseout", mouseout)
-//     .call(force.drag);
-
-// node.append("circle")
-//     .attr("r", 6);
-    
-
-// node.append("text")
-//     .style("font-size", "13px")
-//     .attr("x", 10)
-//     .attr("dy", ".35em")
-//     .text(function(d) { return d.name; });
-
-// //http://stackoverflow.com/questions/8663844/add-text-label-onto-links-in-d3-force-directed-graph
-
-// var linktext1 = ngbrs.append("ngbrs:g").selectAll("g.linklabelholder1").data(force.links());
-//      linktext1.enter().append("g").attr("class", "linklabelholder1")
-//      .append("text")
-//      .attr("class", "linklabel1")
-//      .style("font-size", "12px")
-//      .attr("x", 50)
-//      .attr("y", 20)
-//      .attr("text-anchor", "start")
-//      .style("fill","#000")
-//      .append("textPath")
-//     .attr("xlink:href",function(d,i) { return "#linkId_" + i;})
-//      .text(function(d) { 
-//         console.log(d.name);
-//         return d.name; //Can be dynamic via d object 
-         
-//      });
-
-
-// // add the curvy lines
-// function tick() {
-//     path1.attr("d", function(d) {
-//         var dx = d.target.x - d.source.x,
-//             dy = d.target.y - d.source.y,
-//             dr = Math.sqrt(dx * dx + dy * dy);
-//         return "M" + 
-//             d.source.x + "," + 
-//             d.source.y + "A" + 
-//             dr + "," + dr + " 0 0,1 " + 
-//             d.target.x + "," + 
-//             d.target.y;
-//     });
-
-//     node
-//         .attr("transform", function(d) { 
-//         return "translate(" + d.x + "," + d.y + ")"; });
-// }
-
-
-// function mouseover() {
-//   d3.select(this).select("circle").transition()
-//       .duration(750)
-//       .attr("r", 16);
-// }
-
-// function mouseout() {
-//   d3.select(this).select("circle").transition()
-//       .duration(750)
-//       .attr("r", 8);
-// }
-// });
-// </script>
 
 
 
