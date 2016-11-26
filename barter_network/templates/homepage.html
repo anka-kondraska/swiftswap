@@ -6,21 +6,15 @@
             <div>
                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 left">
                     <h1 id="h1left">Barter</h1>
+                    <h2>Our Network Graph</h2>
                     
-                      <h2>Our Network Graph</h2>
                       <div class="network-graph"> 
-                      <svg width="1060" height="1000"></svg>
+                        
+                      <svg width="500" height="500"></svg>
                       </div>
+                      
 
-                      <!-- Chart JS -->
-                      <h2>Pagerank Donut of Our Network</h2>
-                      <p>How connected are you?</p>
-                      <p>Incoming node connections: frequency with which skills we are looking for (want) are being provided</p>
-                      <p>How quickly your needs will be satisfied</p>
-                      <div class="pagerank-chart">
-                      <canvas id="myChart" width='100' height='100'></canvas>
-                      <!-- <div id="chartlegend" class="chart-legend"></div> -->
-                      </div>
+                      
                       
                       
                 </div>
@@ -28,18 +22,45 @@
             <div>
                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 right">
                     <h1 id="h1right">Network</h1>
-                    <div class="col-md-4 col-md-offset-3">
-                        <h2 id="welcome">Welcome to Barter Network</h2>
+                    <!-- <div class="col-md-4 col-md-offset-3"> -->
+                      <h2>About Us</h2>
+                      <p>We are here to provide alternatives to the current economical model</p>
 
-                          <p>We are here to provide alternatives to the current economical model</p>
-                        <!-- <form>
-                            <input name="username" type="text" class="form-control" placeholder="Your Username">
-                            <input name="password" type="password" class="form-control" placeholder="Your Password">
-                        </form> -->
-                        <!-- <div>
-                            <a href="#0.1_" class="btn">Sign Up</a>
-                        </div> -->
+                      
+                       
+                    <!-- </div> -->
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 left">
+                    
+                      
+                      <h2>About Us</h2>
+                      <p>We are here to provide alternatives to the current economical model</p>
+
+                      
+                      
+                      
+                </div>
+            </div>
+            <div>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 right">
+                  <!-- Chart JS -->
+                      <h2>Pagerank Donut of Our Network</h2>
+                      <p>How connected are you?<br>
+                      Incoming node connections: frequency with which skills we are looking for (want) are being provided<br>
+                      How quickly your needs will be satisfied</p>
+                      <div class="pagerank-chart">
+                      <canvas id="myChart" width='200' height='200'></canvas>
                     </div>
+                      <!-- <div id="chartlegend" class="chart-legend"></div> -->
+                      
+
+                      
+                    
                 </div>
             </div>
         </div>
@@ -50,7 +71,7 @@
 
 .links line {
   stroke: #999;
-  stroke-opacity: 0.6;
+  stroke-opacity: 10;
 }
 
 .nodes circle {
@@ -67,16 +88,8 @@
 
 <!-- D3 Forced Layout Network Graph by Mike Bostock 
 http://bl.ocks.org/mbostock/4062045 -->
-
-
-
-
-
-
-
-
-
 <script>
+"use strict";
 
 var svg = d3.select("svg"),
     width = +svg.attr("width"),
@@ -86,11 +99,26 @@ var color = d3.scaleOrdinal(d3.schemeCategory20);
 
 var simulation = d3.forceSimulation()
     .force("link", d3.forceLink().id(function(d) { return d.id; }))
-    .force("charge", d3.forceManyBody().strength(-15))
+    .force("charge", d3.forceManyBody().strength(-30))
     .force("center", d3.forceCenter(width / 2, height / 2));
 
 d3.json("/network_graph.json", function(error, graph) {
   if (error) throw error;
+//arrows
+  svg.append("defs").selectAll("marker")
+    .data(["suit", "licensing", "resolved"])
+  .enter().append("marker")
+    .attr("id", function(d) { return d; })
+    .attr("viewBox", "0 -5 10 10")
+    .attr("refX", 25)
+    .attr("refY", 0)
+    .attr("markerWidth", 8)
+    .attr("markerHeight", 9)
+    .attr("orient", "auto")
+  .append("path")
+    .attr("d", "M0,-5L10,0L0,5 L10,0 L0, -5")
+    .style("stroke", "#999") //,"#4679BD"
+    .style("opacity", "10");
 
   var link = svg.append("g")
       .attr("class", "links")
@@ -98,19 +126,22 @@ d3.json("/network_graph.json", function(error, graph) {
     .data(graph.links)
     .enter().append("line")
       // .attr("stroke-width", function(d) { return Math.sqrt(d.value); });
-      .attr("stroke-width", 1);
+      .attr("stroke-width", 1.05)
+      .style("marker-end",  "url(#suit)") ;
+
 
   var node = svg.append("g")
       .attr("class", "nodes")
     .selectAll("circle")
     .data(graph.nodes)
     .enter().append("circle")
-      .attr("r", 5)
-      .attr("fill", function(d){return color(d.name); })
+      .attr("r", 6)
+      .attr("fill", function(d){return color(d.name); }) 
       .call(d3.drag()
           .on("start", dragstarted)
           .on("drag", dragged)
-          .on("end", dragended));
+          .on("end", dragended))
+   
 
   node.append("title")
       .text(function(d) { return d.name; });
@@ -135,7 +166,9 @@ d3.json("/network_graph.json", function(error, graph) {
     node
         .attr("cx", function(d) { return d.x; })
         .attr("cy", function(d) { return d.y; });
+     // node.each(collide(0.5)); //Added 
   }
+
 });
 
 function dragstarted(d) {
@@ -155,16 +188,21 @@ function dragended(d) {
   d.fy = null;
 }
 
+
+
 </script>
 
 
 
 <script>
+"use strict";
   var options = {
       responsive: true
+  
     };
 
     var ctx_donut = $("#myChart").get(0).getContext("2d");
+    Chart.defaults.global.defaultFontColor = "#fff";
 
     $.get("/pagerank.json", function (data) {
       var myDonutChart = new Chart(ctx_donut, {

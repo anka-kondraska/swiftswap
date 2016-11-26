@@ -66,10 +66,16 @@ a = nx.get_node_attributes(Z, 'name')
 # {1: u'Jonathan', 2: u'Ryan', 3: u'Mason'}
 b = nx.get_edge_attributes(Z, 'name')
 # {(79, 64): u'animal grooming', (80, 40): u'pick up/drop off', (45, 58): u'tailoring'}
-node_names = [a[node] for node in a]
+nd = [a[node] for node in a]
 
 pr = nx.pagerank(Z)
-page_rank = [pr[i] for i in pr]
+prz = [pr[i] for i in pr]
+
+zipped_node_pr = sorted(zip(nd, prz),key=lambda a: a[1], reverse=True)
+zipped_node_pr=zipped_node_pr[:5]
+node_names= [b[0] for b in zipped_node_pr]
+page_rank=[b[1] for b in zipped_node_pr]
+
 
 
 def hex_generator(num):

@@ -34,11 +34,22 @@ body:after {
 #register-map { height: 100%; }
 
 .pagerank-chart{
-    height: 80%;
-    width: 80%;
-    /*z-index: 99999;*/
+    height: 60%;
+    width: 60%;
+
+}
+#myChart{
+    font-size: 50px;
+    font-weight:300;
+    font-family: 'Cormorant Garamond', serif;
+    color: #e7d1bc;
+
 }
 
+d3-tip {
+    line-height: 1;
+    color: black;
+}
 
 html, body {
   width: 100%;
@@ -58,13 +69,14 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-
-.navbar, .navbar-default .navbar-brand, .navbar-default .navbar-nav li a {
-    background: rgba(0, 0, 0, 0);
+.navbar, .navbar-default .navbar-header .navbar-brand, .navbar-default .navbar-nav li a {
+    background: #ededed;
+    opacity: 1;
     border: none;
     border-radius: 0;
-    color: #fff;
-    font-family: 'Playfair Display', serif;
+    color: #000;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 700;
     font-size: 18px;
 }
 
@@ -74,7 +86,7 @@ body {
 
 #h1left {
     color: #e7d1bc;
-    font-family: 'Playfair Display', serif;
+    font-family: 'Cormorant Garamond', serif;
     font-weight: 900;
     font-style: italic;
     font-size:88px;
@@ -86,7 +98,7 @@ body {
 
 #h1right{
     color: #e7d1bc;
-    font-family: 'Playfair Display', serif;
+    font-family: 'Cormorant Garamond', serif;
     font-weight: 900;
     font-style: italic;
     font-size:88px;
@@ -95,39 +107,65 @@ body {
     padding-bottom: 75px;
 }
 
-#signup {
-    color: #e7d1bc;
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    text-align: center;
-    padding-bottom: 10px;
-    margin-left: 25px;
-    margin-top: 0px;
-}
 
-body .container-fluid{
+
+.container-fluid{
     background: rgba(16, 10, 4, 0.6);
-/*    height: 90%;
-    line-height: 1.3;
-    position: fixed;*/
+    width:95%;
+
     /*height: 100%;*/
+    /*line-height: 1.3;*/
+    /*position: fixed;
+    /*height: 100%;
 /*    top: 40px;
     bottom: 40px;
     left: 40px;
     right: 40px;*/
 }
 
-p {
+
+/*p {
     margin-left: 150px;
     margin-right: 150px;
     text-align: center;
-    font-family: 'Playfair Display', serif;
+    font-family: 'Cormorant Garamond', serif;
     font-weight: 400;
     font-size: 18px;
     color: #e7d1bc;
+}*/
+
+
+
+h2 {
+  color: #e7d1bc;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    /*font-style: italic;*/
+    font-size:40px;
+    text-align: center;
+    padding-top: 40px;
+    padding-bottom: 75px;
+
+
 }
 
-input[type="text"], input[type="password"] {
+
+
+p {
+  padding-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    text-align: left;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 200;
+    font-size: 25px;
+    color: #e7d1bc;
+    padding-bottom: 35px;
+  }
+
+
+
+  input[type="email"], input[type="password"] {
   width: 300px;
   padding: 10px 0px;
   background: transparent;
@@ -138,7 +176,7 @@ input[type="text"], input[type="password"] {
   color: #e7d1bc;
   font-size: 16px;
   text-align: center;
-  font-family: 'Playfair Display', serif;
+  font-family: 'Cormorant Garamond', serif;
   font-weight: 300;
   font-style: italic;
   margin: 25px;
@@ -165,7 +203,7 @@ input[type="submit"]:hover {
   margin: 25px;
   padding: 15px 30px;
   border: 1px solid #fff;
-  font-family: 'Playfair Display', serif;
+  font-family: 'Cormorant Garamond', serif;
   font-size: 12px;
   line-height: 1;
   color: #e7d1bc;
