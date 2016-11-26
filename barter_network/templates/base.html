@@ -2,58 +2,90 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Barter Network</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"> -->
+    <!-- Bootstrap -->
+    <link rel="stylesheet" 
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <!-- D3 Graphs -->
     <script src="https://d3js.org/d3.v4.min.js"></script>
-    <script src="https://code.jquery.com/jquery.js"></script>
+    <!-- Chart js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.js"></script>
 
-
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <!-- Google Font -->
+    <link href='https://fonts.googleapis.com/css?family=Playfair+Display:400,400italic,700,900,700italic,900italic' rel='stylesheet' type='text/css'>
+    <!-- Stylesheet -->
     <link rel="stylesheet" type="text/css" href="../static/style.css">
 
-    <!-- nav bar -->
-
-  <nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="/">Barter Network </a>
-      </div>
-        <ul class="nav navbar-nav">
-          <li><a href="#">About Barter</a></li>
-          
-        </ul>
-      <ul class="nav navbar-nav navbar-right">
-      {% if 'user_id' in session %}
-        <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Barter Out!</a></li>
-         <li><a href="/users/{{ session['user_id'] }}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
-      {% else %}
-
-        <li><a href="/register" data-toggle="modal" data-target=="#basicModal"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a href="/login" data-toggle="modal" data-target=="#basicModal"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-        
-      {% endif %}
-      </ul>
-    </div>
-</nav>
-
    <!-- nav bar -->
+      <nav class="navbar navbar-inverse">
+      <!-- <div class="container-fluid"> -->
+        <div class="navbar-header">
+          <button type="button"
+                        class="navbar-toggle collapsed"
+                        data-toggle="collapse"
+                        data-target="#navbar"
+                        aria-expanded="false"
+                        aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+          <a class="navbar-brand" href="/">Barter Network </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="#">About Barter</a></li>
+            
+          </ul>
+        <ul class="nav navbar-nav navbar-right">
+          {% if 'user_id' in session %}
+            <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Barter Out!</a></li>
+             <li><a href="/users/{{ session['user_id'] }}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+          {% else %}
 
-   <hr>
+            <li><a href="/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            
+          {% endif %}
+        </ul>
+      </div>
+      <!-- </div> -->
+    </nav>
+
+   <!-- flash messages -->
+
+   <!-- <hr> -->
     <ul>
         {% for message in get_flashed_messages() %}
         <li>{{ message }}</li>
         {% endfor %}
     </ul>
 
+
 </head>
 <body >
 
- 
+
 
 {% block content %}
+
+
+
 YOUR CONTENT HERE
+
+
+
+
 {% endblock %}
+
+
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
 </body>
 </html>

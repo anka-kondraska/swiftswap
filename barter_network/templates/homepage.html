@@ -1,5 +1,51 @@
 {% extends 'base.html' %}
 {% block content %}
+
+   <div class="container-fluid">
+        <div class="row">
+            <div>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 left">
+                    <h1 id="h1left">Barter</h1>
+                    
+                      <h2>Our Network Graph</h2>
+                      <div class="network-graph"> 
+                      <svg width="1060" height="1000"></svg>
+                      </div>
+
+                      <!-- Chart JS -->
+                      <h2>Pagerank Donut of Our Network</h2>
+                      <p>How connected are you?</p>
+                      <p>Incoming node connections: frequency with which skills we are looking for (want) are being provided</p>
+                      <p>How quickly your needs will be satisfied</p>
+                      <div class="pagerank-chart">
+                      <canvas id="myChart" width='100' height='100'></canvas>
+                      <!-- <div id="chartlegend" class="chart-legend"></div> -->
+                      </div>
+                      
+                      
+                </div>
+            </div>
+            <div>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 right">
+                    <h1 id="h1right">Network</h1>
+                    <div class="col-md-4 col-md-offset-3">
+                        <h2 id="welcome">Welcome to Barter Network</h2>
+
+                          <p>We are here to provide alternatives to the current economical model</p>
+                        <!-- <form>
+                            <input name="username" type="text" class="form-control" placeholder="Your Username">
+                            <input name="password" type="password" class="form-control" placeholder="Your Password">
+                        </form> -->
+                        <!-- <div>
+                            <a href="#0.1_" class="btn">Sign Up</a>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 <style>
 
 .links line {
@@ -15,29 +61,17 @@
 </style>
 
 
-    <p><h1>Welcome to Barter Network</h1></p>
-    <p>We are here to provide alternatives to the current economical model</p>
+    
 
 
 
 <!-- D3 Forced Layout Network Graph by Mike Bostock 
 http://bl.ocks.org/mbostock/4062045 -->
-<h2>Our Network Graph</h2>
-<div class="network-graph"> 
-<svg width="1060" height="1000"></svg>
-</div>
 
 
 
-<!-- Chart JS -->
-<h2>Pagerank Donut of Our Network</h2>
-<p>How connected are you?</p>
-<p>Incoming node connections: frequency with which skills we are looking for (want) are being provided</p>
-<p>How quickly your needs will be satisfied</p>
-<div class="pagerank-chart">
-    <canvas id="myChart" width="100" height="100"></canvas>
-    <!-- <div id="chartlegend" class="chart-legend"></div> -->
-  </div>
+
+
 
 
 

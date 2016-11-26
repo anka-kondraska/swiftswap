@@ -1,8 +1,3 @@
-html, body {
-    height: 100%; 
-    margin: 0; 
-    padding: 0; 
-}
 
 /*body {    
         background: url("background-img.jpeg");
@@ -41,8 +36,143 @@ body:after {
 .pagerank-chart{
     height: 80%;
     width: 80%;
+    /*z-index: 99999;*/
 }
 
-div {
-    position: center;
+
+html, body {
+  width: 100%;
+  height: 100%;
+
+  /*overflow: hidden;*/
+}
+
+body {
+  background-image: url(background-img.jpeg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  color: #000;
+  line-height: 1.1;
+  -webkit-font-smoothing: antialiased;
+}
+
+
+.navbar, .navbar-default .navbar-brand, .navbar-default .navbar-nav li a {
+    background: rgba(0, 0, 0, 0);
+    border: none;
+    border-radius: 0;
+    color: #fff;
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+}
+
+.navbar-default .navbar-brand:hover, .navbar-default .navbar-nav li a:hover {
+  color: #ED8429;
+}
+
+#h1left {
+    color: #e7d1bc;
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-style: italic;
+    font-size:88px;
+    text-align: right;
+    padding-top: 40px;
+    padding-bottom: 75px;
+    margin-right:25px;
+}
+
+#h1right{
+    color: #e7d1bc;
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-style: italic;
+    font-size:88px;
+    text-align: left;
+    padding-top: 40px;
+    padding-bottom: 75px;
+}
+
+#signup {
+    color: #e7d1bc;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    text-align: center;
+    padding-bottom: 10px;
+    margin-left: 25px;
+    margin-top: 0px;
+}
+
+body .container-fluid{
+    background: rgba(16, 10, 4, 0.6);
+/*    height: 90%;
+    line-height: 1.3;
+    position: fixed;*/
+    /*height: 100%;*/
+/*    top: 40px;
+    bottom: 40px;
+    left: 40px;
+    right: 40px;*/
+}
+
+p {
+    margin-left: 150px;
+    margin-right: 150px;
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+    font-size: 18px;
+    color: #e7d1bc;
+}
+
+input[type="text"], input[type="password"] {
+  width: 300px;
+  padding: 10px 0px;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #e7d1bc;
+  border-radius: 0;
+  outline: none;
+  color: #e7d1bc;
+  font-size: 16px;
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  font-weight: 300;
+  font-style: italic;
+  margin: 25px;
+}
+
+input[type="submit"] {
+  background: #e7d1bc;
+  border: 0;
+  width: 350px;
+  height: 40px;
+  border-radius: 3px;
+  color: #e7d1bc;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+input[type="submit"]:hover {
+  background: #fff;
+  animation-name: shake;
+}
+
+
+.btn {
+  margin: 25px;
+  padding: 15px 30px;
+  border: 1px solid #fff;
+  font-family: 'Playfair Display', serif;
+  font-size: 12px;
+  line-height: 1;
+  color: #e7d1bc;
+  text-decoration: none;
+}
+
+.btn:hover {
+    color: #e7d1bc;
+    background-color: #000;
 }
