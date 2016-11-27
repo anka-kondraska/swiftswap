@@ -5,8 +5,8 @@
         <div class="row">
             <div>
                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 left">
-                    <h1 id="h1left">Barter</h1>
-                    <h2>Our Network Graph</h2>
+                    <h1 id="h1left">Swift</h1>
+                    <h2>Our Network</h2>
                     
                       <div class="network-graph"> 
                         
@@ -21,10 +21,11 @@
             </div>
             <div>
                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 right">
-                    <h1 id="h1right">Network</h1>
+                    <h1 id="h1right">Swap</h1>
                     <!-- <div class="col-md-4 col-md-offset-3"> -->
                       <h2>About Us</h2>
-                      <p>We are here to provide alternatives to the current economical model</p>
+                      <p>When bartering skills or goods it's hard to find someone who is looking for your particular offering deeming the whole exchange pointless.</p>
+                      <p>We at SwiftSwap believe that does not need to be the case.</p>
 
                       
                        
@@ -102,6 +103,11 @@ var simulation = d3.forceSimulation()
     .force("charge", d3.forceManyBody().strength(-30))
     .force("center", d3.forceCenter(width / 2, height / 2));
 
+//Toggle stores whether the highlighting is on
+var toggle = 0;
+//Create an array logging what is connected to what
+var linkedByIndex = {};
+
 d3.json("/network_graph.json", function(error, graph) {
   if (error) throw error;
 //arrows
@@ -129,6 +135,17 @@ d3.json("/network_graph.json", function(error, graph) {
       .attr("stroke-width", 1.05)
       .style("marker-end",  "url(#suit)") ;
 
+for (var i = 0; i < graph.nodes.length; i++) {
+    linkedByIndex[i + "," + i] = 1;
+};
+graph.links.forEach(function (d) {
+    linkedByIndex[d.source.index + "," + d.target.index] = 1;
+});
+//This function looks up whether a pair are neighbours
+function neighboring(a, b) {
+    return linkedByIndex[a.index + "," + b.index];
+}
+
 
   var node = svg.append("g")
       .attr("class", "nodes")
@@ -141,6 +158,7 @@ d3.json("/network_graph.json", function(error, graph) {
           .on("start", dragstarted)
           .on("drag", dragged)
           .on("end", dragended))
+      .on('dblclick', connectedNodes); //Added code
    
 
   node.append("title")
@@ -170,6 +188,25 @@ d3.json("/network_graph.json", function(error, graph) {
   }
 
 });
+function connectedNodes() {
+    if (toggle == 0) {
+        //Reduce the opacity of all but the neighbouring nodes
+        d = d3.select(this).node().__data__;
+        node.style("opacity", function (o) {
+            return neighboring(d, o) | neighboring(o, d) ? 1 : 0.1;
+        });
+        link.style("opacity", function (o) {
+            return d.index==o.source.index | d.index==o.target.index ? 1 : 0.1;
+        });
+        //Reduce the op
+        toggle = 1;
+    } else {
+        //Put them back to opacity=1
+        node.style("opacity", 1);
+        link.style("opacity", 1);
+        toggle = 0;
+    }
+}
 
 function dragstarted(d) {
   if (!d3.event.active) simulation.alphaTarget(0.3).restart();
@@ -187,9 +224,6 @@ function dragended(d) {
   d.fx = null;
   d.fy = null;
 }
-
-
-
 </script>
 
 
