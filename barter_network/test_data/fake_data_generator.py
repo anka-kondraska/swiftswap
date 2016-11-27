@@ -10,7 +10,7 @@ fake.seed(4321)
 SKILL = ['gardening','programming','painting','dog walking',
          'cooking','cleaning','drawing','singing','playing guitar',
          'speak English','yoga instructor','meditation instructor','nails','haircut',
-         'animal grooming','shopping','driving a car'
+         'animal grooming','shopping','driving a car',
          'plumbing','legal form help','bookkeeping',
          'electronics fixed','tutoring',
          'dog/cat sitting','party organizing','home organizing',
@@ -29,8 +29,8 @@ def fake_user():
     lng = -99.3925
     jobs = [gen_data.create_job_title() for i in xrange(200)]
     for i in xrange(100):
-        lat += 0.0001
-        lng -= 0.0001
+        lat += 0.001
+        lng -= 0.001
         zipcode, city, state = gen_data.create_city_state_zip()
         f.write(fake.first_name()+'|'+fake.last_name()+'|'+gen_data.create_street()+
                 '|'+city+'|'+state+'|'+zipcode+

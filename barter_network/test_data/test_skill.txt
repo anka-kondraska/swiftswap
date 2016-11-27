@@ -14,7 +14,8 @@ nails|0
 haircut|0
 animal grooming|0
 shopping|0
-driving a carplumbing|0
+driving a car|0
+plumbing|0
 legal form help|0
 bookkeeping|0
 electronics fixed|0

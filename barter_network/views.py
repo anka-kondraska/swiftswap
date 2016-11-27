@@ -90,7 +90,7 @@ def barter_up_process():
     if User.query.filter_by(user_email=email).first():
         flash('Please log in, you are alreday registered')
 
-        return redirect('#loginModal')
+        return redirect('/login')
     else:
         oc_id = db.session.query(User.user_occupation_id).filter(User.user_occupation==occupation).first()
         
