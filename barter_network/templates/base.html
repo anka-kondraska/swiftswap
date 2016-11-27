@@ -40,7 +40,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-          <a class="navbar-brand" href="/">Barter Network </a>
+          <li><a class="navbar-brand" href="/">Barter Network </a></li>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -53,8 +53,8 @@
              <li><a href="/users/{{ session['user_id'] }}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
           {% else %}
 
-            <li><a href="/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-            <li><a href="#basicModal" data-toggle="modal" data-target="#basicModal"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            <li><a href="#signupModal" data-toggle="modal" data-target="#signupModal"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            <li><a href="#loginModal" data-toggle="modal" data-target="#loginModal"><span class="glyphicon glyphicon-log-in"></span> Log In</a></li>
             
           {% endif %}
         </ul>
@@ -64,7 +64,7 @@
 
    <!-- flash messages -->
 
-   <!-- <hr> -->
+   <!-- hr -->
     <ul>
         {% for message in get_flashed_messages() %}
         <li>{{ message }}</li>
@@ -74,33 +74,78 @@
 
 </head>
 <body >
-     <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-    <div class="modal-dialog">
+
+<!-- LOG IN MODAL -->
+   <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
+      <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Log In</h4>
-            </div>
-            <div class="modal-body">
-                <form action='/login' method='POST'>
+          <!-- <div class="modal-header"> -->
+              <!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> -->
+              <!-- <h4 class="modal-title" id="myModalLabel">Log In</h4> -->
+          <!-- </div> -->
+          <div class="modal-body">
+              <form id="login-form" action='/login' method='POST'>
+                <p id="signup">Log In to SwiftSwap</p>
 
-                <p>Email <input type="email" name="email" class="form-control" placeholder="Your Email"></p>
-                <p>Password <input type="password" name="password" class="form-control" placeholder="Your Password"></p>
+              <input type="email" name="email" class="form-control" placeholder="Your Email">
+              <input type="password" name="password" class="form-control" placeholder="Your Password">
+              <!-- <button type="submit" class="btn btn-default" data-dismiss="modal">Log In</button> -->
 
-                <!-- <p><input type='submit' name='Log In'></p> -->
-            
-
+              <input type='submit' name='login'>
           
+              <button type="button" class="btn btn-default right" data-dismiss="modal">Close</button>
+        
+              </form>
+          </div>
+          
+      </div>
+  </div>
+  </div>
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" data-dismiss="modal">Log In</button>
-            </div>
+<!-- SIGN UP MODAL  -->
+  <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="signupModal" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- <div class="modal-header"> -->
+              <!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> -->
+              <!-- <h4 class="modal-title" id="myModalLabel">Log In</h4> -->
+          <!-- </div> -->
+          <div class="modal-body">
+            <div class="row">
+            <form id="register-form" action="/register" method="POST">
+              <p id="signup">Sign Up for SwiftSwap</p>
+              <div class="col-md-6 left">
+
+
+                <input type="email" name="email" class="form-control" placeholder="Email">
+                <input type="password" name="password" class="form-control" placeholder="Password">
+                <input type="text" name="fname" class="form-control" placeholder="First Name">
+                <input type="text" name="lname" class="form-control" placeholder="Last Name"> 
+                <input type="text" name="dob" class="form-control" placeholder="Date of Birth">  
+                </div>   
+
+                <div class="col-md-6 right">
+                
+                <input type="text" name="occupation" class="form-control" placeholder="Job Title">
+                <input type="text" name="street-address" id='street-address' class="form-control" placeholder="Street Address"> 
+                <input type="text" name="city" id='city' class="form-control" placeholder="City">
+                <input type="text" name="state" id='state' class="form-control" placeholder="State">
+                <input type="text" name="zipcode" id='zipcode' class="form-control" placeholder="Zipcode">
+               </div>
+                <input type="submit" value="Submit">
+                <button type="button" class="btn btn-default right" data-dismiss="modal">Close</button>
             </form>
+          </div>
         </div>
-    </div>
-</div>
+          <!-- <div class="modal-footer"> -->
+              <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+              
+          <!-- </div> -->
+          
+      </div>
+  </div>
+  </div>
+
 
 
 

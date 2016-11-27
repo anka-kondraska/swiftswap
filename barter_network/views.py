@@ -90,7 +90,7 @@ def barter_up_process():
     if User.query.filter_by(user_email=email).first():
         flash('Please log in, you are alreday registered')
 
-        return redirect('/login')
+        return redirect('#loginModal')
     else:
         oc_id = db.session.query(User.user_occupation_id).filter(User.user_occupation==occupation).first()
         
@@ -158,11 +158,14 @@ def cycle_data(user_id):
     network.B.clear()
     lp = network.find_loop(network.Z, user_id)
     print lp
-    print "WE ARE HERE"
-    if lp == "Loop Not Found":
+    if lp != "Loop Not Found":
+        ed = network.generate_loop_edges(lp)
+        network.add_attributes(network.B, lp, ed)
+    else:
         print "FIND OTHER"
         # network.find_ngbrs(network.B,network.Z,user_id)
         lp = network.find_other(network.Z, user_id)
+        
         if lp == "Path Not Found":
             message = "Path Not Found"
             print message
@@ -170,8 +173,9 @@ def cycle_data(user_id):
         ed = network.generate_edges(lp)
         network.add_attributes(network.B, lp, ed)
 
-    ed = network.generate_loop_edges(lp)
-    network.add_attributes(network.B, lp, ed)
+    print network.B.edges(data=True)
+    print network.B.nodes(data=True)
+
     print "BEFORE USER GRAPH DATA LOOP DATA"
 
     user_graph_data = network.json_my_smallnet_data(network.B)

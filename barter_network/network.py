@@ -16,7 +16,6 @@ random.seed(4321)
 from barter_network import app
 connect_to_db(app)
 
-from collections import Counter
 
 FILE_PATH = 'barter_network/static'
 
@@ -101,31 +100,6 @@ random_col= hex_generator(len(node_names))
 #     plt.savefig(FILE_PATH+'/graph1.png')
 
 # create_graph(Z)
-
-
-# def save(G, fname):
-#     json.dump(dict(nodes=[[n, G.node[n]] for n in G.nodes()],
-#                    edges=[[u, v, G.edge[u][v]] for u,v in G.edges()]),
-#               open(fname, 'w'), indent=2)
-# save(Z, 'static/graph1.json')
-
-
-
-# def closed_loop_user(Z,user_id):
-#     user_loops = [line for line in list(nx.simple_cycles(Z)) if line[0]==user_id]
-#     for line in user_loops:
-#         if 
-
-
-# # print len(one[0])
-# ls=[]
-# for i in range(len(one[0])-1):
-#     ls.append((one[0][i:i+2]))
-# ls.append((one[0][-1],one[0][0]))
-
-
-# for line in list(nx.simple_cycles(Z)):
-#     print line
 
 def find_loop(Z, user):
     try:
@@ -214,6 +188,7 @@ def add_attributes(B, nodes, edges):
     using main network graph as source. Edges are added using 
     node attributes, not node ids.This is to prepare data to be 
     used in D3 directional graph using links/edges only"""
+    b = nx.get_edge_attributes(Z, 'name')
 
     for node in nodes:
         if node in a:
@@ -333,7 +308,6 @@ def node_link_data(G, attrs=_attrs):
 
     return data
 
-# data = json_graph.node_link_data(Z)
 def json_my_net_data(Z):
     data = node_link_data(Z)
     return data
