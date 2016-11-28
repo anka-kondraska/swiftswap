@@ -25,8 +25,8 @@
                     <!-- <div class="col-md-4 col-md-offset-3"> -->
                       <div></div>
                       <h2 id='about'>About Us</h2>
-                      <p>When bartering its hard to find what you want from the person who will barter for the skill you have. </p><p>Enter SwiftSwap - it searches the user network to find a closed path between users which means every user gets access to the skill they want without a one to one exchange.</p>
-                      <p>At SwiftSwap, we are utilizing a NetworkX method of finding elementary circuits based on Johnson's algorithm called simple_cycles.
+                      <p>When bartering its hard to find what you want from the person who will barter for the skill you have. Enter SwiftSwap - it searches the user network to find a closed path between users which means every user gets access to the skill they want without a one to one exchange.<br>
+                      At SwiftSwap, we are utilizing a NetworkX method of finding elementary circuits based on Johnson's algorithm called simple_cycles.
                         It allows us to locate a closed loop where the beginning and ending of the path is the same user.</p>
 
                       
@@ -81,7 +81,7 @@
   stroke-width: 1.5px;
 }
 text {
-  font: 12px helvetica;
+  font: 14px helvetica;
   fill: #ededed;
 }
 
@@ -134,7 +134,7 @@ d3.json("/network_graph.json", function(error, graph) {
     .data(graph.links)
     .enter().append("line")
       // .attr("stroke-width", function(d) { return Math.sqrt(d.value); });
-      .attr("stroke-width", 1.05)
+      .attr("stroke-width", 2.05)
       .style("marker-end",  "url(#suit)") ;//url(#suit)
 
 
@@ -143,7 +143,7 @@ d3.json("/network_graph.json", function(error, graph) {
     .selectAll("circle")
     .data(graph.nodes)
     .enter().append("circle")
-      .attr("r", 6)
+      .attr("r", 8)
       .attr("fill", function(d){return color(d.name); })
       .call(d3.drag()
           .on("start", dragstarted)
