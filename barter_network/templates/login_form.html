@@ -1,15 +1,47 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<div class="container-fluid">
+        <div class="row">
+            <div>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 left">
+                    <h1 id="h1left">SwiftSwap</h1>
+                   <form id="login-form" action='/login' method='POST'>
+                <p id="signup">Log In to SwiftSwap</p>
 
+              <input type="email" name="email" class="form-control" placeholder="Your Email">
+              <input type="password" name="password" class="form-control" placeholder="Your Password">
+              <!-- <button type="submit" class="btn btn-default" data-dismiss="modal">Log In</button> -->
 
-  <form action='/login' method='POST'>
+              <input type='submit' name='login'>
+          
+        
+              </form>
+                      
 
-                <p><label>Username/Email </label><input type="email" name="email"></p>
-                <p><label>Password </label><input type="password" name="password"></p>
+                      
+                      
+                      
+                </div>
+            </div>
+            <div>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 right">
+                    <h1 id="h1right"></h1>
+                    <!-- <div class="col-md-4 col-md-offset-3"> -->
+                      <div></div>
+                      <h2 id='about'>About Us</h2>
+                      <p>When bartering skills or goods it's hard to find someone who is looking for your particular offering deeming the whole exchange pointless.</p>
+                      <p>We at SwiftSwap believe that does not need to be the case.</p>
 
-                <p><input type='submit' name='Submit'></p>
-            </form>
+                      
+                       
+                    <!-- </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+  
 
 
 {% endblock %}

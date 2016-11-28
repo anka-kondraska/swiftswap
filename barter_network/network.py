@@ -75,7 +75,13 @@ zipped_node_pr=zipped_node_pr[:5]
 node_names= [b[0] for b in zipped_node_pr]
 page_rank=[b[1] for b in zipped_node_pr]
 
+nid = [node for node in a]
 
+znp = sorted(zip(nid, prz),key=lambda a: a[1], reverse=True)
+
+for z in znp[:5]:
+    print z,"USER",a[z[0]],"OFFERED", Z.out_edges([z[0]], data=True),"WANTED",Z.in_edges([z[0]], data=True)
+   
 
 def hex_generator(num):
     colors=[]

@@ -32,6 +32,8 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+
+
 .navbar, .navbar-default .navbar-brand, .navbar-default .navbar-nav li a {
     background: #ededed;
     opacity: 1;
@@ -77,7 +79,7 @@ body {
 
 
 .container-fluid{
-    background: rgba(16, 10, 4, 0.6);
+    background: rgba(16, 10, 4, 0.7);
     width:95%;
 }
 
@@ -168,14 +170,14 @@ p {
   font-size: 16px;
   text-align: center;
   font-family: 'Cormorant Garamond', serif;
-  font-weight: 300;
-  font-style: italic;
+  font-weight: bold;
+  font-style: italic ;
   margin: 25px 25px 25px 25px;
 }
   input[type="text"] {
   width: 200px;
   padding: 10px 0px;
-  background: transparent;
+  background: #ededed;
   border: 0;
   border-bottom: 1px solid #e7d1bc;
   border-radius: 0;
@@ -187,6 +189,9 @@ p {
   font-weight: bold;
   font-style: italic;
   margin: 25px 25px 25px 25px;
+}
+#register-form-nonmodal{
+  padding-top: 100px;
 }
 
 input[type="submit"] {
