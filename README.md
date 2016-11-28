@@ -7,8 +7,14 @@ When bartering, its hard to find what you want from the person who will barter f
 
 requirements.txt provided in /barter_network
 
-Tech Stack:
+<pre><code>Tech Stack:</code></pre>
 Python, NetworkX, D3, flask, flask-sqlalchemy, PostgreSql, SQLAlchemy, bcrypt, faker, pandas, numpy, sklearn, geocoder, bootstrap, Jinja2, Javascript, jQuery, Google Maps API
 
-
-![stack Overflow](http://lmsotfy.com/so.png)
+<ul>
+    <li>
+        
+    </li>
+    <li>
+        
+    </li>
+</ul>
