@@ -46,6 +46,7 @@ User closed path⭕ D3 graph and first degree connections D3 graph
 
 ![SwiftSwap Homepage](assets/ss5.png)
 
+User closed path⭕ connections links and user location map
 
 ![SwiftSwap Homepage](assets/ss6.png)
 
@@ -55,15 +56,15 @@ User closed path⭕ D3 graph and first degree connections D3 graph
 
 - PostgreSQL
 - Python 2.7
-- Flickr and Twilio API keys
+- Google Maps API keys
 
 To have this app running on your local computer, please follow the below steps:
 
 Clone repository:
 ```
-$ git clone https://github.com/agnaite/planty.git
+$ git clone https://github.com/skakanka/swiftswap.git
 ```
-Create a virtual environment🔮:
+Create a virtual environment:
 ```
 $ virtualenv env
 ```
@@ -71,29 +72,23 @@ Activate the virtual environment:
 ```
 $ source env/bin/activate
 ```
-Install dependencies🔗:
+Install dependencies:
 ```
 $ pip install -r requirements.txt
 ```
-Get your own secret keys🔑 for [Flickr](https://www.flickr.com/services/developer) and [Twilio](https://www.twilio.com/doers). Save them to a file `secrets.py`. Your file should look something like this:
+Get your own Google Maps API key and save it to a file `secrets.py`.
 ```
-APP_KEY = 'xyz'
-FLICKR_API_KEY = 'abc'
-FLICKR_API_SECRET = 'abc'
-TWILIO_SID = 'abc'
-TWILIO_AUTH = 'abc'
+Create database 'barternet'.
 ```
-Create database 'plants'.
+$ createdb -E UTF8 -T template0 --locale=en_US.utf8 barternet
 ```
-$ createdb plants
+Create your database tables and seed example data.
 ```
-Create your database tables and seed🌱 example data.
-```
-$ python model.py
+$ python barter_network/seed.py
 ```
 Run the app from the command line.
 ```
-$ python server.py
+$ python runserver.py
 ```
 If you want to use SQLAlchemy to query the database, run in interactive mode
 ```
@@ -105,11 +100,11 @@ $ python -i model.py
 ![SwiftSwap Demo](assets/swiftswap_demo.gif)
 
 ## <a name="future"></a>TODO
+* Map users within the shortest distance of each other in the closed path⭕
+* User reviews, verification and photos
 * Add ability for users to communicate
-* Add rating system for plants
-* Show recently added plants
-* Show popular plants by geographic location
-* Add custom plant fields
+* Develop system for valuing skills
+
 
 ## <a name="license"></a>License
 
