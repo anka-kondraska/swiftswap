@@ -37,8 +37,8 @@ E = nx.DiGraph()
 
 
 a = nx.get_node_attributes(Z, 'name')
-print a
 # {1: u'Jonathan', 2: u'Ryan', 3: u'Mason'}
+
 b = nx.get_edge_attributes(Z, 'name')
 # {(79, 64): u'animal grooming', (80, 40): u'pick up/drop off', (45, 58): u'tailoring'}
 
@@ -107,6 +107,12 @@ random_col= hex_generator(len(node_names))
 
 # create_graph(Z)
 
+# plt.figure(2)
+# B.add_nodes_from(one[0])
+# B.add_edges_from(ls)
+# nx.draw_networkx(B, with_labels=True)
+# plt.savefig('barter_network/static/loop1.png')
+
 def find_loop(Z, user):
     try:
         loop = min([line for line in nx.simple_cycles(Z) if user in line], key=len)
@@ -118,8 +124,6 @@ def find_loop(Z, user):
         print message
         return message
  
-# lp = find_loop(Z, 46)
-# print lp
 
 def find_other(Z, user):
 
@@ -133,25 +137,13 @@ def find_other(Z, user):
             if path:
                 print path
                 return path
-        # try:
-        #     path = [line for line in nx.shortest_path(Z, user, num)]
-        #     print path
-        #     if path:
-        #         print "PATH FOUND",path
-        #         return path
-        #     num += 1
         except:
             message = "Path Not Found"
             print message
             
 
-# print '>>>>PATHS'
-# ab = find_other(Z, 15)
-# print ab
-
 def find_ngbrs(C,Z,user):
     a = nx.get_node_attributes(Z, 'name')
-    print "BEFORE Z OUT EDGES"
     for edge in Z.out_edges([user], data=True):
         print "Z.OUT-EDGES",edge
         C.add_edge(a[edge[0]],a[edge[1]],edge[2])
@@ -171,8 +163,6 @@ def generate_edges(nodes):
         ls.append((nodes[i],nodes[i+1]))
     print ls
     return ls
-# cd = generate_edges(ab)
-# print cd 
 
 def generate_loop_edges(loop_nodes):
     ls = []
@@ -181,20 +171,14 @@ def generate_loop_edges(loop_nodes):
     ls.append((loop_nodes[-1],loop_nodes[0]))
     return ls
 
-
-
-# ed = generate_edges(lp)
-# print ed
-
-
-
-
 def add_attributes(B, nodes, edges):
     """Add nodes and adges to DiGraph including attributes
     using main network graph as source. Edges are added using 
     node attributes, not node ids.This is to prepare data to be 
     used in D3 directional graph using links/edges only"""
+
     b = nx.get_edge_attributes(Z, 'name')
+    a = nx.get_node_attributes(Z, 'name')
 
     for node in nodes:
         if node in a:
@@ -202,25 +186,7 @@ def add_attributes(B, nodes, edges):
     for edge in edges:
         if edge in b:
             B.add_edge(a[edge[0]],a[edge[1]], name=b[edge])
-            # B.add_edge(edge[0],edge[1], name=b[edge])
 
-
-
-# add_attributes(B, lp, ed)
-# print B.nodes(data=True)
-# print
-# print B.edges(data=True)
-
-
-# for i in one[0]:
-#     print nx.edges(Z,[i])
-#     print Z.out_edges(i)
-
-# plt.figure(2)
-# B.add_nodes_from(one[0])
-# B.add_edges_from(ls)
-# nx.draw_networkx(B, with_labels=True)
-# plt.savefig('barter_network/static/loop1.png')
 
 
 
@@ -309,8 +275,8 @@ def node_link_data(G, attrs=_attrs):
     else:
         data['links'] = [
             dict(chain(d.items(),
-                       [(source, u), (target, v)]))
-            for u, v, d in G.edges_iter(data=True)]
+                       [(source, u), (target, v)])) # originally [(source, mapping[u]), (target, mapping[v])] 
+            for u, v, d in G.edges_iter(data=True)] # instead of [(source, u), (target, v)]
 
     return data
 
@@ -320,19 +286,10 @@ def json_my_net_data(Z):
     # with open(FILE_PATH+'/graph1.json', 'w') as f:
     #     json.dump(data,f,indent=4)
 
-# json_my_net_data(Z)
 
 def json_my_smallnet_data(B):
     data = node_link_data(B)
     return data
-    # print data
-    # with open('barter_network/static/smallgraph.json', 'w') as f:
-    #     json.dump(data,f,indent=4)
-        
-# json_my_smallnet_data(B)
-
-
-
 
 
 if __name__ == '__main__':
