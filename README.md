@@ -77,7 +77,7 @@ Install dependencies:
 $ pip install -r requirements.txt
 ```
 Get your own Google Maps API key and save it to a file `secrets.py`.
-```
+
 Create database 'barternet'.
 ```
 $ createdb -E UTF8 -T template0 --locale=en_US.utf8 barternet
@@ -93,7 +93,6 @@ $ python runserver.py
 If you want to use SQLAlchemy to query the database, run in interactive mode
 ```
 $ python -i model.py
-```
 
 ## <a name="demo"></a>Demo
 
