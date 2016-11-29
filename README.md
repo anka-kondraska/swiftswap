@@ -20,4 +20,19 @@ Python, NetworkX, D3, flask, flask-sqlalchemy, PostgreSql, SQLAlchemy, bcrypt, f
 </ul>
 
 
+![SwiftSwap Homepage](assets/ss2.png)
+
+
+
+![SwiftSwap Homepage](assets/ss3.png)
+
+
+![SwiftSwap Homepage](assets/ss4.png)
+
+
+![SwiftSwap Homepage](assets/ss5.png)
+
+
+![SwiftSwap Homepage](assets/ss6.png)
+
 ![SwiftSwap Homepage](assets/screencast.gif)
