@@ -1,3 +1,5 @@
+"""Machine learning for skill prediction based on occupation for SwiftSwap"""
+
 import pandas as pd    # data formatting
 import numpy as np     # numeric library
 from sklearn.neighbors import KNeighborsClassifier  # machine learning
@@ -21,14 +23,13 @@ data = pd.merge(datauser, skills_df, on='skill_id', how="outer")
 # data.drop(data.index[[200]], inplace=True)
 
 print data.dropna(axis=0,inplace=True)
-# print "AFTER DROPNA",data.iloc[195:210]
 
 # data["job_id"] = pd.factorize(data.user_occupation, sort=True)[0]
 
 # to-1, from-0
 # data["direction_id"] = pd.factorize(data.skill_direction, sort=True)[0] 
 
-# BASED ON JOB PREDICT SKILL
+# BASED ON JOB PREDICT SKILL DB
 df = data[["skill_id","user_occupation_id","direction_id"]] # to-1, from-0
 
 # print df.sort_values(["user_occupation_id"], axis=0,ascending=False)
@@ -39,9 +40,6 @@ data_from=df.loc[df['direction_id'] == 0]
 
 job = data[["user_occupation","user_occupation_id"]]
 skill = data[["skill_name","skill_id"]]
-
-# job[job['job_id']==48]
-# skill[skill['skill_id']==48]
 
 # TEST DATA FROM/SKILL OFFERED - BASED ON JOB PREDICT SKILL OFFERED
 rows_from = random.sample(data_from.index, 100)
@@ -70,12 +68,12 @@ wrong_from = np.where(predictions_from != validation_labels_from)
 for i in wrong_from:
     print "predicted: ", predictions_from[i], "answer: ", validation_labels_from[i]
 
-# TEST DATA FROM/SKILL OFFERED - BASED ON JOB PREDICT SKILL OFFERED
+# TEST DATA TO/SKILL WANTED - BASED ON JOB PREDICT SKILL WANTED
 rows_to = random.sample(data_to.index, 100)
 train_small_to = data_to.ix[rows_to[:80]]
 validation_small_to = data_to.ix[rows_to[20:]]
 
-# TRAINING AND FITTING FROM SKILL OFFERED
+# TRAINING AND FITTING TO SKILL WANTED
 knn_to = KNeighborsClassifier(n_neighbors=1)
 knn_to.fit(train_small_to.iloc[:,1:], train_small_to.iloc[:,0]) #data labels
 predictions_to = knn_to.predict(validation_small_to.iloc[:,1:])
@@ -90,12 +88,13 @@ print wrong_to
 for i in wrong_to:
     print "predicted: ", predictions_to[i], "answer: ", validation_labels_to[i]
 
+# predict function to be used in views.py/routes
 def predict(user_occupation_id):
-    # if user_occupation_id
-    # if job[job['job_id'] == user_occupation_id]:
+    """Function predicting offered and wanted skill based on trained dataset
+    with kNeighboursClassifier"""
+
     user_prediction_to = knn_to.predict([user_occupation_id[0],1])
     user_prediction_from = knn_from.predict([user_occupation_id[0],0])
-
 
     # predict with K nearst neighbour skill wanted, skill offered
     return user_prediction_to,user_prediction_from

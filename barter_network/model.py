@@ -1,4 +1,4 @@
-"""Models and database functions for Barter Network."""
+"""Models and database functions for SwiftSwap."""
 
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func
@@ -9,9 +9,6 @@ sys.path.append('..')
 
 db = SQLAlchemy()
 
-#fake app for now, not connected to server.py yet
-# app = Flask(__name__)
-
 #######################
 # Model definitions and relationships
 
@@ -20,7 +17,6 @@ class User(db.Model):
     """User of Barter Circle"""
 
     __tablename__ = "users"
-
 
     # for networkx and node building 
     user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
@@ -40,17 +36,11 @@ class User(db.Model):
     user_lat = db.Column(db.Float, nullable=True)
     user_lng = db.Column(db.Float, nullable=True)
 
-
-
-
     # for site log in
     user_email = db.Column(db.String(64), unique=True, nullable=True)
     user_password = db.Column(db.String(500))
     # hashed_pswd = bcrypt.hashpw(password, bcrypt.gensalt())
  
-
-
-
 
 
     def __repr__(self):
