@@ -93,7 +93,7 @@ $ python runserver.py
 If you want to use SQLAlchemy to query the database, run in interactive mode
 ```
 $ python -i model.py
-
+```
 ## <a name="demo"></a>Demo
 
 ![SwiftSwap Demo](assets/swiftswap_demo.gif)
