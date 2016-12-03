@@ -2,7 +2,11 @@ language: python
 python:
   - "2.7"
 cache: pip
+before_install:
+    - sudo apt-get build-dep python-scipy
+    - pip install coveralls         
+    - pip install scipy
 install:
-  - pip install --user -r barter_network/requirements.txt 
+  - pip install -r barter_network/requirements.txt 
 script:
   - python barter_network/testing.py 
