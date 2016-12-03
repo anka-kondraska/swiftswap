@@ -3,6 +3,6 @@ python:
   - "2.7"
 cache: pip
 install:
-  - pip install -r barter_network/requirements.txt --use-mirrors
+  - pip install -r barter_network/requirements.txt 
 script:
-  - python barter_network/testing.py --cov-report term-missing --cov app -v
+  - python barter_network/testing.py 
