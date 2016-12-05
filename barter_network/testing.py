@@ -1,9 +1,8 @@
-from unittest import TestCase
-
 import sys
 sys.path.append('..')
-from swiftswap import app
 
+from barter_network import app
+from unittest import TestCase
 from model import connect_to_db, db, User, Skill, UserSkill, sample_data
 
 
