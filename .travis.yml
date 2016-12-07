@@ -5,13 +5,13 @@ cache: pip
 virtualenv:
   system_site_packages: true
 before_install:
-    - sudo apt-get build-dep python-scipy
-    - pip install coveralls         
-    - pip install scipy
+    - "sudo apt-get build-dep python-scipy"
+    - "pip install coveralls"        
+    - "pip install scipy"
+    - "pip install unittest"
 install:
-  - pip install -r barter_network/requirements.txt 
+  - "pip install -r barter_network/requirements.txt"
 
 before-script:
-  - python runserver.py
-script:
-  - python barter_network/testing.py 
+  - "python runserver.py"
+script: nosetests
