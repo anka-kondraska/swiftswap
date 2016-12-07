@@ -8,7 +8,6 @@ before_install:
     - "sudo apt-get build-dep python-scipy"
     - "pip install coveralls"        
     - "pip install scipy"
-    - "pip install unittest"
 install:
   - "pip install -r barter_network/requirements.txt"
 
