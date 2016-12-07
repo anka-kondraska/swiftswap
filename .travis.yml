@@ -12,5 +12,7 @@ install:
   - "pip install -r barter_network/requirements.txt"
 
 before-script:
+  - "createdb -E UTF8 -T template0 --locale=en_US.utf8 barternet"
+  - "python seed.py"
   - "python runserver.py"
 script: nosetests
